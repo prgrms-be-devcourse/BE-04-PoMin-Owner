@@ -28,4 +28,6 @@ public class Store extends BaseTimeEntity {
 
     private Long ownerId;
 
+    // StoreCategory 양방향 매핑
+
 }
