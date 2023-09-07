@@ -1,0 +1,14 @@
+version: 0.0
+os: linux
+
+files:
+  - source: /
+    destination: /home/ubuntu/code
+
+permissions:
+  - object: /
+
+hooks:
+  AfterInstall:
+    - location: scripts/deploy.sh
+      timeout: 60
