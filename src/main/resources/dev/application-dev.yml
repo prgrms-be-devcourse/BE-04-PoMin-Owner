@@ -4,6 +4,7 @@ spring:
     username: sa
     password:
     driver-class-name: org.h2.Driver
+
   sql:
     init:
       mode: always
@@ -18,3 +19,4 @@ spring:
         format_sql: true
     defer-datasource-initialization: true
     open-in-view: false
+
