@@ -1,0 +1,24 @@
+package com.ray.pominowner.menu.domain;
+
+import com.ray.pominowner.global.domain.BaseTimeEntity;
+import jakarta.persistence.*;
+
+import static jakarta.persistence.FetchType.LAZY;
+
+@Entity
+public class MenuOptionGroup extends BaseTimeEntity {
+
+    @Id
+    @Column(name = "MENU_OPTION_GROUP_ID")
+    @GeneratedValue
+    private Long id;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "MENU_ID")
+    private Menu menu;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "OPTION_GROUP_ID")
+    private OptionGroup optionGroup;
+
+}
