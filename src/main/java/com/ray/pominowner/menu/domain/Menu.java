@@ -1,9 +1,10 @@
 package com.ray.pominowner.menu.domain;
 
 import com.ray.pominowner.global.domain.BaseTimeEntity;
-import jakarta.persistence.*;
-
-import static jakarta.persistence.FetchType.LAZY;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
 @Entity
 public class Menu extends BaseTimeEntity {
@@ -15,16 +16,14 @@ public class Menu extends BaseTimeEntity {
 
     private String name;
 
-    private String description;
-
     private String image;
+
+    private String info;
 
     private Integer listOrder;
 
     private int price;
 
     private Long storeId;
-
-    // 옵션 group 양방향 매핑
 
 }
