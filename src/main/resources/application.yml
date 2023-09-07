@@ -1,1 +1,15 @@
-
+spring:
+  profiles:
+    active: dev
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+    import: classpath:sub/application-db.yml
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+    import: classpath:dev/application-dev.yml
