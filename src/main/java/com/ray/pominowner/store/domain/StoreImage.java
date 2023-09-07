@@ -17,4 +17,5 @@ public class StoreImage extends BaseTimeEntity {
     private String image;
 
     private Long storeId;
+
 }
