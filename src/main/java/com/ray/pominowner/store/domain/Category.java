@@ -22,9 +22,9 @@ public class Category extends BaseTimeEntity {
 
     private String image;
 
-
     public Category(final String name, final String image) {
         validateConstructor(name, image);
+
         this.name = name;
         this.image = image;
     }
