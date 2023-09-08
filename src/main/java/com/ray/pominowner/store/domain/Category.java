@@ -6,24 +6,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.NoArgsConstructor;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.util.Assert;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Category extends BaseTimeEntity {
-
-    public static List<Category> INITIAL_CATEGORY_CACHE;
-
-    static {
-        INITIAL_CATEGORY_CACHE = Arrays.stream(CategoryInfo.values())
-                .map(categoryInfo -> new Category(categoryInfo.name(), categoryInfo.url()))
-                .collect(Collectors.toList());
-    }
 
     @Id
     @Column(name = "CATEGORY_ID")
@@ -34,13 +22,16 @@ public class Category extends BaseTimeEntity {
 
     private String image;
 
-    @Builder
-    private Category(final String name, final String image) {
+
+    public Category(final String name, final String image) {
+        validateConstructor(name, image);
         this.name = name;
         this.image = image;
     }
 
-    public static List<Category> initialList() {
-        return List.copyOf(INITIAL_CATEGORY_CACHE);
+    private void validateConstructor(final String name, final String image) {
+        Assert.hasText(name, "카테고리 이름은 필수 입니다.");
+        Assert.hasText(image, "이미지 url 설정은 필수 입니다.");
     }
+
 }
