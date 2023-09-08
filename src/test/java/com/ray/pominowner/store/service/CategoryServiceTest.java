@@ -9,20 +9,27 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest
-public class CategoryTest {
+class CategoryServiceTest {
 
     @Autowired
     CategoryRepository repository;
-    
-    @Test
-    @DisplayName("test1234")
-    void test() {
 
+    @Test
+    @DisplayName("어플리케이션이 로드 된 후 DB에 데이터가 잘 Insert 된다")
+    void successDataInsertToDatabaseAfterLoadingApplication() {
+        // given
+        List<Category> insertedCategories = Category.initialList();
+
+        // when
         List<Category> categories = repository.findAll();
 
-        categories.forEach(System.out::println);
-
+        // then
+        assertThat(categories)
+                .usingRecursiveComparison()
+                .isEqualTo(insertedCategories);
     }
-    
+
 }
