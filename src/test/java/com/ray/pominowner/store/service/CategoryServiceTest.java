@@ -17,30 +17,21 @@ class CategoryServiceTest {
     @Autowired
     CategoryRepository repository;
 
-//    @Test
-//    @DisplayName("어플리케이션이 로드 된 후 DB에 데이터가 잘 Insert 된다")
-//    void successDataInsertToDatabaseAfterLoadingApplication() {
-//        // given
-//        List<Category> insertedCategories = Category.initialList();
-//
-//        // when
-//        List<Category> categories = repository.findAll();
-//
-//        // then
-//        assertThat(categories)
-//                .usingRecursiveComparison()
-//                .isEqualTo(insertedCategories);
-//    }
-
     @Test
-    @DisplayName("fads")
-    void tesf() {
+    @DisplayName("어플리케이션이 로드 된 후 DB에 카테고리가 Insert 된다")
+    void successDataInsertToDatabaseAfterLoadingApplication() {
+        // given
+        List<Category> insertedCategories = Category.initialList();
+
+        // when
         List<Category> categories = repository.findAll();
 
-        assertThat(categories).hasSize(14);
-        categories.forEach(category -> System.out.println(category));
+        // then
+        assertThat(categories).hasSize(categories.size());
+        assertThat(categories)
+                .usingRecursiveComparison().ignoringFields("id")
+                .isEqualTo(insertedCategories);
 
     }
-
 
 }
