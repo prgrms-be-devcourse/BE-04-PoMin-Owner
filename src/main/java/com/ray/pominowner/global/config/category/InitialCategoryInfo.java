@@ -1,6 +1,6 @@
-package com.ray.pominowner.store.domain;
+package com.ray.pominowner.global.config.category;
 
-public enum CategoryInfo {
+public enum InitialCategoryInfo {
     한식,
     분식,
     카페_디저트,
