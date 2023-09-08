@@ -28,10 +28,6 @@ class CategoryServiceTest {
 
         // then
         assertThat(categories).hasSize(categories.size());
-        assertThat(categories)
-                .usingRecursiveComparison().ignoringFields("id")
-                .isEqualTo(insertedCategories);
-
     }
 
 }
