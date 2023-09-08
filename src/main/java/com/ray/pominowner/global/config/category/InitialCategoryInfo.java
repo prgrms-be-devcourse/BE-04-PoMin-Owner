@@ -18,10 +18,10 @@ public enum InitialCategoryInfo {
     ;
 
     private static final String IMAGE_PREFIX = "src/main/resources/categoryimage/";
-    private static final String SUFFIX = ".png";
+    private static final String IMAGE_SUFFIX = ".png";
 
     public String url() {
-        return IMAGE_PREFIX + this.name() + SUFFIX;
+        return IMAGE_PREFIX + this.name() + IMAGE_SUFFIX;
     }
 
 }

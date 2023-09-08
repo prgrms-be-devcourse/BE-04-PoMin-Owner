@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class InitialCategoryInfoTest {
 
-    private static final String URL_PREFIX = "src/main/resources/categoryimage/";
-    public static final String URL_SUFFIX = ".png";
+    private static final String IMAGE_PREFIX = "src/main/resources/categoryimage/";
+    public static final String IMAGE_SUFFIX = ".png";
 
     @ParameterizedTest(name = "[{index}] Enum value : {0}")
     @EnumSource(value = InitialCategoryInfo.class)
@@ -20,7 +20,8 @@ class InitialCategoryInfoTest {
                 () -> assertThat(initialCategoryInfo.name())
                         .isEqualTo(initialCategoryInfo.toString()),
                 () -> assertThat(initialCategoryInfo.url())
-                        .isEqualTo(URL_PREFIX + initialCategoryInfo + URL_SUFFIX)
+                        .isEqualTo(IMAGE_PREFIX + initialCategoryInfo + IMAGE_SUFFIX)
         );
     }
+
 }
