@@ -1,5 +1,6 @@
 package com.ray.pominowner.orders.domain;
 
+import com.ray.pominowner.global.domain.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 import static jakarta.persistence.EnumType.STRING;
 
 @Entity
-public class Orders {
+public class Orders extends BaseTimeEntity {
 
     @Id
     @Column(name = "ORDER_ID")
@@ -35,4 +36,5 @@ public class Orders {
     private Long storeId;
 
     private LocalDateTime reservationTime;
+
 }

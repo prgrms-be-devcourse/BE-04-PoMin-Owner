@@ -1,6 +1,6 @@
 package com.ray.pominowner.orders.domain;
 
-import com.ray.pominowner.orders.BaseTimeEntity;
+import com.ray.pominowner.global.domain.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,4 +24,5 @@ public class OrderMenus extends BaseTimeEntity {
     private Integer quantity;
 
     private String options;
+
 }
