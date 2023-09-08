@@ -6,13 +6,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
 
 import static jakarta.persistence.EnumType.STRING;
 
 @Entity
-public class Orders extends BaseTimeEntity {
+@Table(name = "ORDERS")
+public class Order extends BaseTimeEntity {
 
     @Id
     @Column(name = "ORDER_ID")

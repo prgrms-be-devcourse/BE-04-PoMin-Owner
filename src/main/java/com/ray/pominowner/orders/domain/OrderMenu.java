@@ -7,7 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
-public class OrderMenus extends BaseTimeEntity {
+public class OrderMenu extends BaseTimeEntity {
 
     @Id
     @Column(name = "ORDER_MENU_ID")
