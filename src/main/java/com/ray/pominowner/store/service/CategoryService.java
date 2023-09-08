@@ -22,7 +22,7 @@ public class CategoryService {
     @PostConstruct
     @Transactional
     public void afterLoadingApplication() {
-        log.info("called afterPropertiesSet method");
+        log.info("called afterLoadingApplication method");
         List<Category> initialCategories = Category.initialList();
         repository.saveAll(initialCategories);
     }
