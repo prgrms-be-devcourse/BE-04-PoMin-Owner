@@ -3,7 +3,6 @@ package com.ray.pominowner.global.vo;
 import com.ray.pominowner.store.domain.Category;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
-import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +23,8 @@ public final class CategoryCache {
     }
 
     private void validateBeforeAddToList(List<Category> categories) {
-        Assert.notNull(categories, "카테고리는 null일 수 없습니다.");
-
-        if (CollectionUtils.contains(categories.iterator(), null)) {
-            throw new IllegalArgumentException("카테고리는 null일 수 잆습니다.");
-        }
+        Assert.notNull(categories, "카테고리 리스트는 null일 수 없습니다.");
+        Assert.noNullElements(categories, "카테고리 요소는 null일 수 없습니다.");
     }
 
     public List<Category> getCategoryCache() {
