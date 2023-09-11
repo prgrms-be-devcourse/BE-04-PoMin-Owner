@@ -24,7 +24,7 @@ public final class CategoryCache {
 
     private void validateBeforeAddToList(List<Category> categories) {
         Assert.notNull(categories, "카테고리 리스트는 null일 수 없습니다.");
-        Assert.noNullElements(categories, "카테고리는 null일 수 없습니다.");
+        Assert.noNullElements(categories, "카테고리 요소는 null일 수 없습니다.");
     }
 
     public List<Category> getCategoryCache() {
