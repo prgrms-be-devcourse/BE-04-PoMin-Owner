@@ -4,16 +4,17 @@ import com.ray.pominowner.store.domain.Category;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public final class CategoryCache {
 
-    private final List<Category> categoryCache;
+    private final Set<Category> categoryCache;
 
     public CategoryCache() {
-        this.categoryCache = new ArrayList<>();
+        this.categoryCache = new HashSet<>();
     }
 
     public void add(List<Category> categories) {
