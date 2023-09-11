@@ -17,6 +17,6 @@ spring:
         auto_quote_keyword: true
         show_sql: true
         format_sql: true
+        highlight_sql: true
     defer-datasource-initialization: true
     open-in-view: false
-
