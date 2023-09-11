@@ -1,7 +1,6 @@
 package com.ray.pominowner.settlement.domain;
 
 import com.ray.pominowner.global.domain.BaseTimeEntity;
-import com.ray.pominowner.global.util.Validator;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -12,6 +11,11 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import static com.ray.pominowner.global.util.ExceptionMessage.INVALID_PAYOUT_DATE;
+import static com.ray.pominowner.global.util.ExceptionMessage.NULL_FEE_OBJECT;
+import static com.ray.pominowner.global.util.ExceptionMessage.NULL_PAYOUT_OBJECT;
+import static com.ray.pominowner.global.util.ExceptionMessage.NULL_SALES_OBJECT;
+import static com.ray.pominowner.global.util.Validator.validate;
+import static java.util.Objects.isNull;
 
 @Entity
 @EqualsAndHashCode(of = "id", callSuper = false)
@@ -39,7 +43,10 @@ public class Settlement extends BaseTimeEntity {
     private Long paymentId;
 
     public Settlement(Fee fee, PayOut payOut, Sales sales, Long storeId, Long orderId, Long paymentId) {
-        Validator.validate(payOut.getAmount() < sales.getAmount(), INVALID_PAYOUT_DATE);
+        validate(isNull(fee), NULL_FEE_OBJECT);
+        validate(isNull(payOut), NULL_PAYOUT_OBJECT);
+        validate(isNull(sales), NULL_SALES_OBJECT);
+        validate(payOut.getAmount() < sales.getAmount(), INVALID_PAYOUT_DATE);
 
         this.fee = fee;
         this.payOut = payOut;
