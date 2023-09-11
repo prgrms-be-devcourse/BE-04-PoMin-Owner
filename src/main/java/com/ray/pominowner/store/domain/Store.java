@@ -34,6 +34,7 @@ public class Store extends BaseTimeEntity {
 
     public Store(final RequiredStoreInfo requiredStoreInfo) {
         validateRequiredInfo(requiredStoreInfo);
+
         this.requiredStoreInfo = requiredStoreInfo;
     }
 

@@ -42,7 +42,7 @@ class StoreControllerTest {
                 .willReturn(1L);
 
         // when, then
-        this.mvc.perform(post("/api/v1/stores")
+        mvc.perform(post("/api/v1/stores")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(storeRegisterRequest)))
