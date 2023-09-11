@@ -7,15 +7,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
-public class OrderMenus extends BaseTimeEntity {
+public class OrderMenu extends BaseTimeEntity {
 
     @Id
     @Column(name = "ORDER_MENU_ID")
     @GeneratedValue
     private Long id;
-
-    // Orders 와 다대일 매핑
-    private Long orderId;
 
     private String name;
 
@@ -24,5 +21,8 @@ public class OrderMenus extends BaseTimeEntity {
     private Integer quantity;
 
     private String options;
+
+    // Orders 와 다대일 매핑
+    private Long orderId;
 
 }
