@@ -15,15 +15,15 @@ import static com.ray.pominowner.global.util.Validator.validate;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PayOut {
 
-    private int payOutAmount;
+    private int amount;
 
-    private LocalDate payoutDate;
+    private LocalDate date;
 
-    public PayOut(int payOutAmount, LocalDate payoutDate) {
-        validate(payOutAmount < 0, INVALID_AMOUNT);
+    public PayOut(int amount, LocalDate date) {
+        validate(amount < 0, INVALID_AMOUNT);
 
-        this.payOutAmount = payOutAmount;
-        this.payoutDate = payoutDate;
+        this.amount = amount;
+        this.date = date;
     }
 
 }
