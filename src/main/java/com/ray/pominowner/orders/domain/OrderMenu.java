@@ -14,9 +14,6 @@ public class OrderMenu extends BaseTimeEntity {
     @GeneratedValue
     private Long id;
 
-    // Orders 와 다대일 매핑
-    private Long orderId;
-
     private String name;
 
     private Integer price;
@@ -24,5 +21,8 @@ public class OrderMenu extends BaseTimeEntity {
     private Integer quantity;
 
     private String options;
+
+    // Orders 와 다대일 매핑
+    private Long orderId;
 
 }
