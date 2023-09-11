@@ -19,10 +19,10 @@ import static jakarta.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity
-@Table(name = "ORDERS")
 @Builder
-@NoArgsConstructor(access = PROTECTED)
+@Table(name = "ORDERS")
 @AllArgsConstructor
+@NoArgsConstructor(access = PROTECTED)
 public class Order extends BaseTimeEntity {
 
     @Id
