@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 
-@RestController()
+@RestController
 @RequestMapping("/api/v1/stores")
 @RequiredArgsConstructor
 public class StoreController {
 
     private final StoreService storeService;
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<Void> registerStore(@RequestBody @Valid StoreRegisterRequest request) {
 
         Long storeId = storeService.registerStore(request.toEntity());
