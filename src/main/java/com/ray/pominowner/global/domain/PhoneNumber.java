@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PhoneNumber {
 
-    private final String phoneRegex = "^(01[016789]){1}([0-9]{3,4}){1}([0-9]{4}){1}$";
+    private static final String phoneRegex = "^(01[016789]){1}([0-9]{3,4}){1}([0-9]{4}){1}$";
 
     private String value;
 
