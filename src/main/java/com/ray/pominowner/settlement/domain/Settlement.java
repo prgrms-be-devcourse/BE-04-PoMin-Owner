@@ -11,6 +11,8 @@ import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import static com.ray.pominowner.global.util.ExceptionMessage.INVALID_PAYOUT_DATE;
+
 @Entity
 @EqualsAndHashCode(of = "id", callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -35,5 +37,16 @@ public class Settlement extends BaseTimeEntity {
     private Long orderId;
 
     private Long paymentId;
+
+    public Settlement(Fee fee, PayOut payOut, Sales sales, Long storeId, Long orderId, Long paymentId) {
+        Validator.validate(payOut.getAmount() < sales.getAmount(), INVALID_PAYOUT_DATE);
+
+        this.fee = fee;
+        this.payOut = payOut;
+        this.sales = sales;
+        this.storeId = storeId;
+        this.orderId = orderId;
+        this.paymentId = paymentId;
+    }
 
 }
