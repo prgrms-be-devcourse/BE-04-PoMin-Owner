@@ -13,19 +13,19 @@ import static com.ray.pominowner.global.util.Validator.validate;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Fee {
 
-    private int payment;
+    private int paymentFee;
 
-    private int brokerage;
+    private int brokerageFee;
 
-    private int valueAdded;
+    private int valueAddedFee;
 
-    public Fee(int payment, int brokerage, int valueAdded) {
-        validate(payment < 0, INVALID_AMOUNT);
-        validate(brokerage < 0, INVALID_AMOUNT);
-        validate(valueAdded < 0, INVALID_AMOUNT);
+    public Fee(int paymentFee, int brokerageFee, int valueAddedFee) {
+        validate(paymentFee < 0, INVALID_AMOUNT);
+        validate(brokerageFee < 0, INVALID_AMOUNT);
+        validate(valueAddedFee < 0, INVALID_AMOUNT);
 
-        this.payment = payment;
-        this.brokerage = brokerage;
-        this.valueAdded = valueAdded;
+        this.paymentFee = paymentFee;
+        this.brokerageFee = brokerageFee;
+        this.valueAddedFee = valueAddedFee;
     }
 }
