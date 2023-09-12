@@ -1,20 +1,17 @@
 package com.ray.pominowner.payment.domain;
 
-import java.util.function.Function;
-
 public enum PGType {
-    TOSS(value -> value * 0.03),
-    NHN(value -> value * 0.029),
-    NICE(value -> value * 0.035);
+    TOSS(0.03),
+    NHN(0.028),
+    NICE(0.035);
 
-    private final Function<Integer, Double> expression;
+    private final double paymentFee;
 
-    PGType(Function<Integer, Double> expression) {
-        this.expression = expression;
+    PGType(double paymentFee) {
+        this.paymentFee = paymentFee;
     }
 
-    public int calculate(int value) {
-        double apply = expression.apply(value);
-        return (int) apply;
+    public int calculate(int amount) {
+        return (int) (amount * paymentFee);
     }
 }
