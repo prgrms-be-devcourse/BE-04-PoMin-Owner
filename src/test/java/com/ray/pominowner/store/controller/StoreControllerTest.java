@@ -1,6 +1,7 @@
 package com.ray.pominowner.store.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ray.pominowner.store.controller.dto.CategoryRequest;
 import com.ray.pominowner.store.controller.dto.StoreRegisterRequest;
 import com.ray.pominowner.store.domain.Store;
 import com.ray.pominowner.store.service.StoreService;
@@ -57,7 +58,7 @@ class StoreControllerTest {
     @DisplayName("카테고리 등록에 성공한다")
     void successRegisterCategory() throws Exception {
         // given
-        List<String> categoryRequest = List.of("한식", "도시락");
+        CategoryRequest categoryRequest = new CategoryRequest(List.of("한식", "도시락"));
 
         // when, then
         mvc.perform(post("/api/v1/stores/1/categories")
