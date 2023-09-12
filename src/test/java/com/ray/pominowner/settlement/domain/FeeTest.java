@@ -33,13 +33,13 @@ class FeeTest {
 
     static Stream<Arguments> invalidFee() {
         return Stream.of(
-                Arguments.arguments(1000, 1000, -1000),
-                Arguments.arguments(1000, -1000, 1000),
+                Arguments.arguments(-1000, -1000, -1000),
+                Arguments.arguments(-1000, -1000, 1000),
+                Arguments.arguments(-1000, 1000, -1000),
                 Arguments.arguments(-1000, 1000, 1000),
                 Arguments.arguments(1000, -1000, -1000),
-                Arguments.arguments(-1000, 1000, -1000),
-                Arguments.arguments(-1000, -1000, 1000),
-                Arguments.arguments(-1000, -1000, -1000)
+                Arguments.arguments(1000, -1000, 1000),
+                Arguments.arguments(1000, 1000, -1000)
         );
     }
 }
