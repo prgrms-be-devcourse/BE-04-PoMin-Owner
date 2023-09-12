@@ -31,7 +31,6 @@ public class Order extends BaseTimeEntity {
 
     @Id
     @Column(name = "ORDER_ID")
-    @GeneratedValue
     private Long id;
 
     private String orderNumber; // 주문 번호
