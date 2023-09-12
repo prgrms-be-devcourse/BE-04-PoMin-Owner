@@ -25,7 +25,7 @@ public class CategoryConverter {
 
     public List<Category> convertToEntity(final List<String> categories) {
         return categories.stream()
-                .map(category -> categoryCache.getCategoryCache().stream()
+                .map(category -> categoryCache.getCategories().stream()
                         .filter(cache -> cache.hasSameName(category))
                         .findAny()
                         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 카테고리가 있습니다.")))
