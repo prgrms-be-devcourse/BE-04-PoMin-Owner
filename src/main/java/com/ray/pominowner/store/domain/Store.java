@@ -46,7 +46,7 @@ public class Store extends BaseTimeEntity {
         return id;
     }
 
-    public Long getBusinessNumber() {
+    public String getBusinessNumber() {
         return requiredStoreInfo.getBusinessNumber();
     }
 

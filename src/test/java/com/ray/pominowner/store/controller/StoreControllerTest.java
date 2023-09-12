@@ -40,7 +40,7 @@ class StoreControllerTest {
     @DisplayName("가게 등록에 성공한다")
     void successRegisterStore() throws Exception {
         // given
-        StoreRegisterRequest storeRegisterRequest = new StoreRegisterRequest(1234567890L, "가게이름", "서울특별시 가게동 주소구", "가게이미지URL.png");
+        StoreRegisterRequest storeRegisterRequest = new StoreRegisterRequest("1234567890", "가게이름", "서울특별시 가게동 주소구", "가게이미지URL.png");
         given(storeService.registerStore(any(Store.class)))
                 .willReturn(1L);
 

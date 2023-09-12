@@ -3,9 +3,8 @@ package com.ray.pominowner.store.controller.dto;
 import com.ray.pominowner.store.domain.RequiredStoreInfo;
 import com.ray.pominowner.store.domain.Store;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
-public record StoreRegisterRequest(@NotNull Long businessNumber,
+public record StoreRegisterRequest(@NotBlank String businessNumber,
                                    @NotBlank String name,
                                    @NotBlank String address,
                                    @NotBlank String logoImage) {
