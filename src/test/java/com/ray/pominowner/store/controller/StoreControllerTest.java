@@ -13,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -48,6 +50,21 @@ class StoreControllerTest {
                         .content(mapper.writeValueAsString(storeRegisterRequest)))
                 .andExpect(status().isCreated())
                 .andExpect(header().stringValues("Location", "/api/v1/stores/1"));
+    }
+
+    @Test
+    @WithMockUser
+    @DisplayName("카테고리 등록에 성공한다")
+    void successRegisterCategory() throws Exception {
+        // given
+        List<String> categoryRequest = List.of("한식", "도시락");
+
+        // when, then
+        mvc.perform(post("/api/v1/stores/1/categories")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(categoryRequest)))
+                .andExpect(status().isOk());
     }
 
 }
