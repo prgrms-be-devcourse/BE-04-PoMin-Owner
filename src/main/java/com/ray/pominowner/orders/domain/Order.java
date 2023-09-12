@@ -14,6 +14,8 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Objects;
 
 import static jakarta.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
@@ -46,7 +48,52 @@ public class Order extends BaseTimeEntity {
 
     private LocalDateTime reservationTime;
 
+    private LocalTime estimatedCookingTime;
+
+    private String rejectReason;
+
     // STORE 와 다대일 매핑
     private Long storeId;
 
+    public static Order of(Order order, OrderStatus status, Integer receiptNumber, LocalTime estimatedCookingTime) {
+        return Order.builder()
+                .id(order.id)
+                .orderNumber(order.orderNumber)
+                .receiptNumber(receiptNumber)
+                .status(status)
+                .requestedDetails(order.requestedDetails)
+                .totalPrice(order.totalPrice)
+                .customerPhoneNumber(order.customerPhoneNumber)
+                .reservationTime(order.reservationTime)
+                .estimatedCookingTime(estimatedCookingTime)
+                .storeId(order.storeId)
+                .build();
+    }
+
+    public static Order of(Order order, OrderStatus status, String rejectReason) {
+        return Order.builder()
+                .id(order.id)
+                .orderNumber(order.orderNumber)
+                .status(status)
+                .requestedDetails(order.requestedDetails)
+                .totalPrice(order.totalPrice)
+                .customerPhoneNumber(order.customerPhoneNumber)
+                .reservationTime(order.reservationTime)
+                .rejectReason(rejectReason)
+                .storeId(order.storeId)
+                .build();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return Objects.equals(id, order.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
