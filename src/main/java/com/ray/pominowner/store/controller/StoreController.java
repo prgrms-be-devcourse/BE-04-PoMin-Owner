@@ -31,7 +31,6 @@ public class StoreController {
     }
 
     @PostMapping("/{id}/categories")
-    @ResponseStatus(HttpStatus.OK)
     public void registerCategory(@RequestBody @Valid CategoryRequest categories, @PathVariable(value = "id") Long storeId) {
         storeService.registerCategory(categories.categories(), storeId);
     }
