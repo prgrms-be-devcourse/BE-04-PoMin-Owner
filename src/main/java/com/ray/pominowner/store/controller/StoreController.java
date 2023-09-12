@@ -1,6 +1,5 @@
 package com.ray.pominowner.store.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ray.pominowner.store.controller.dto.CategoryRequest;
 import com.ray.pominowner.store.controller.dto.StoreRegisterRequest;
 import com.ray.pominowner.store.service.StoreService;
@@ -23,7 +22,7 @@ public class StoreController {
     private final StoreService storeService;
 
     @PostMapping
-    public ResponseEntity<Void> registerStore(@RequestBody @Valid StoreRegisterRequest request) throws JsonProcessingException {
+    public ResponseEntity<Void> registerStore(@RequestBody @Valid StoreRegisterRequest request) {
         Long storeId = storeService.registerStore(request.toEntity());
         return ResponseEntity.created(URI.create("/api/v1/stores/" + storeId)).build();
     }
