@@ -1,7 +1,5 @@
-package com.ray.pominowner.store.service.adapter;
+package com.ray.pominowner.store.service;
 
-import com.ray.pominowner.global.vo.CategoryCache;
-import com.ray.pominowner.store.domain.Category;
 import com.ray.pominowner.store.domain.Store;
 import com.ray.pominowner.store.domain.StoreCategory;
 import com.ray.pominowner.store.repository.StoreCategoryRepository;
@@ -13,18 +11,11 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class StoreServiceAdapterImpl implements StoreServiceAdapter {
+public class StoreCategoryService {
 
-    private final CategoryCache categoryCache;
     private final CategoryConverter categoryConverter;
     private final StoreCategoryRepository storeCategoryRepository;
 
-    @Override
-    public List<Category> getCategories() {
-        return categoryCache.getCategoryCache();
-    }
-
-    @Override
     public void storeCategories(Store store, List<String> categoryRequest) {
         List<StoreCategory> storeCategories = categoryConverter.convertToStoreCategory(categoryRequest, store);
         storeCategoryRepository.saveAll(storeCategories);
