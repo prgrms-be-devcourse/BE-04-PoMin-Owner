@@ -4,22 +4,19 @@ import com.ray.pominowner.orders.domain.Order;
 import com.ray.pominowner.orders.domain.OrderStatus;
 import com.ray.pominowner.orders.repository.OrderRepository;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class OrderService {
 
     private final ReceiptNumberGenerator generator;
 
     private final OrderRepository orderRepository;
-
-    public OrderService(ReceiptNumberGenerator generator, OrderRepository repository) {
-        this.generator = generator;
-        this.orderRepository = repository;
-    }
 
     public Order receiveOrder(Order order) {
         return orderRepository.save(order);
