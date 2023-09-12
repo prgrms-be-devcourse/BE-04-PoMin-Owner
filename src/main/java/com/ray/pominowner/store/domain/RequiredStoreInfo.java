@@ -3,6 +3,7 @@ package com.ray.pominowner.store.domain;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
@@ -11,6 +12,7 @@ import org.springframework.util.Assert;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RequiredStoreInfo {
 
+    @Getter
     private Long businessNumber;
 
     private String name;

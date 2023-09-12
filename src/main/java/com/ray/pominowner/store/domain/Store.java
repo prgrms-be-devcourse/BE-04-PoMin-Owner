@@ -46,4 +46,8 @@ public class Store extends BaseTimeEntity {
         return id;
     }
 
+    public Long getBusinessNumber() {
+        return requiredStoreInfo.getBusinessNumber();
+    }
+
 }
