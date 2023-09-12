@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 import static com.ray.pominowner.global.util.ExceptionMessage.INVALID_AMOUNT;
+import static com.ray.pominowner.global.util.ExceptionMessage.PAYOUT_DATE_IS_BEFORE_NOW;
 import static com.ray.pominowner.global.util.Validator.validate;
 
 @Getter
@@ -23,6 +24,7 @@ public class PayOut {
 
     public PayOut(int amount, LocalDate date) {
         validate(amount < 0, INVALID_AMOUNT);
+        validate(date.isBefore(LocalDate.now()), PAYOUT_DATE_IS_BEFORE_NOW);
 
         this.amount = amount;
         this.date = date;
