@@ -26,7 +26,7 @@ class OrderServiceTest {
     @Mock
     private OrderRepository orderRepository;
 
-    Order order;
+    private Order order;
 
     @BeforeEach
     void setup() {
@@ -43,7 +43,7 @@ class OrderServiceTest {
 
     @Test
     @DisplayName("주문 접수를 성공한다")
-    void testOrderSave() {
+    void successOrderSave() {
         // given
         given(orderRepository.save(order)).willReturn(order);
 
@@ -56,7 +56,7 @@ class OrderServiceTest {
 
     @Test
     @DisplayName("주문 수락을 성공한다")
-    void testAcceptOrder() {
+    void successAcceptOrder() {
         // given
         given(orderRepository.save(order)).willReturn(order);
         given(orderRepository.findById(1L)).willReturn(Optional.ofNullable(order));
@@ -72,7 +72,7 @@ class OrderServiceTest {
 
     @Test
     @DisplayName("주문 거절을 성공한다")
-    void testRejectOrder() {
+    void successRejectOrder() {
         // given
         given(orderRepository.save(order)).willReturn(order);
         given(orderRepository.findById(1L)).willReturn(Optional.ofNullable(order));
@@ -81,6 +81,8 @@ class OrderServiceTest {
         Order rejectedOrder = orderService.reject(order.getId());
 
         // then
+        assertThat(rejectedOrder).usingRecursiveComparison()
+                .ignoringFields()
         assertThat(rejectedOrder).hasFieldOrPropertyWithValue("status", OrderStatus.REJECTED);
         assertThat(rejectedOrder).hasFieldOrPropertyWithValue("rejectReason", "재고 소진");
     }
