@@ -19,15 +19,15 @@ import static com.ray.pominowner.global.util.Validator.validate;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Sales {
 
-    private int amount;
+    private int salesAmount;
 
-    private LocalDate date;
+    private LocalDate salesDate;
 
-    public Sales(int amount, LocalDate date) {
-        validate(amount < 0, INVALID_AMOUNT);
-        validate(date.isAfter(LocalDate.now()), SALES_DATE_IS_AFTER_NOW);
+    public Sales(int salesAmount, LocalDate salesDate) {
+        validate(salesAmount < 0, INVALID_AMOUNT);
+        validate(salesDate.isAfter(LocalDate.now()), SALES_DATE_IS_AFTER_NOW);
 
-        this.amount = amount;
-        this.date = date;
+        this.salesAmount = salesAmount;
+        this.salesDate = salesDate;
     }
 }

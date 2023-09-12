@@ -18,16 +18,16 @@ import static com.ray.pominowner.global.util.Validator.validate;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PayOut {
 
-    private int amount;
+    private int payOutAmount;
 
-    private LocalDate date;
+    private LocalDate payOutDate;
 
-    public PayOut(int amount, LocalDate date) {
-        validate(amount < 0, INVALID_AMOUNT);
-        validate(date.isBefore(LocalDate.now()), PAYOUT_DATE_IS_BEFORE_NOW);
+    public PayOut(int payOutAmount, LocalDate payOutDate) {
+        validate(payOutAmount < 0, INVALID_AMOUNT);
+        validate(payOutDate.isBefore(LocalDate.now()), PAYOUT_DATE_IS_BEFORE_NOW);
 
-        this.amount = amount;
-        this.date = date;
+        this.payOutAmount = payOutAmount;
+        this.payOutDate = payOutDate;
     }
 
 }
