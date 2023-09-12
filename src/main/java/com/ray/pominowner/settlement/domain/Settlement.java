@@ -10,7 +10,6 @@ import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import static com.ray.pominowner.global.util.ExceptionMessage.INVALID_PAYOUT_DATE;
 import static com.ray.pominowner.global.util.ExceptionMessage.NULL_FEE_OBJECT;
 import static com.ray.pominowner.global.util.ExceptionMessage.NULL_PAYOUT_OBJECT;
 import static com.ray.pominowner.global.util.ExceptionMessage.NULL_SALES_OBJECT;
@@ -46,7 +45,6 @@ public class Settlement extends BaseTimeEntity {
         validate(isNull(fee), NULL_FEE_OBJECT);
         validate(isNull(payOut), NULL_PAYOUT_OBJECT);
         validate(isNull(sales), NULL_SALES_OBJECT);
-        validate(payOut.getAmount() < sales.getAmount(), INVALID_PAYOUT_DATE);
 
         this.fee = fee;
         this.payOut = payOut;
