@@ -12,11 +12,12 @@ import java.time.LocalTime;
 @Transactional
 public class OrderService {
 
-    private static Integer RECEIPT_NUMBER = 1;
+    private final ReceiptNumberGenerator generator;
 
     private final OrderRepository orderRepository;
 
-    public OrderService(OrderRepository repository) {
+    public OrderService(ReceiptNumberGenerator generator, OrderRepository repository) {
+        this.generator = generator;
         this.orderRepository = repository;
     }
 
@@ -30,11 +31,9 @@ public class OrderService {
 
         Order approvedOrder = Order.of(order,
                 OrderStatus.COOKING,
-                RECEIPT_NUMBER,
+                generator.incrementAndGet(),
                 LocalTime.now().plusMinutes(15));
         orderRepository.save(approvedOrder);
-
-        updateReceiptNumber();
 
         return approvedOrder;
     }
@@ -49,10 +48,6 @@ public class OrderService {
         orderRepository.save(rejectedOrder);
 
         return rejectedOrder;
-    }
-
-    private void updateReceiptNumber() {
-        RECEIPT_NUMBER = RECEIPT_NUMBER % 999 + 1; // 1 ~ 999
     }
 
 }
