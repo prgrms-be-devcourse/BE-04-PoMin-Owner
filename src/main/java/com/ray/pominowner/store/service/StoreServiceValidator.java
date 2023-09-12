@@ -1,7 +1,5 @@
 package com.ray.pominowner.store.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ray.pominowner.global.config.TokenProvider;
 import com.ray.pominowner.store.domain.Category;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,29 +12,6 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class StoreServiceValidator {
-
-    private final TokenProvider tokenProvider;
-    private final ObjectMapper objectMapper;
-
-//    public void validateBusinessNumber(Long businessNumber) throws JsonProcessingException {  // 추구 사용 예정
-//        RestTemplate restTemplate = new RestTemplate();
-//        final String businessNumberServiceKey = tokenProvider.getBusinessNumberServiceKey();
-//        final String url = "https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=" + businessNumberServiceKey + "&returnType=JSON";
-//
-//        log.info("----------",url);
-//        Map<String, List<String>> request = Map.of("b_no", List.of(businessNumber.toString()));
-//
-//        String msg = objectMapper.writeValueAsString(request);
-//        log.info("message = {}-----------",msg);
-////        restTemplate.getInterceptors().add((request1, body, execution) -> {
-////            request1.getHeaders().setContentType(MediaType.APPLICATION_JSON);
-////            return execution.execute(request1, body);
-////        });
-//        String result = restTemplate.postForObject(url, msg, String.class);
-//
-//        log.info("string = {}-----------", result);
-//
-//    }
 
     public void validateCategory(final List<String> categoryRequest, final List<Category> caches) {
         validateIfRequestCategoryIsNull(categoryRequest);
