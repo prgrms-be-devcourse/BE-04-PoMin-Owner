@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import static com.ray.pominowner.global.util.ExceptionMessage.INVALID_AMOUNT;
@@ -18,6 +19,7 @@ import static com.ray.pominowner.global.util.Validator.validate;
 import static java.util.Objects.isNull;
 
 @Entity
+@Getter
 @EqualsAndHashCode(of = "id", callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Payment extends BaseTimeEntity {

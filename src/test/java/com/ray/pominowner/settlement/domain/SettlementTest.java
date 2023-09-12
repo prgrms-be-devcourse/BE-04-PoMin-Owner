@@ -39,13 +39,13 @@ class SettlementTest {
 
     static Stream<Arguments> invalidSettlement() {
         return Stream.of(
-                Arguments.arguments(fee, payOut, null),
-                Arguments.arguments(fee, null, sales),
+                Arguments.arguments(null, null, null),
+                Arguments.arguments(null, null, sales),
+                Arguments.arguments(null, payOut, null),
                 Arguments.arguments(null, payOut, sales),
                 Arguments.arguments(fee, null, null),
-                Arguments.arguments(null, payOut, null),
-                Arguments.arguments(fee, null, null),
-                Arguments.arguments(null, null, null)
+                Arguments.arguments(fee, null, sales),
+                Arguments.arguments(fee, payOut, null)
         );
     }
 }
