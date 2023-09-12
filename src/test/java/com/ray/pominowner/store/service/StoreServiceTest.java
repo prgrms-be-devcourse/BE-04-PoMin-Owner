@@ -1,6 +1,5 @@
 package com.ray.pominowner.store.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ray.pominowner.store.DataLoader;
 import com.ray.pominowner.store.domain.Store;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +23,7 @@ class StoreServiceTest {
     private Long storeId;
 
     @BeforeEach
-    void setUp() throws JsonProcessingException {
+    void setUp() {
         Store store = DataLoader.store();
         storeId = storeService.registerStore(store);
     }
