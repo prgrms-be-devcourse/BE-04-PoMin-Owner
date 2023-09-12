@@ -81,8 +81,7 @@ class OrderServiceTest {
         Order rejectedOrder = orderService.reject(order.getId());
 
         // then
-        assertThat(rejectedOrder).usingRecursiveComparison()
-                .ignoringFields()
+
         assertThat(rejectedOrder).hasFieldOrPropertyWithValue("status", OrderStatus.REJECTED);
         assertThat(rejectedOrder).hasFieldOrPropertyWithValue("rejectReason", "재고 소진");
     }
