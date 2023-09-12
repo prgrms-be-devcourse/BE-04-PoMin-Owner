@@ -1,10 +1,12 @@
 package com.ray.pominowner.store.controller;
 
+import com.ray.pominowner.store.controller.dto.CategoryRequest;
 import com.ray.pominowner.store.controller.dto.StoreRegisterRequest;
 import com.ray.pominowner.store.service.StoreService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,11 @@ public class StoreController {
     public ResponseEntity<Void> registerStore(@RequestBody @Valid StoreRegisterRequest request) {
         Long storeId = storeService.registerStore(request.toEntity());
         return ResponseEntity.created(URI.create("/api/v1/stores/" + storeId)).build();
+    }
+
+    @PostMapping("/{id}/categories")
+    public void registerCategory(@RequestBody @Valid CategoryRequest categories, @PathVariable(value = "id") Long storeId) {
+        storeService.registerCategory(categories.categories(), storeId);
     }
 
 }
