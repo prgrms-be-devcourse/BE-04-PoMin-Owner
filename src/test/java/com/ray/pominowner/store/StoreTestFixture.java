@@ -4,7 +4,7 @@ import com.ray.pominowner.store.domain.Category;
 import com.ray.pominowner.store.domain.RequiredStoreInfo;
 import com.ray.pominowner.store.domain.Store;
 
-public final class DataLoader {
+public final class StoreTestFixture {
 
     public static Store store() {
         return new Store(requiredStoreInfo());

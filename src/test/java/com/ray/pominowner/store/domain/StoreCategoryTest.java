@@ -1,6 +1,6 @@
 package com.ray.pominowner.store.domain;
 
-import com.ray.pominowner.store.DataLoader;
+import com.ray.pominowner.store.StoreTestFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +14,7 @@ class StoreCategoryTest {
     void failWhenStoreEntityIsNull() {
         // given
         Store store = null;
-        Category category = DataLoader.category();
+        Category category = StoreTestFixture.category();
 
         // when, then
         assertThrows(IllegalArgumentException.class, () -> new StoreCategory(store, category));
@@ -24,7 +24,7 @@ class StoreCategoryTest {
     @DisplayName("카테고리 엔티티가 null이면 예외를 발생한다")
     void failWhenCategoryEntityIsNull() {
         // given
-        Store store = DataLoader.store();
+        Store store = StoreTestFixture.store();
         Category category = null;
         // when, then
         assertThrows(IllegalArgumentException.class, () -> new StoreCategory(store, category));
@@ -34,8 +34,8 @@ class StoreCategoryTest {
     @DisplayName("가게 엔티티와 카테고리 엔티티가 모두 null이 아니면 정상적으로 생성된다")
     void successWhenStoreAndCategoryEntityIsNotNull() {
         // given
-        Store store = DataLoader.store();
-        Category category = DataLoader.category();
+        Store store = StoreTestFixture.store();
+        Category category = StoreTestFixture.category();
 
         // when, then
         assertThatNoException()

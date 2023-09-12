@@ -1,6 +1,6 @@
 package com.ray.pominowner.store.service;
 
-import com.ray.pominowner.store.DataLoader;
+import com.ray.pominowner.store.StoreTestFixture;
 import com.ray.pominowner.store.domain.Store;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +24,7 @@ class StoreServiceTest {
 
     @BeforeEach
     void setUp() {
-        Store store = DataLoader.store();
+        Store store = StoreTestFixture.store();
         storeId = storeService.registerStore(store);
     }
 

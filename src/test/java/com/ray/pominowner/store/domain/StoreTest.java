@@ -1,6 +1,6 @@
 package com.ray.pominowner.store.domain;
 
-import com.ray.pominowner.store.DataLoader;
+import com.ray.pominowner.store.StoreTestFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +23,7 @@ class StoreTest {
     @DisplayName("필수정보가 null이 아니면 예외를 발생하지 않는다")
     void successWhenRequiredInfoIsNotNull() {
         // given
-        RequiredStoreInfo requiredStoreInfo = DataLoader.requiredStoreInfo();
+        RequiredStoreInfo requiredStoreInfo = StoreTestFixture.requiredStoreInfo();
 
         // when, then
         assertThatNoException()
