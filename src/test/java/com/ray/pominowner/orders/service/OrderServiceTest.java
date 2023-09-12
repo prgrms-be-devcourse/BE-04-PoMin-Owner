@@ -26,6 +26,9 @@ class OrderServiceTest {
     @Mock
     private OrderRepository orderRepository;
 
+    @Mock
+    private ReceiptNumberGenerator generator;
+
     private Order order;
 
     @BeforeEach
@@ -60,6 +63,7 @@ class OrderServiceTest {
         // given
         given(orderRepository.save(order)).willReturn(order);
         given(orderRepository.findById(1L)).willReturn(Optional.ofNullable(order));
+        given(generator.incrementAndGet()).willReturn(1);
 
         // when
         Order approvedOrder = orderService.approve(order.getId());
@@ -81,7 +85,6 @@ class OrderServiceTest {
         Order rejectedOrder = orderService.reject(order.getId());
 
         // then
-
         assertThat(rejectedOrder).hasFieldOrPropertyWithValue("status", OrderStatus.REJECTED);
         assertThat(rejectedOrder).hasFieldOrPropertyWithValue("rejectReason", "재고 소진");
     }
