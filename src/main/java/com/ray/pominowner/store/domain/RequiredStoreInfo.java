@@ -37,7 +37,8 @@ public class RequiredStoreInfo {
                                      final String name,
                                      final String address,
                                      final String logoImage) {
-        Assert.state(businessNumber > 0, "올바른 사업자등록번호를 입력하셔야 합니다.");
+        Assert.state(businessNumber > 0, "사업자등록번호는 10자리 입니다.");
+        Assert.state(String.valueOf(businessNumber).length() == 10, "사업자등록번호는 10자리 입니다.");
         Assert.hasText(name, "가게 이름은 필수 입니다.");
         Assert.hasText(address, "가게 주소는 필수 입니다.");
         Assert.hasText(logoImage, "가게 로고 이미지는 필수 입니다.");
