@@ -11,16 +11,16 @@ import java.util.Set;
 @Component
 public final class CategoryCache {
 
-    private final Set<Category> categoryCache;
+    private final Set<Category> cache;
 
     public CategoryCache() {
-        this.categoryCache = new HashSet<>();
+        this.cache = new HashSet<>();
     }
 
     public void add(List<Category> categories) {
         validateBeforeAddToList(categories);
 
-        this.categoryCache.addAll(categories);
+        this.cache.addAll(categories);
     }
 
     private void validateBeforeAddToList(List<Category> categories) {
@@ -28,8 +28,18 @@ public final class CategoryCache {
         Assert.noNullElements(categories, "카테고리 요소는 null일 수 없습니다.");
     }
 
-    public List<Category> getCategoryCache() {
-        return List.copyOf(categoryCache);
+    public List<Category> getCategories() {
+        return List.copyOf(cache);
+    }
+
+    public void validateIfCategoryExists(final List<String> categories) {
+        categories.stream()
+                .filter(category -> this.cache.stream()
+                        .noneMatch(cache -> cache.hasSameName(category)))
+                .findAny()
+                .ifPresent(category -> {
+                    throw new IllegalArgumentException("존재하지 않는 카테고리가 포함되어 있습니다.");
+                });
     }
 
 }
