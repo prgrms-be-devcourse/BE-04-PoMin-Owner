@@ -23,7 +23,7 @@ public class StoreService {
     private final StoreServiceAdapter storeServiceAdapter;
 
     @Transactional
-    public Long registerStore(Store store) throws JsonProcessingException {
+    public Long registerStore(Store store) {
 //        storeServiceValidator.validateBusinessNumber(store.getBusinessNumber());
         return storeRepository.save(store).getId();
     }
