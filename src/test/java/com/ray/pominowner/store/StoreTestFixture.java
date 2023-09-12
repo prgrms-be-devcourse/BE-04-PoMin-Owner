@@ -15,6 +15,7 @@ public final class StoreTestFixture {
     }
 
     public static RequiredStoreInfo requiredStoreInfo() {
-        return new RequiredStoreInfo(1234567890L, "name", "address", "logoImage");
+        return new RequiredStoreInfo("0123456789", "name", "address", "logoImage");
     }
+
 }
