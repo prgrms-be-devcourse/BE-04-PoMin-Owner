@@ -16,7 +16,7 @@ public class StoreCategoryService {
     private final CategoryConverter categoryConverter;
     private final StoreCategoryRepository storeCategoryRepository;
 
-    public void storeCategories(Store store, List<String> categoryRequest) {
+    public void saveCategories(Store store, List<String> categoryRequest) {
         List<StoreCategory> storeCategories = categoryConverter.convertToStoreCategory(categoryRequest, store);
         storeCategoryRepository.saveAll(storeCategories);
     }

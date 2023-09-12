@@ -27,7 +27,7 @@ public class StoreService {
     @Transactional
     public void registerCategory(final List<String> categories, Long storeId) {
         storeServiceValidator.validateCategory(categories);
-        storeCategoryService.storeCategories(findStore(storeId), categories);
+        storeCategoryService.saveCategories(findStore(storeId), categories);
     }
 
     private Store findStore(final Long storeId) {
