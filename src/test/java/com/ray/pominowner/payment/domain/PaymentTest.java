@@ -17,7 +17,7 @@ class PaymentTest {
     @DisplayName("Payment 생성에 성공한다.")
     public void successPayment() {
         // given, when
-        Payment payment = new Payment(1000, PaymentStatus.COMPLETE, PGType.TOSS);
+        Payment payment = new Payment(1L, 1000, PaymentStatus.COMPLETE, PGType.TOSS);
 
         // then
         assertThat(payment).isNotNull();
@@ -27,7 +27,7 @@ class PaymentTest {
     @MethodSource("invalidPayment")
     @DisplayName("필드 값이 유효하지 않은 경우 Payment 생성에 실패한다.")
     public void failPayment(int amount, PaymentStatus status, PGType provider) {
-        assertThatThrownBy(() -> new Payment(amount, status, provider))
+        assertThatThrownBy(() -> new Payment(1L, amount, status, provider))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -42,4 +42,5 @@ class PaymentTest {
                 Arguments.arguments(-1000, null, null)
         );
     }
+
 }

@@ -40,4 +40,5 @@ public class StoreCategory extends BaseTimeEntity {
         Assert.notNull(store, "가게는 null 일 수 없습니다.");
         Assert.notNull(category, "카테고리는 null 일 수 없습니다.");
     }
+
 }

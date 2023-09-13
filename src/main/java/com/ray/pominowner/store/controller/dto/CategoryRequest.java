@@ -6,4 +6,5 @@ import java.util.List;
 
 public record CategoryRequest(
         @NotEmpty List<String> categories) {
+
 }
