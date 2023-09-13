@@ -31,10 +31,10 @@ class PaymentServiceTest {
         given(paymentRepository.save(payment)).willReturn(payment);
 
         // when
-        Long paymentId = paymentService.create(payment);
+        Payment createdPayment = paymentService.create(payment);
 
         // then
-        assertThat(paymentId).isEqualTo(payment.getId());
+        assertThat(createdPayment).isEqualTo(payment);
     }
 
 }
