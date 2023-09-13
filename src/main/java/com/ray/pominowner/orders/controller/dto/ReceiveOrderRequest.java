@@ -3,6 +3,8 @@ package com.ray.pominowner.orders.controller.dto;
 import com.ray.pominowner.global.domain.PhoneNumber;
 import com.ray.pominowner.orders.domain.Order;
 import com.ray.pominowner.orders.domain.OrderStatus;
+import com.ray.pominowner.payment.domain.Payment;
+import com.ray.pominowner.payment.dto.PaymentCreateRequest;
 
 import java.time.LocalDateTime;
 
@@ -14,7 +16,7 @@ public record ReceiveOrderRequest(
         String customerPhoneNumber,
         LocalDateTime reservationTime,
         Long storeId,
-        Long paymentId
+        PaymentCreateRequest paymentRequest
 ) {
 
     public static Order getEntity(ReceiveOrderRequest request) {
@@ -27,7 +29,16 @@ public record ReceiveOrderRequest(
                 .customerPhoneNumber(new PhoneNumber(request.customerPhoneNumber()))
                 .reservationTime(request.reservationTime())
                 .storeId(request.storeId())
-                .paymentId(request.paymentId())
+                .paymentId(request.paymentRequest.id())
+                .build();
+    }
+
+    public Payment toPaymentEntity() {
+        return Payment.builder()
+                .id(this.paymentRequest.id())
+                .amount(this.paymentRequest.amount())
+                .status(this.paymentRequest.status())
+                .provider(this.paymentRequest.provider())
                 .build();
     }
 
