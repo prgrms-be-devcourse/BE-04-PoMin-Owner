@@ -22,7 +22,6 @@ import static java.util.Objects.isNull;
 
 @Entity
 @Getter
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Payment extends BaseTimeEntity {
 
@@ -38,6 +37,7 @@ public class Payment extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private PGType provider;
 
+    @Builder
     public Payment(Long id, int amount, PaymentStatus status, PGType provider) {
         validate(amount < 0, INVALID_AMOUNT);
         validate(isNull(status), NULL_PAYMENT_STATUS);
