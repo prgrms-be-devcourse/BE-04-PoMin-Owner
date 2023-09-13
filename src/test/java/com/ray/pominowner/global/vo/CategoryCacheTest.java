@@ -25,7 +25,7 @@ class CategoryCacheTest {
         List<Category> categories = List.of(new Category("name", "imgurl"));
 
         // then
-        assertThatNoException().isThrownBy(()-> cache.add(categories));
+        assertThatNoException().isThrownBy(() -> cache.add(categories));
     }
 
     @ParameterizedTest

@@ -42,4 +42,5 @@ class PaymentTest {
                 Arguments.arguments(-1000, null, null)
         );
     }
+
 }

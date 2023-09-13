@@ -30,4 +30,5 @@ public class Sales {
         this.salesAmount = salesAmount;
         this.salesDate = salesDate;
     }
+
 }

@@ -31,5 +31,6 @@ public class CategoryConverter {
                         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 카테고리가 있습니다.")))
                 .toList();
     }
+
 }
 

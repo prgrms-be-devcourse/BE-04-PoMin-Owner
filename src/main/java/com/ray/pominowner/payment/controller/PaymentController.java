@@ -2,7 +2,6 @@ package com.ray.pominowner.payment.controller;
 
 import com.ray.pominowner.payment.dto.PaymentCreateRequest;
 import com.ray.pominowner.payment.service.PaymentService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

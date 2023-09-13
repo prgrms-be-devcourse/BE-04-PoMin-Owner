@@ -14,10 +14,12 @@ import java.util.List;
 public class StoreCategoryService {
 
     private final CategoryConverter categoryConverter;
+
     private final StoreCategoryRepository storeCategoryRepository;
 
     public void saveCategories(Store store, List<String> categoryRequest) {
         List<StoreCategory> storeCategories = categoryConverter.convertToStoreCategory(categoryRequest, store);
         storeCategoryRepository.saveAll(storeCategories);
     }
+
 }
