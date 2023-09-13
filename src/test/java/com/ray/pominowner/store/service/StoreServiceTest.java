@@ -1,90 +1,70 @@
 package com.ray.pominowner.store.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ray.pominowner.store.StoreTestFixture;
 import com.ray.pominowner.store.domain.Store;
+import com.ray.pominowner.store.repository.StoreRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThatNoException;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class StoreServiceTest {
 
-    @Autowired
+    @InjectMocks
     private StoreService storeService;
 
-    private Long storeId;
+    @Mock
+    private StoreServiceValidator storeServiceValidator;
+
+    @Mock
+    private StoreRepository storeRepository;
+
+    @Mock
+    private StoreCategoryService storeCategoryService; // mock 안하면 어캐됨?
+
+    private Store store;
 
     @BeforeEach
     void setUp() {
-        Store store = StoreTestFixture.store();
-        storeId = storeService.registerStore(store);
+        store = StoreTestFixture.store();
     }
+
+    @Test
+    @DisplayName("가게가 정상적으로 등록된다")
+    void successRegisterStore() throws JsonProcessingException {
+        // given
+        doNothing().when(storeServiceValidator).validateBusinessNumber(store.getBusinessNumber());
+        given(storeRepository.save(store)).willReturn(store);
+
+        // when, then
+        assertThatNoException().isThrownBy(() -> storeService.registerStore(store));
+    }
+
 
     @Test
     @DisplayName("카테고리가 정상적으로 등록된다")
     void successRegisterCategories() {
         // given
         List<String> categoryRequest = List.of("한식", "도시락");
+        doNothing().when(storeServiceValidator).validateCategory(any());
+        given(storeRepository.findById(store.getId())).willReturn(Optional.of(store));
 
         // when, then
         assertThatNoException()
-                .isThrownBy(() -> storeService.registerCategory(categoryRequest, storeId));
-    }
-
-    @Test
-    @DisplayName("카테고리 리스트가 null이면 예외가 발생한다.")
-    void failIfCategoryListIsNull() {
-        // given
-        List<String> categoryRequest = null;
-
-        // when, then
-        assertThatThrownBy(() -> storeService.registerCategory(categoryRequest, storeId))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("카테고리 리스트에 요소가 하나 이상이어야 합니다.");
-    }
-    
-    @Test
-    @DisplayName("카테고리 리스트에 요소가 하나 미만이면 예외가 발생한다.")
-    void failWhenCategoryListElementIsLessThanOne() {
-        // given
-        List<String> categoryRequest = Collections.emptyList();
-
-        // when, then
-        assertThatThrownBy(() -> storeService.registerCategory(categoryRequest, storeId))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("카테고리 리스트에 요소가 하나 이상이어야 합니다.");
-    }
-    
-    @Test
-    @DisplayName("카테고리 리스트에 실제 카테고리가 아닌 요소가 있으면 예외가 발생한다.")
-    void failWhenCategoryListContainsWrongCategoryName() {
-        // given
-        List<String> categoryRequest = List.of("한식", "도시락", "존재하지않는카테고리");
-
-        // when, then
-        assertThatThrownBy(() -> storeService.registerCategory(categoryRequest, storeId))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("존재하지 않는 카테고리가 포함되어 있습니다.");
-    }
-    
-    @Test
-    @DisplayName("카테고리 리스트에 중복된 요소가 있으면 예외가 발생한다.")
-    void failWhenCategoryListContainsDuplicateElement() {
-        // given
-        List<String> categoryRequest = List.of("한식", "한식", "한식");
-
-        // when, then
-        assertThatThrownBy(() -> storeService.registerCategory(categoryRequest, storeId))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("중복된 카테고리가 있습니다.");
+                .isThrownBy(() -> storeService.registerCategory(categoryRequest, store.getId()));
     }
 
 }
