@@ -7,17 +7,19 @@ import com.ray.pominowner.orders.domain.OrderStatus;
 import java.time.LocalDateTime;
 
 public record ReceiveOrderRequest(
+        Long id,
         String orderNumber,
         String requestedDetails,
         Integer totalPrice,
         String customerPhoneNumber,
         LocalDateTime reservationTime,
-        Long storeId
+        Long storeId,
+        Long paymentId
 ) {
 
-    public static Order getEntity(Long id, ReceiveOrderRequest request) {
+    public static Order getEntity(ReceiveOrderRequest request) {
         return Order.builder()
-                .id(id)
+                .id(request.id())
                 .orderNumber(request.orderNumber())
                 .status(OrderStatus.CONFIRMING)
                 .requestedDetails(request.requestedDetails())
@@ -25,6 +27,7 @@ public record ReceiveOrderRequest(
                 .customerPhoneNumber(new PhoneNumber(request.customerPhoneNumber()))
                 .reservationTime(request.reservationTime())
                 .storeId(request.storeId())
+                .paymentId(request.paymentId())
                 .build();
     }
 

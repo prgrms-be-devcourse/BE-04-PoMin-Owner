@@ -21,10 +21,10 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    @PostMapping("/orders/{orderId}")
+    @PostMapping("/orders")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void createOrder(@PathVariable Long orderId, @RequestBody ReceiveOrderRequest request) {
-        Order order = ReceiveOrderRequest.getEntity(orderId, request);
+    public void createOrder(@RequestBody ReceiveOrderRequest request) {
+        Order order = ReceiveOrderRequest.getEntity(request);
 
         orderService.receiveOrder(order);
     }
