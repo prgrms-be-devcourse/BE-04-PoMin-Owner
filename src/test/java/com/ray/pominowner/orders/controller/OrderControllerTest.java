@@ -58,7 +58,7 @@ class OrderControllerTest {
                 "orderNumber",
                 "안맵게 해주세요",
                 30000,
-                new PhoneNumber("01012345678"),
+                "01012345678",
                 null,
                 1L
         );
