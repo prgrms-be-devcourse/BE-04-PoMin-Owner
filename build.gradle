@@ -40,6 +40,11 @@ dependencies {
 
     // validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // 테스트 환경 lombok 설정
+    testImplementation 'org.projectlombok:lombok'
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 tasks.named('test') {
