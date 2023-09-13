@@ -55,18 +55,20 @@ class OrderControllerTest {
     void successReceiveOrder() throws Exception {
         // given
         ReceiveOrderRequest request = new ReceiveOrderRequest(
+                1L,
                 "orderNumber",
                 "안맵게 해주세요",
                 30000,
                 "01012345678",
                 null,
+                1L,
                 1L
         );
 
         given(orderService.receiveOrder(any(Order.class))).willReturn(order);
 
         // when, then
-        this.mockMvc.perform(post("/api/v1/orders/1")
+        this.mockMvc.perform(post("/api/v1/orders")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(request)))
