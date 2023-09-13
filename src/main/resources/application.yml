@@ -7,9 +7,10 @@ spring:
     activate:
       on-profile: prod
     import: sub/application-db.yml, sub/application-token.yml
+
 ---
 spring:
   config:
     activate:
       on-profile: dev
-    import: dev/application-dev.yml, sub/application-token.yml
+    import: dev/application-dev.yml
