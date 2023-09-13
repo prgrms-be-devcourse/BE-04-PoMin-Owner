@@ -6,7 +6,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -56,6 +55,9 @@ public class Order extends BaseTimeEntity {
     // STORE 와 다대일 매핑
     private Long storeId;
 
+    // Payment 와 일대일 매핑
+    private Long paymentId;
+
     public static Order of(Order order, OrderStatus status, Integer receiptNumber, LocalTime estimatedCookingTime) {
         return Order.builder()
                 .id(order.id)
@@ -68,6 +70,7 @@ public class Order extends BaseTimeEntity {
                 .reservationTime(order.reservationTime)
                 .estimatedCookingTime(estimatedCookingTime)
                 .storeId(order.storeId)
+                .paymentId(order.paymentId)
                 .build();
     }
 
@@ -82,6 +85,7 @@ public class Order extends BaseTimeEntity {
                 .reservationTime(order.reservationTime)
                 .rejectReason(rejectReason)
                 .storeId(order.storeId)
+                .paymentId(order.paymentId)
                 .build();
     }
 
@@ -90,11 +94,12 @@ public class Order extends BaseTimeEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return Objects.equals(id, order.id);
+        return Objects.equals(id, order.id) && Objects.equals(orderNumber, order.orderNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, orderNumber);
     }
+
 }
