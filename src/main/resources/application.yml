@@ -6,10 +6,10 @@ spring:
   config:
     activate:
       on-profile: prod
-    import: classpath:sub/application-db.yml, classpath:sub/application-token.yml
+    import: sub/application-db.yml, sub/application-token.yml
 ---
 spring:
   config:
     activate:
       on-profile: dev
-    import: classpath:dev/application-dev.yml, classpath:sub/application-token.yml
+    import: dev/application-dev.yml, sub/application-token.yml
