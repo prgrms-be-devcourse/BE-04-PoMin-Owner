@@ -32,9 +32,6 @@ class OrderControllerTest {
     @MockBean
     private OrderService orderService;
 
-    @MockBean
-    private PaymentService paymentService;
-
     @Autowired
     private MockMvc mockMvc;
 
