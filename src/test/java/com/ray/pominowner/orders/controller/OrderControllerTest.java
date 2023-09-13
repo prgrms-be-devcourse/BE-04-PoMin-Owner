@@ -5,6 +5,10 @@ import com.ray.pominowner.global.domain.PhoneNumber;
 import com.ray.pominowner.orders.controller.dto.ReceiveOrderRequest;
 import com.ray.pominowner.orders.domain.Order;
 import com.ray.pominowner.orders.service.OrderService;
+import com.ray.pominowner.payment.domain.PGType;
+import com.ray.pominowner.payment.domain.PaymentStatus;
+import com.ray.pominowner.payment.dto.PaymentCreateRequest;
+import com.ray.pominowner.payment.service.PaymentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,6 +31,9 @@ class OrderControllerTest {
 
     @MockBean
     private OrderService orderService;
+
+    @MockBean
+    private PaymentService paymentService;
 
     @Autowired
     private MockMvc mockMvc;
@@ -62,7 +69,12 @@ class OrderControllerTest {
                 "01012345678",
                 null,
                 1L,
-                1L
+                new PaymentCreateRequest(
+                        1L,
+                        10000,
+                        PaymentStatus.COMPLETE,
+                        PGType.TOSS
+                )
         );
 
         given(orderService.receiveOrder(any(Order.class))).willReturn(order);
