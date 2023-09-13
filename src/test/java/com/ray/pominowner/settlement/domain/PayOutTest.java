@@ -39,4 +39,5 @@ class PayOutTest {
                 Arguments.arguments(-1000, LocalDate.now().minusDays(1))
         );
     }
+
 }

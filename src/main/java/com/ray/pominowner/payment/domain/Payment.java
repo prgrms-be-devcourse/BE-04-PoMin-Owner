@@ -46,4 +46,5 @@ public class Payment extends BaseTimeEntity {
         this.status = status;
         this.provider = provider;
     }
+
 }

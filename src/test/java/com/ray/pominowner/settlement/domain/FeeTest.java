@@ -42,4 +42,5 @@ class FeeTest {
                 Arguments.arguments(1000, 1000, -1000)
         );
     }
+
 }
