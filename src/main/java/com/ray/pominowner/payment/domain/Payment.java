@@ -25,7 +25,6 @@ import static java.util.Objects.isNull;
 public class Payment extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
     @Column(name = "PAYMENT_ID")
     private Long id;
 
