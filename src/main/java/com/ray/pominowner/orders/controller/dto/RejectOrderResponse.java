@@ -6,8 +6,10 @@ public record RejectOrderResponse(
         Long orderId,
         String rejectReason
 ) {
+
     public RejectOrderResponse(Order rejected) {
         this(rejected.getId(),
                 rejected.getRejectReason());
     }
+
 }
