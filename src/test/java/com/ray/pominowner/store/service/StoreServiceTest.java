@@ -33,7 +33,7 @@ class StoreServiceTest {
     private StoreRepository storeRepository;
 
     @Mock
-    private StoreCategoryService storeCategoryService; // mock 안하면 어캐됨?
+    private StoreCategoryService storeCategoryService;
 
     private Store store;
 
