@@ -1,5 +1,6 @@
 package com.ray.pominowner.store.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ray.pominowner.store.domain.Store;
 import com.ray.pominowner.store.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,8 @@ public class StoreService {
     private final StoreCategoryService storeCategoryService;
 
     @Transactional
-    public Long registerStore(Store store) {
+    public Long registerStore(Store store) throws JsonProcessingException {
+        storeServiceValidator.validateBusinessNumber(store.getBusinessNumber());
         return storeRepository.save(store).getId();
     }
 
