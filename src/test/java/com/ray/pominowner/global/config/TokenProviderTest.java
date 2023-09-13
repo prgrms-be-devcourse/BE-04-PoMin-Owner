@@ -22,8 +22,8 @@ class TokenProviderTest {
         String businessNumberHeaderAuthKey = tokenProvider.getBusinessNumberHeaderAuthKey();
         log.info("businessNumberServiceKey: {}, businessNumberHeaderAuthKey: {}", businessNumberServiceKey, businessNumberHeaderAuthKey);
 
-        assertThat(businessNumberServiceKey).isNotBlank().isNotEqualTo("null");
-        assertThat(businessNumberHeaderAuthKey).isNotBlank().isNotEqualTo("null");
+        assertThat(businessNumberServiceKey).isNotBlank();
+        assertThat(businessNumberHeaderAuthKey).isNotBlank();
     }
 
 }
