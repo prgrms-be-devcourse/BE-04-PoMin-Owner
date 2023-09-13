@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem://localhost/~/ray/pomin
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  sql:
+    init:
+      mode: always
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        auto_quote_keyword: true
+        show_sql: true
+        format_sql: true
+        highlight_sql: true
+    defer-datasource-initialization: true
+    open-in-view: false
