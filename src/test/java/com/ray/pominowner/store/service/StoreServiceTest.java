@@ -50,7 +50,7 @@ class StoreServiceTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("카테고리 리스트에 요소가 하나 이상이어야 합니다.");
     }
-    
+
     @Test
     @DisplayName("카테고리 리스트에 요소가 하나 미만이면 예외가 발생한다.")
     void failWhenCategoryListElementIsLessThanOne() {
@@ -62,7 +62,7 @@ class StoreServiceTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("카테고리 리스트에 요소가 하나 이상이어야 합니다.");
     }
-    
+
     @Test
     @DisplayName("카테고리 리스트에 실제 카테고리가 아닌 요소가 있으면 예외가 발생한다.")
     void failWhenCategoryListContainsWrongCategoryName() {
@@ -74,7 +74,7 @@ class StoreServiceTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("존재하지 않는 카테고리가 포함되어 있습니다.");
     }
-    
+
     @Test
     @DisplayName("카테고리 리스트에 중복된 요소가 있으면 예외가 발생한다.")
     void failWhenCategoryListContainsDuplicateElement() {

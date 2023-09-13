@@ -13,7 +13,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class SettlementTest {
+
     private static final Fee fee = new Fee(1000, 1000, 1000);
+
     private static final PayOut payOut = new PayOut(1000, LocalDate.now().plusDays(1));
 
     private static final Sales sales = new Sales(1000, LocalDate.now());
@@ -48,4 +50,5 @@ class SettlementTest {
                 Arguments.arguments(fee, payOut, null)
         );
     }
+
 }

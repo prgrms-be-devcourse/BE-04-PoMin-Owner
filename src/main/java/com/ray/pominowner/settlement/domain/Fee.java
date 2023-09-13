@@ -28,4 +28,5 @@ public class Fee {
         this.brokerageFee = brokerageFee;
         this.valueAddedFee = valueAddedFee;
     }
+
 }

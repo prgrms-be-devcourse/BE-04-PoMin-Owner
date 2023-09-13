@@ -16,7 +16,9 @@ import java.util.List;
 public class StoreService {
 
     private final StoreServiceValidator storeServiceValidator;
+
     private final StoreRepository storeRepository;
+
     private final StoreCategoryService storeCategoryService;
 
     @Transactional
