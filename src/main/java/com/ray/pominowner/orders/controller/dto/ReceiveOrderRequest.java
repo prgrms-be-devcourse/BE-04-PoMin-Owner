@@ -10,7 +10,7 @@ public record ReceiveOrderRequest(
         String orderNumber,
         String requestedDetails,
         Integer totalPrice,
-        PhoneNumber customerPhoneNumber,
+        String customerPhoneNumber,
         LocalDateTime reservationTime,
         Long storeId
 ) {
@@ -22,7 +22,7 @@ public record ReceiveOrderRequest(
                 .status(OrderStatus.CONFIRMING)
                 .requestedDetails(request.requestedDetails())
                 .totalPrice(request.totalPrice())
-                .customerPhoneNumber(request.customerPhoneNumber())
+                .customerPhoneNumber(new PhoneNumber(request.customerPhoneNumber()))
                 .reservationTime(request.reservationTime())
                 .storeId(request.storeId())
                 .build();
