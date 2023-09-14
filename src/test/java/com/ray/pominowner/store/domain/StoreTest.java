@@ -36,14 +36,30 @@ class StoreTest {
     void successRegisterPhoneNumber() {
         // given
         Store store = StoreTestFixture.store();
-        String validPhoneNumber = "01012345678";
+        PhoneNumber validPhoneNumber = new PhoneNumber("010-1234-5678");
 
         // when
-        Store storeAfterRegisteredPhoneNumber = store.afterRegisterPhoneNumber(validPhoneNumber);
+        Store storeAfterRegisteredPhoneNumber = store.retrieveStoreAfterRegisteringPhoneNumber(validPhoneNumber.getTel());
 
         // then
-        assertThat(store.getTel()).isEqualTo("NOT_SELECTED");
-        assertThat(storeAfterRegisteredPhoneNumber.getTel()).isEqualTo(validPhoneNumber);
+        assertThat(store.getPhoneNumber()).isEqualTo(new PhoneNumber());
+        assertThat(storeAfterRegisteredPhoneNumber.getPhoneNumber()).isEqualTo(validPhoneNumber);
     }
+
+    @Test
+    @DisplayName("정상적으로 전화번호가 삭제된다")
+    void successDeletingPhoneNumber() {
+        // given
+        String validPhoneNumber = "010-1234-5678";
+        Store store = StoreTestFixture.store()
+                .retrieveStoreAfterRegisteringPhoneNumber(validPhoneNumber);
+
+        // when
+        Store deletedPhoneNumberStore = store.retrieveStoreAfterDeletingPhoneNumber();
+
+        // then
+        assertThat(deletedPhoneNumberStore.getPhoneNumber()).isEqualTo(new PhoneNumber());
+    }
+
 
 }
