@@ -72,11 +72,13 @@ public class StoreServiceValidator {
         final String url = MessageFormat.format("https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey={0}", serviceKey);
 
         HttpEntity<?> httpEntity = setHttpEntityForRequest(businessNumber, headerAuthKey);
+
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.POST, httpEntity, String.class);
         log.debug("status code = {}", responseEntity.getStatusCode());
-        validateStatusCode(responseEntity);
 
+        validateStatusCode(responseEntity);
         final String dataFieldName = "data";
+
         return objectMapper.readTree(responseEntity.getBody())
                 .get(dataFieldName)
                 .get(0);
@@ -93,6 +95,7 @@ public class StoreServiceValidator {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(APPLICATION_JSON);
         headers.set(AUTHORIZATION, headerAuthKey);
+
         return headers;
     }
 
