@@ -15,7 +15,8 @@ public enum ExceptionMessage {
     NULL_PAYOUT_OBJECT("지급 관련 값은 필수입니다."),
     NULL_SALES_OBJECT("매출 관련 값은 필수입니다."),
     SALES_DATE_IS_AFTER_NOW("매출 일은 생성 날짜와 같거나 그보다 빨라야 합니다."),
-    PAYOUT_DATE_IS_BEFORE_NOW("지급 일은 생성 날짜와 같거나 그보다 늦어야 합니다.");
+    PAYOUT_DATE_IS_BEFORE_NOW("지급 일은 생성 날짜와 같거나 그보다 늦어야 합니다."),
+    NO_PAYMENT("해당 결제 건이 존재하지 않습니다");
 
     private final String message;
 
