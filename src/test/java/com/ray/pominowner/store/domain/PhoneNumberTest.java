@@ -23,7 +23,7 @@ class PhoneNumberTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"010-1234-5678", "01012345678", "011-111-1111"})
-    @DisplayName("전화번호 형식이 올바르면 예외가 발생하지 않는다")
+    @DisplayName("전화번호 형식이 올바르면 생성에 성공한다")
     void successWhenCorrectPhoneNumberFormat(String phoneNumber) {
         // when, then
         assertThatNoException().isThrownBy(() -> new PhoneNumber(phoneNumber));
