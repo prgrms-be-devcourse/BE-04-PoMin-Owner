@@ -57,7 +57,7 @@ public class Store extends BaseTimeEntity {
         return requiredStoreInfo.getBusinessNumber();
     }
 
-    public Store afterRegisterPhoneNumber(String phoneNumber) {
+    public Store retrieveStoreAfterRegisteringPhoneNumber(String phoneNumber) {
         return Store.builder()
                 .id(this.id)
                 .requiredStoreInfo(this.requiredStoreInfo)
@@ -67,12 +67,22 @@ public class Store extends BaseTimeEntity {
                 .build();
     }
 
+    public Store retrieveStoreAfterDeletingPhoneNumber() {
+        return Store.builder()
+                .id(this.id)
+                .requiredStoreInfo(this.requiredStoreInfo)
+                .info(this.info)
+                .tel(new PhoneNumber())
+                .ownerId(this.ownerId)
+                .build();
+    }
+
     public Long getId() {
         return id;
     }
 
-    public String getTel() {
-        return tel.getTel();
+    public PhoneNumber getPhoneNumber() {
+        return tel;
     }
 
 }

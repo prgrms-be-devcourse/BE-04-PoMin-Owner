@@ -80,4 +80,15 @@ class StoreServiceTest {
                 .isThrownBy(() -> storeService.registerPhoneNumber(validPhoneNumber, store.getId()));
     }
 
+    @Test
+    @DisplayName("전화번호를 정상적으로 삭제된다")
+    void successDeletePhoneNumber() {
+        // given
+        given(storeRepository.findById(store.getId())).willReturn(Optional.of(store));
+
+        // when, then
+        assertThatNoException()
+                .isThrownBy(() -> storeService.deletePhoneNumber(store.getId()));
+    }
+
 }
