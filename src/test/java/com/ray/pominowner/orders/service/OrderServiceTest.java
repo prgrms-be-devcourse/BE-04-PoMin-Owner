@@ -90,7 +90,7 @@ class OrderServiceTest {
 
         given(orderRepository.save(order)).willReturn(order);
         given(orderRepository.findById(1L)).willReturn(Optional.ofNullable(order));
-        given(paymentService.canceled(order.getPaymentId())).willReturn(canceled);
+        given(paymentService.cancel(order.getPaymentId())).willReturn(canceled);
 
         // when
         Order rejectedOrder = orderService.reject(order.getId());

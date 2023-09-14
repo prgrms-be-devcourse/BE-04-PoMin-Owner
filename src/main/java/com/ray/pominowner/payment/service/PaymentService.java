@@ -20,7 +20,7 @@ public class PaymentService {
     }
 
 
-    public Payment canceled(Long paymentId) {
+    public Payment cancel(Long paymentId) {
         Payment payment = paymentRepository.findById(paymentId)
                 .orElseThrow(() -> new IllegalArgumentException(NO_PAYMENT.getMessage()));
 

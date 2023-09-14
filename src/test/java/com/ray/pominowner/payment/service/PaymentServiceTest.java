@@ -51,7 +51,7 @@ class PaymentServiceTest {
         given(paymentRepository.save(canceled)).willReturn(canceled);
 
         // when
-        Payment payment = paymentService.canceled(saved.getId());
+        Payment payment = paymentService.cancel(saved.getId());
 
         // then
         assertThat(canceled).isEqualTo(payment);
@@ -66,7 +66,7 @@ class PaymentServiceTest {
         given(paymentRepository.findById(saved.getId())).willThrow(IllegalArgumentException.class);
 
         // when, then
-        assertThatThrownBy(() -> paymentService.canceled(saved.getId()))
+        assertThatThrownBy(() -> paymentService.cancel(saved.getId()))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 

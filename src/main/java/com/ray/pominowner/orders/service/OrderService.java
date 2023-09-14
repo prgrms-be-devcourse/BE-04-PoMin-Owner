@@ -48,7 +48,7 @@ public class OrderService {
                 "재고 소진");
 
         orderRepository.save(rejectedOrder);
-        paymentService.canceled(order.getPaymentId());
+        paymentService.cancel(order.getPaymentId());
 
         return rejectedOrder;
     }
