@@ -50,7 +50,8 @@ class StoreServiceTest {
         given(storeRepository.save(store)).willReturn(store);
 
         // when, then
-        assertThatNoException().isThrownBy(() -> storeService.registerStore(store));
+        assertThatNoException()
+                .isThrownBy(() -> storeService.registerStore(store));
     }
 
 
@@ -65,6 +66,18 @@ class StoreServiceTest {
         // when, then
         assertThatNoException()
                 .isThrownBy(() -> storeService.registerCategory(categoryRequest, store.getId()));
+    }
+
+    @Test
+    @DisplayName("전화번호가 정상적으로 등록된다")
+    void successRegisterPhoneNumber() {
+        // given
+        String validPhoneNumber = "010-1234-5678";
+        given(storeRepository.findById(store.getId())).willReturn(Optional.of(store));
+
+        // when, then
+        assertThatNoException()
+                .isThrownBy(() -> storeService.registerPhoneNumber(validPhoneNumber, store.getId()));
     }
 
 }

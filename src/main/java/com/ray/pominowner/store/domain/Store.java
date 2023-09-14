@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
@@ -27,27 +28,51 @@ public class Store extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT default 'NOT_SELECTED'")
     private String info = DEFAULT_VALUE;    // 선택
 
+    @Embedded
     @Column(columnDefinition = "TEXT default 'NOT_SELECTED'")
-    private String tel = DEFAULT_VALUE;    // 선택
+    private PhoneNumber tel = new PhoneNumber();    // 선택
 
     private Long ownerId;   // 추후 연관관계 설정 예정
 
-    public Store(final RequiredStoreInfo requiredStoreInfo) {
+    @Builder
+    private Store(Long id, RequiredStoreInfo requiredStoreInfo, String info, PhoneNumber tel, Long ownerId) {
+        this.id = id;
+        this.requiredStoreInfo = requiredStoreInfo;
+        this.info = info;
+        this.tel = tel;
+        this.ownerId = ownerId;
+    }
+
+    public Store(RequiredStoreInfo requiredStoreInfo) {
         validateRequiredInfo(requiredStoreInfo);
 
         this.requiredStoreInfo = requiredStoreInfo;
     }
 
-    private void validateRequiredInfo(final RequiredStoreInfo requiredStoreInfo) {
+    private void validateRequiredInfo(RequiredStoreInfo requiredStoreInfo) {
         Assert.notNull(requiredStoreInfo, "가게 정보는 필수 입니다.");
+    }
+
+    public String getBusinessNumber() {
+        return requiredStoreInfo.getBusinessNumber();
+    }
+
+    public Store afterRegisterPhoneNumber(String phoneNumber) {
+        return Store.builder()
+                .id(this.id)
+                .requiredStoreInfo(this.requiredStoreInfo)
+                .info(this.info)
+                .tel(new PhoneNumber(phoneNumber))
+                .ownerId(this.ownerId)
+                .build();
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getBusinessNumber() {
-        return requiredStoreInfo.getBusinessNumber();
+    public String getTel() {
+        return tel.getTel();
     }
 
 }
