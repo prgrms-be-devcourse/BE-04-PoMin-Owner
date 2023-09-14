@@ -8,6 +8,7 @@ import com.ray.pominowner.store.service.StoreService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +39,11 @@ public class StoreController {
     @PatchMapping("/{storeId}/phone-numbers")
     public void registerPhoneNumber(@RequestBody @Valid PhoneNumberRequest phoneNumberRequest, @PathVariable Long storeId) {
         storeService.registerPhoneNumber(phoneNumberRequest.phoneNumber(), storeId);
+    }
+
+    @DeleteMapping("/{storeId}/phone-numbers")
+    public void deletePhoneNumber(@PathVariable Long storeId) {
+        storeService.deletePhoneNumber(storeId);
     }
 
 }
