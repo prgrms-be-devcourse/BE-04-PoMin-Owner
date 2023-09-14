@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
 @SpringBootTest
-public class OrderDbTest {
+public class OrderServiceDbTest {
 
     @Autowired
     private OrderService orderService;
@@ -33,6 +33,7 @@ public class OrderDbTest {
                 .totalPrice(30000)
                 .customerPhoneNumber(new PhoneNumber("01012345678"))
                 .storeId(1L)
+                .paymentId(1L)
                 .build();
     }
 
