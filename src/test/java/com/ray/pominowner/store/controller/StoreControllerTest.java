@@ -20,6 +20,7 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -29,7 +30,7 @@ class StoreControllerTest {
 
     @Autowired
     private MockMvc mvc;
-    
+
     @Autowired
     private ObjectMapper mapper;
 
@@ -77,7 +78,7 @@ class StoreControllerTest {
         PhoneNumberRequest phoneNumberRequest = new PhoneNumberRequest("01012345678");
 
         // when, then
-        mvc.perform(post("/api/v1/stores/1/phone-numbers")
+        mvc.perform(patch("/api/v1/stores/1/phone-numbers")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(phoneNumberRequest)))
