@@ -30,18 +30,24 @@ public class StoreService {
     }
 
     @Transactional
-    public void registerCategory(final List<String> categories, Long storeId) {
+    public void registerCategory(List<String> categories, Long storeId) {
         storeServiceValidator.validateCategory(categories);
         storeCategoryService.saveCategories(findStore(storeId), categories);
     }
 
     @Transactional
     public void registerPhoneNumber(String phoneNumber, Long storeId) {
-        Store store = findStore(storeId).afterRegisterPhoneNumber(phoneNumber);
+        Store store = findStore(storeId).retrieveStoreAfterRegisteringPhoneNumber(phoneNumber);
         storeRepository.save(store);
     }
 
-    private Store findStore(final Long storeId) {
+    @Transactional
+    public void deletePhoneNumber(Long storeId) {
+        Store store = findStore(storeId).retrieveStoreAfterDeletingPhoneNumber();
+        storeRepository.save(store);
+    }
+
+    private Store findStore(Long storeId) {
         return storeRepository.findById(storeId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 가게입니다."));
     }
