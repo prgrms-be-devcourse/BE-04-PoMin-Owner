@@ -45,7 +45,7 @@ class PaymentServiceTest {
     public void successCancelPayment() {
         // given
         Payment saved = new Payment(1L, 1000, PaymentStatus.COMPLETE, PGType.TOSS);
-        Payment canceled = new Payment(1L, 1000, PaymentStatus.CANCELLED, PGType.TOSS);
+        Payment canceled = new Payment(1L, 1000, PaymentStatus.CANCELED, PGType.TOSS);
 
         given(paymentRepository.findById(saved.getId())).willReturn(Optional.of(saved));
         given(paymentRepository.save(canceled)).willReturn(canceled);

@@ -86,7 +86,7 @@ class OrderServiceTest {
     @DisplayName("주문 거절을 성공한다")
     void successRejectOrder() {
         // given
-        Payment canceled = new Payment(1L, 1000, PaymentStatus.CANCELLED, PGType.TOSS);
+        Payment canceled = new Payment(1L, 1000, PaymentStatus.CANCELED, PGType.TOSS);
 
         given(orderRepository.save(order)).willReturn(order);
         given(orderRepository.findById(1L)).willReturn(Optional.ofNullable(order));
