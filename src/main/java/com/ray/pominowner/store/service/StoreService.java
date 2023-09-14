@@ -25,6 +25,7 @@ public class StoreService {
     @Transactional
     public Long registerStore(Store store) throws JsonProcessingException {
         storeServiceValidator.validateBusinessNumber(store.getBusinessNumber());
+
         return storeRepository.save(store).getId();
     }
 
@@ -32,6 +33,12 @@ public class StoreService {
     public void registerCategory(final List<String> categories, Long storeId) {
         storeServiceValidator.validateCategory(categories);
         storeCategoryService.saveCategories(findStore(storeId), categories);
+    }
+
+    @Transactional
+    public void registerPhoneNumber(String phoneNumber, Long storeId) {
+        Store store = findStore(storeId).afterRegisterPhoneNumber(phoneNumber);
+        storeRepository.save(store);
     }
 
     private Store findStore(final Long storeId) {
