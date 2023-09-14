@@ -1,7 +1,6 @@
 package com.ray.pominowner.payment.service;
 
 import com.ray.pominowner.payment.domain.Payment;
-import com.ray.pominowner.payment.domain.PaymentStatus;
 import com.ray.pominowner.payment.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,12 +24,7 @@ public class PaymentService {
         Payment payment = paymentRepository.findById(paymentId)
                 .orElseThrow(() -> new IllegalArgumentException(NO_PAYMENT.getMessage()));
 
-        Payment canceled = Payment.builder()
-                .id(paymentId)
-                .amount(payment.getAmount())
-                .provider(payment.getProvider())
-                .status(PaymentStatus.CANCELLED)
-                .build();
+        Payment canceled = payment.canceled();
 
         return paymentRepository.save(canceled);
     }
