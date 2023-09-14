@@ -53,7 +53,7 @@ public class Payment extends BaseTimeEntity {
         return Payment.builder()
                 .id(this.id)
                 .amount(this.amount)
-                .status(PaymentStatus.CANCELLED)
+                .status(PaymentStatus.CANCELED)
                 .provider(this.provider)
                 .build();
     }
