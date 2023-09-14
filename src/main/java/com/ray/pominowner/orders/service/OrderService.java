@@ -3,9 +3,10 @@ package com.ray.pominowner.orders.service;
 import com.ray.pominowner.orders.domain.Order;
 import com.ray.pominowner.orders.domain.OrderStatus;
 import com.ray.pominowner.orders.repository.OrderRepository;
+import com.ray.pominowner.payment.service.PaymentService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -18,6 +19,8 @@ public class OrderService {
     private final ReceiptNumberGenerator generator;
 
     private final OrderRepository orderRepository;
+
+    private final PaymentService paymentService;
 
     public Order receiveOrder(Order order) {
         return orderRepository.save(order);
@@ -43,7 +46,9 @@ public class OrderService {
         Order rejectedOrder = Order.of(order,
                 OrderStatus.REJECTED,
                 "재고 소진");
+
         orderRepository.save(rejectedOrder);
+        paymentService.cancel(order.getPaymentId());
 
         return rejectedOrder;
     }

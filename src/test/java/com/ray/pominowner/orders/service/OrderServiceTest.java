@@ -4,6 +4,10 @@ import com.ray.pominowner.global.domain.PhoneNumber;
 import com.ray.pominowner.orders.domain.Order;
 import com.ray.pominowner.orders.domain.OrderStatus;
 import com.ray.pominowner.orders.repository.OrderRepository;
+import com.ray.pominowner.payment.domain.PGType;
+import com.ray.pominowner.payment.domain.Payment;
+import com.ray.pominowner.payment.domain.PaymentStatus;
+import com.ray.pominowner.payment.service.PaymentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,6 +26,9 @@ class OrderServiceTest {
 
     @InjectMocks
     private OrderService orderService;
+
+    @Mock
+    private PaymentService paymentService;
 
     @Mock
     private OrderRepository orderRepository;
@@ -79,8 +86,11 @@ class OrderServiceTest {
     @DisplayName("주문 거절을 성공한다")
     void successRejectOrder() {
         // given
+        Payment canceled = new Payment(1L, 1000, PaymentStatus.CANCELED, PGType.TOSS);
+
         given(orderRepository.save(order)).willReturn(order);
         given(orderRepository.findById(1L)).willReturn(Optional.ofNullable(order));
+        given(paymentService.cancel(order.getPaymentId())).willReturn(canceled);
 
         // when
         Order rejectedOrder = orderService.reject(order.getId());
