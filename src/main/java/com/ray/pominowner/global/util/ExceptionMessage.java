@@ -18,4 +18,5 @@ public enum ExceptionMessage {
     PAYOUT_DATE_IS_BEFORE_NOW("지급 일은 생성 날짜와 같거나 그보다 늦어야 합니다.");
 
     private final String message;
+
 }

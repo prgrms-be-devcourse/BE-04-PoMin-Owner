@@ -5,6 +5,8 @@ import com.ray.pominowner.orders.controller.dto.ReceiveOrderRequest;
 import com.ray.pominowner.orders.controller.dto.RejectOrderResponse;
 import com.ray.pominowner.orders.domain.Order;
 import com.ray.pominowner.orders.service.OrderService;
+import com.ray.pominowner.payment.domain.Payment;
+import com.ray.pominowner.payment.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,12 +23,18 @@ public class OrderController {
 
     private final OrderService orderService;
 
+    private final PaymentService paymentService;
+
     @PostMapping("/orders")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void createOrder(@RequestBody ReceiveOrderRequest request) {
+
         Order order = request.toEntity();
+        Payment payment = request.toPaymentEntity();
+
 
         orderService.receiveOrder(order);
+        paymentService.create(payment);
     }
 
     @PostMapping("/orders/{orderId}/approve")

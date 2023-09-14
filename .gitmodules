@@ -1,3 +1,3 @@
 [submodule "src/main/resources/sub"]
 	path = src/main/resources/sub
-	url = https://github.com/juno-junho/pomin-owner-submodule
+	url = https://github.com/juno-junho/pomin-owner-submodule.git

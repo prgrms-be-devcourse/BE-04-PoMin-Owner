@@ -27,14 +27,14 @@ class PaymentServiceTest {
     @DisplayName("Payment 저장에 성공한다.")
     public void successCreatePayment() {
         // given
-        Payment payment = new Payment(1000, PaymentStatus.COMPLETE, PGType.TOSS);
+        Payment payment = new Payment(1L, 1000, PaymentStatus.COMPLETE, PGType.TOSS);
         given(paymentRepository.save(payment)).willReturn(payment);
 
         // when
-        Long paymentId = paymentService.create(payment);
+        Payment createdPayment = paymentService.create(payment);
 
         // then
-        assertThat(paymentId).isEqualTo(payment.getId());
+        assertThat(createdPayment).isEqualTo(payment);
     }
 
 }

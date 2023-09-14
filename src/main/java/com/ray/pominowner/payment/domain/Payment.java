@@ -5,12 +5,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.Hibernate;
+
+import java.util.Objects;
 
 import static com.ray.pominowner.global.util.ExceptionMessage.INVALID_AMOUNT;
 import static com.ray.pominowner.global.util.ExceptionMessage.NULL_PAYMENT_PROVIDER;
@@ -20,12 +22,10 @@ import static java.util.Objects.isNull;
 
 @Entity
 @Getter
-@EqualsAndHashCode(of = "id", callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Payment extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
     @Column(name = "PAYMENT_ID")
     private Long id;
 
@@ -37,14 +37,29 @@ public class Payment extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private PGType provider;
 
-    public Payment(int amount, PaymentStatus status, PGType provider) {
+    @Builder
+    public Payment(Long id, int amount, PaymentStatus status, PGType provider) {
         validate(amount < 0, INVALID_AMOUNT);
         validate(isNull(status), NULL_PAYMENT_STATUS);
         validate(isNull(provider), NULL_PAYMENT_PROVIDER);
 
+        this.id = id;
         this.amount = amount;
         this.status = status;
         this.provider = provider;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Payment payment = (Payment) o;
+        return id != null && Objects.equals(id, payment.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 
 }
