@@ -3,11 +3,12 @@ package com.ray.pominowner.orders.service;
 import com.ray.pominowner.orders.domain.Order;
 import com.ray.pominowner.orders.domain.OrderStatus;
 import com.ray.pominowner.orders.repository.OrderRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalTime;
+import java.util.List;
 
 @Service
 @Transactional
@@ -45,6 +46,14 @@ public class OrderService {
         orderRepository.save(rejectedOrder);
 
         return rejectedOrder;
+    }
+
+    public List<Order> getTodayOrders(Long storeId) {
+        List<Order> storeOrders = orderRepository.findAllByStoreId(storeId);
+
+        return storeOrders.stream()
+                .filter(Order::isToday)
+                .toList();
     }
 
 }
