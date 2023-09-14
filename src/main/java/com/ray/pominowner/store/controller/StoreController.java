@@ -2,6 +2,7 @@ package com.ray.pominowner.store.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ray.pominowner.store.controller.dto.CategoryRequest;
+import com.ray.pominowner.store.controller.dto.PhoneNumberRequest;
 import com.ray.pominowner.store.controller.dto.StoreRegisterRequest;
 import com.ray.pominowner.store.service.StoreService;
 import jakarta.validation.Valid;
@@ -31,6 +32,11 @@ public class StoreController {
     @PostMapping("/{id}/categories")
     public void registerCategory(@RequestBody @Valid CategoryRequest categories, @PathVariable(value = "id") Long storeId) {
         storeService.registerCategory(categories.categories(), storeId);
+    }
+
+    @PostMapping("/{id}/phone-numbers")
+    public void registerPhoneNumber(@RequestBody @Valid PhoneNumberRequest phoneNumberRequest, @PathVariable(value = "id") Long storeId) {
+        storeService.registerPhoneNumber(phoneNumberRequest.phoneNumber(), storeId);
     }
 
 }
