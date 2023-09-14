@@ -16,29 +16,29 @@ public record ReceiveOrderRequest(
         String customerPhoneNumber,
         LocalDateTime reservationTime,
         Long storeId,
-        PaymentCreateRequest paymentRequest
+        PaymentCreateRequest payment
 ) {
 
-    public static Order getEntity(ReceiveOrderRequest request) {
+    public Order toEntity() {
         return Order.builder()
-                .id(request.id())
-                .orderNumber(request.orderNumber())
+                .id(this.id())
+                .orderNumber(this.orderNumber())
                 .status(OrderStatus.CONFIRMING)
-                .requestedDetails(request.requestedDetails())
-                .totalPrice(request.totalPrice())
-                .customerPhoneNumber(new PhoneNumber(request.customerPhoneNumber()))
-                .reservationTime(request.reservationTime())
-                .storeId(request.storeId())
-                .paymentId(request.paymentRequest.id())
+                .requestedDetails(this.requestedDetails())
+                .totalPrice(this.totalPrice())
+                .customerPhoneNumber(new PhoneNumber(this.customerPhoneNumber()))
+                .reservationTime(this.reservationTime())
+                .storeId(this.storeId())
+                .paymentId(this.payment().id())
                 .build();
     }
 
     public Payment toPaymentEntity() {
         return Payment.builder()
-                .id(this.paymentRequest.id())
-                .amount(this.paymentRequest.amount())
-                .status(this.paymentRequest.status())
-                .provider(this.paymentRequest.provider())
+                .id(this.payment.id())
+                .amount(this.payment.amount())
+                .status(this.payment.status())
+                .provider(this.payment.provider())
                 .build();
     }
 

@@ -49,6 +49,15 @@ public class Payment extends BaseTimeEntity {
         this.provider = provider;
     }
 
+    public Payment canceled() {
+        return Payment.builder()
+                .id(this.id)
+                .amount(this.amount)
+                .status(PaymentStatus.CANCELED)
+                .provider(this.provider)
+                .build();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
