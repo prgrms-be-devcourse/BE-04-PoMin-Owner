@@ -47,6 +47,18 @@ public class StoreService {
         storeRepository.save(store);
     }
 
+    @Transactional
+    public void registerInformation(String information, Long storeId) {
+        Store store = findStore(storeId).retrieveStoreAfterRegisteringInfo(information);
+        storeRepository.save(store);
+    }
+
+    @Transactional
+    public void deleteInformation(Long storeId) {
+        Store store = findStore(storeId).retrieveStoreAfterDeletingInfo();
+        storeRepository.save(store);
+    }
+
     private Store findStore(Long storeId) {
         return storeRepository.findById(storeId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 가게입니다."));
