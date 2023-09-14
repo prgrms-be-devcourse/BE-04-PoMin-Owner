@@ -29,7 +29,8 @@ public record ReceiveOrderRequest(
                 .customerPhoneNumber(new PhoneNumber(this.customerPhoneNumber()))
                 .reservationTime(this.reservationTime())
                 .storeId(this.storeId())
-                .paymentId(this.paymentId())
+                .paymentId(this.payment().id())
+                .build();
     }
 
     public Payment toPaymentEntity() {
