@@ -16,7 +16,7 @@ public record ReceiveOrderRequest(
         String customerPhoneNumber,
         LocalDateTime reservationTime,
         Long storeId,
-        PaymentCreateRequest paymentRequest
+        PaymentCreateRequest payment
 ) {
 
     public static Order getEntity(ReceiveOrderRequest request) {
@@ -29,16 +29,16 @@ public record ReceiveOrderRequest(
                 .customerPhoneNumber(new PhoneNumber(request.customerPhoneNumber()))
                 .reservationTime(request.reservationTime())
                 .storeId(request.storeId())
-                .paymentId(request.paymentRequest.id())
+                .paymentId(request.payment.id())
                 .build();
     }
 
     public Payment toPaymentEntity() {
         return Payment.builder()
-                .id(this.paymentRequest.id())
-                .amount(this.paymentRequest.amount())
-                .status(this.paymentRequest.status())
-                .provider(this.paymentRequest.provider())
+                .id(this.payment.id())
+                .amount(this.payment.amount())
+                .status(this.payment.status())
+                .provider(this.payment.provider())
                 .build();
     }
 
