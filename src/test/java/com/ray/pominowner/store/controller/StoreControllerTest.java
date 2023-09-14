@@ -3,6 +3,7 @@ package com.ray.pominowner.store.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ray.pominowner.store.controller.dto.CategoryRequest;
 import com.ray.pominowner.store.controller.dto.PhoneNumberRequest;
+import com.ray.pominowner.store.controller.dto.StoreInformationRequest;
 import com.ray.pominowner.store.controller.dto.StoreRegisterRequest;
 import com.ray.pominowner.store.domain.Store;
 import com.ray.pominowner.store.service.StoreService;
@@ -94,6 +95,36 @@ class StoreControllerTest {
 
         // when, then
         mvc.perform(delete("/api/v1/stores/1/phone-numbers")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser
+    @DisplayName("가게 정보 등록에 성공한다")
+    void successRegisterInformation() throws Exception {
+        // given
+        final String input = "가게 정보입니다. 테스트 용도입니다.";
+        StoreInformationRequest informationRequest = new StoreInformationRequest(input);
+
+        // when, then
+        mvc.perform(patch("/api/v1/stores/1/info")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(informationRequest)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser
+    @DisplayName("가게 정보 삭제에 성공한다")
+    void successRemoveInformation() throws Exception {
+        // given
+        doNothing().when(storeService).deleteInformation(any(Long.class));
+
+        // when, then
+        mvc.perform(delete("/api/v1/stores/1/info")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
