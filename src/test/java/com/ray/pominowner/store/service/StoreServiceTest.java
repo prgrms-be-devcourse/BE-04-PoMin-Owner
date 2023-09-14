@@ -80,5 +80,4 @@ class StoreServiceTest {
                 .isThrownBy(() -> storeService.registerPhoneNumber(validPhoneNumber, store.getId()));
     }
 
-
 }

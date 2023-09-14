@@ -10,7 +10,7 @@ import org.springframework.util.Assert;
 import java.util.regex.Pattern;
 
 @Embeddable
-@EqualsAndHashCode(of = "tel")
+@EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PhoneNumber {
 
