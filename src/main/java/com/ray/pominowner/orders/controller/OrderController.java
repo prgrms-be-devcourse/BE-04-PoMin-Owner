@@ -28,8 +28,10 @@ public class OrderController {
     @PostMapping("/orders")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void createOrder(@RequestBody ReceiveOrderRequest request) {
-        Order order = ReceiveOrderRequest.getEntity(request);
+
+        Order order = request.toEntity();
         Payment payment = request.toPaymentEntity();
+
 
         orderService.receiveOrder(order);
         paymentService.create(payment);

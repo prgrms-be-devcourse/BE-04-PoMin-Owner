@@ -7,8 +7,10 @@ import com.ray.pominowner.payment.service.PaymentService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalTime;
+import java.util.List;
 
 @Service
 @Transactional
@@ -50,6 +52,14 @@ public class OrderService {
         paymentService.canceled(order.getPaymentId());
 
         return rejectedOrder;
+    }
+
+    public List<Order> getTodayOrders(Long storeId) {
+        List<Order> storeOrders = orderRepository.findAllByStoreId(storeId);
+
+        return storeOrders.stream()
+                .filter(Order::isToday)
+                .toList();
     }
 
 }

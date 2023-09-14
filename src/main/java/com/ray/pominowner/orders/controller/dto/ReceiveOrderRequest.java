@@ -19,18 +19,17 @@ public record ReceiveOrderRequest(
         PaymentCreateRequest payment
 ) {
 
-    public static Order getEntity(ReceiveOrderRequest request) {
+    public Order toEntity() {
         return Order.builder()
-                .id(request.id())
-                .orderNumber(request.orderNumber())
+                .id(this.id())
+                .orderNumber(this.orderNumber())
                 .status(OrderStatus.CONFIRMING)
-                .requestedDetails(request.requestedDetails())
-                .totalPrice(request.totalPrice())
-                .customerPhoneNumber(new PhoneNumber(request.customerPhoneNumber()))
-                .reservationTime(request.reservationTime())
-                .storeId(request.storeId())
-                .paymentId(request.payment.id())
-                .build();
+                .requestedDetails(this.requestedDetails())
+                .totalPrice(this.totalPrice())
+                .customerPhoneNumber(new PhoneNumber(this.customerPhoneNumber()))
+                .reservationTime(this.reservationTime())
+                .storeId(this.storeId())
+                .paymentId(this.paymentId())
     }
 
     public Payment toPaymentEntity() {
