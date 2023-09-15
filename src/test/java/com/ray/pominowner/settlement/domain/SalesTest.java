@@ -24,11 +24,11 @@ class SalesTest {
         assertThat(sales).isNotNull();
     }
 
-    @ParameterizedTest(name = "[{index}] amount : {0}, date : {1}")
+    @ParameterizedTest(name = "[{index}] salesAmount : {0}, orderedAt : {1}")
     @MethodSource("invalidSales")
     @DisplayName("필드 값이 유효하지 않은 경우 Sales 생성에 실패한다.")
-    public void failSales(int amount, LocalDate date) {
-        assertThatThrownBy(() -> new Sales(amount, date))
+    public void failSales(int salesAmount, LocalDate orderedAt) {
+        assertThatThrownBy(() -> new Sales(salesAmount, orderedAt))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
