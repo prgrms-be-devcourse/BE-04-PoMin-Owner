@@ -1,7 +1,6 @@
 package com.ray.pominowner.orders.controller;
 
 import com.ray.pominowner.orders.controller.dto.ApproveOrderResponse;
-import com.ray.pominowner.orders.controller.dto.GetOrdersRequest;
 import com.ray.pominowner.orders.controller.dto.OrderResponse;
 import com.ray.pominowner.orders.controller.dto.ReceiveOrderRequest;
 import com.ray.pominowner.orders.controller.dto.RejectOrderResponse;
@@ -56,9 +55,9 @@ public class OrderController {
         return new RejectOrderResponse(rejected);
     }
 
-    @GetMapping("/orders/today")
-    public List<OrderResponse> getTodayOrders(@RequestBody GetOrdersRequest request) {
-        List<Order> todayOrders = orderService.getTodayOrders(request.storeId());
+    @GetMapping("/orders/{storeId}/today")
+    public List<OrderResponse> getTodayOrders(@PathVariable Long storeId) {
+        List<Order> todayOrders = orderService.getTodayOrders(storeId);
 
         return todayOrders.stream()
                 .map(OrderResponse::of)
