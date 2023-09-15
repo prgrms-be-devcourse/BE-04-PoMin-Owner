@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,6 +33,7 @@ public class OrderServiceDbTest {
                 .requestedDetails("덜맵게 해주세요")
                 .totalPrice(30000)
                 .customerPhoneNumber(new PhoneNumber("01012345678"))
+                .orderedAt(LocalDateTime.now())
                 .storeId(1L)
                 .paymentId(1L)
                 .build();
@@ -50,7 +52,7 @@ public class OrderServiceDbTest {
         Order firstElement = todayOrders.get(0);
         assertThat(firstElement).isEqualTo(savedOrder);
         assertThat(todayOrders.size()).isEqualTo(1);
-        assertThat(savedOrder.getCreatedAt().toLocalDate()).isEqualTo(firstElement.getCreatedAt().toLocalDate());
+        assertThat(savedOrder.getOrderedAt().toLocalDate()).isEqualTo(firstElement.getOrderedAt().toLocalDate());
     }
 
 }

@@ -4,6 +4,7 @@ import com.ray.pominowner.store.StoreTestFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -28,6 +29,68 @@ class StoreTest {
         // when, then
         assertThatNoException()
                 .isThrownBy(() -> new Store(requiredStoreInfo));
+    }
+
+    @Test
+    @DisplayName("정상적으로 전화번호가 설정된다")
+    void successRegisterPhoneNumber() {
+        // given
+        Store store = StoreTestFixture.store();
+        PhoneNumber validPhoneNumber = new PhoneNumber("010-1234-5678");
+
+        // when
+        Store storeAfterRegisteredPhoneNumber = store.retrieveStoreAfterRegisteringPhoneNumber(validPhoneNumber.getTel());
+
+        // then
+        assertThat(store.getPhoneNumber()).isEqualTo(new PhoneNumber());
+        assertThat(storeAfterRegisteredPhoneNumber.getPhoneNumber()).isEqualTo(validPhoneNumber);
+    }
+
+    @Test
+    @DisplayName("정상적으로 전화번호가 삭제된다")
+    void successDeletingPhoneNumber() {
+        // given
+        String validPhoneNumber = "010-1234-5678";
+        Store store = StoreTestFixture.store()
+                .retrieveStoreAfterRegisteringPhoneNumber(validPhoneNumber);
+
+        // when
+        Store deletedPhoneNumberStore = store.retrieveStoreAfterDeletingPhoneNumber();
+
+        // then
+        assertThat(deletedPhoneNumberStore.getPhoneNumber()).isEqualTo(new PhoneNumber());
+        assertThat(deletedPhoneNumberStore.getPhoneNumber()).isNotEqualTo(new PhoneNumber(validPhoneNumber));
+    }
+
+    @Test
+    @DisplayName("정상적으로 가게 정보가 설정된다")
+    void successRegisterInformation() {
+        // given
+        Store store = StoreTestFixture.store();
+        Information validInformation = new Information("가게 정보입니다. 테스트 용도입니다.");
+
+        // when
+        Store storeAfterRegisteredPhoneNumber = store.retrieveStoreAfterRegisteringInfo(validInformation.getInfo());
+
+        // then
+        assertThat(store.getInformation()).isEqualTo(new Information());
+        assertThat(storeAfterRegisteredPhoneNumber.getInformation()).isEqualTo(validInformation);
+    }
+
+    @Test
+    @DisplayName("정상적으로 가게 정보가 삭제된다")
+    void successDeletingInformation() {
+        // given
+        String validInformation = "가게 정보입니다. 테스트 용도입니다.";
+        Store store = StoreTestFixture.store()
+                .retrieveStoreAfterRegisteringInfo(validInformation);
+
+        // when
+        Store deletedInfoStore = store.retrieveStoreAfterDeletingInfo();
+
+        // then
+        assertThat(deletedInfoStore.getInformation()).isEqualTo(new Information());
+        assertThat(deletedInfoStore.getInformation()).isNotEqualTo(new Information(validInformation));
     }
 
 }

@@ -2,6 +2,8 @@ package com.ray.pominowner.store.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ray.pominowner.store.controller.dto.CategoryRequest;
+import com.ray.pominowner.store.controller.dto.PhoneNumberRequest;
+import com.ray.pominowner.store.controller.dto.StoreInformationRequest;
 import com.ray.pominowner.store.controller.dto.StoreRegisterRequest;
 import com.ray.pominowner.store.domain.Store;
 import com.ray.pominowner.store.service.StoreService;
@@ -18,8 +20,9 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -28,7 +31,7 @@ class StoreControllerTest {
 
     @Autowired
     private MockMvc mvc;
-    
+
     @Autowired
     private ObjectMapper mapper;
 
@@ -65,6 +68,65 @@ class StoreControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(categoryRequest)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser
+    @DisplayName("전화번호 등록에 성공한다")
+    void successRegisterPhoneNumber() throws Exception {
+        // given
+        PhoneNumberRequest phoneNumberRequest = new PhoneNumberRequest("01012345678");
+
+        // when, then
+        mvc.perform(patch("/api/v1/stores/1/phone-numbers")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(phoneNumberRequest)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser
+    @DisplayName("전화번호 삭제에 성공한다")
+    void successRemovePhoneNumber() throws Exception {
+        // given
+        doNothing().when(storeService).deletePhoneNumber(any(Long.class));
+
+        // when, then
+        mvc.perform(delete("/api/v1/stores/1/phone-numbers")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser
+    @DisplayName("가게 정보 등록에 성공한다")
+    void successRegisterInformation() throws Exception {
+        // given
+        final String input = "가게 정보입니다. 테스트 용도입니다.";
+        StoreInformationRequest informationRequest = new StoreInformationRequest(input);
+
+        // when, then
+        mvc.perform(patch("/api/v1/stores/1/info")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(informationRequest)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser
+    @DisplayName("가게 정보 삭제에 성공한다")
+    void successRemoveInformation() throws Exception {
+        // given
+        doNothing().when(storeService).deleteInformation(any(Long.class));
+
+        // when, then
+        mvc.perform(delete("/api/v1/stores/1/info")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 

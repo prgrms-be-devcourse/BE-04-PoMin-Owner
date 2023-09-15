@@ -15,6 +15,7 @@ public record ReceiveOrderRequest(
         Integer totalPrice,
         String customerPhoneNumber,
         LocalDateTime reservationTime,
+        LocalDateTime orderedAt,
         Long storeId,
         PaymentCreateRequest payment
 ) {
@@ -30,6 +31,7 @@ public record ReceiveOrderRequest(
                 .reservationTime(this.reservationTime())
                 .storeId(this.storeId())
                 .paymentId(this.payment().id())
+                .orderedAt(this.orderedAt())
                 .build();
     }
 
