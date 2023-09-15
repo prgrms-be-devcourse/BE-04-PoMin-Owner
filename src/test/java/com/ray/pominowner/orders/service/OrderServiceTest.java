@@ -48,9 +48,9 @@ class OrderServiceTest {
                 .requestedDetails("덜맵게 해주세요")
                 .totalPrice(30000)
                 .customerPhoneNumber(new PhoneNumber("01012345678"))
+                .orderedAt(LocalDateTime.now())
                 .storeId(1L)
                 .paymentId(1L)
-                .orderedAt(LocalDateTime.now())
                 .build();
     }
 

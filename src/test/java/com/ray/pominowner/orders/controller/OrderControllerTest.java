@@ -76,14 +76,14 @@ class OrderControllerTest {
                 30000,
                 "01012345678",
                 null,
+                LocalDateTime.now(),
                 1L,
                 new PaymentCreateRequest(
                         1L,
                         10000,
                         PaymentStatus.COMPLETE,
                         PGType.TOSS
-                ),
-                LocalDateTime.now()
+                )
         );
 
         Payment payment = Payment.builder()
