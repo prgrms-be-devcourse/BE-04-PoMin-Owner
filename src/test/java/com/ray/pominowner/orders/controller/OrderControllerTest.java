@@ -20,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -58,6 +59,7 @@ class OrderControllerTest {
                 .customerPhoneNumber(new PhoneNumber("01012345678"))
                 .storeId(1L)
                 .paymentId(1L)
+                .orderedAt(LocalDateTime.now())
                 .build();
     }
 
@@ -74,6 +76,7 @@ class OrderControllerTest {
                 30000,
                 "01012345678",
                 null,
+                LocalDateTime.now(),
                 1L,
                 new PaymentCreateRequest(
                         1L,

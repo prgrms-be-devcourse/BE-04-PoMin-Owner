@@ -16,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -47,6 +48,7 @@ class OrderServiceTest {
                 .requestedDetails("덜맵게 해주세요")
                 .totalPrice(30000)
                 .customerPhoneNumber(new PhoneNumber("01012345678"))
+                .orderedAt(LocalDateTime.now())
                 .storeId(1L)
                 .paymentId(1L)
                 .build();
