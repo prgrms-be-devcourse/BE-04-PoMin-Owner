@@ -15,9 +15,9 @@ public record ReceiveOrderRequest(
         Integer totalPrice,
         String customerPhoneNumber,
         LocalDateTime reservationTime,
+        LocalDateTime orderedAt,
         Long storeId,
-        PaymentCreateRequest payment,
-        LocalDateTime orderedAt
+        PaymentCreateRequest payment
 ) {
 
     public Order toEntity() {
