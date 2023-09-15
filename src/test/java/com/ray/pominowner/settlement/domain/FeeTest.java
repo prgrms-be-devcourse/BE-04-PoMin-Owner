@@ -1,5 +1,6 @@
 package com.ray.pominowner.settlement.domain;
 
+import com.ray.pominowner.payment.domain.PGType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,29 +18,24 @@ class FeeTest {
     @DisplayName("Fee 생성에 성공한다.")
     public void successFee() {
         // given, when
-        Fee fee = new Fee(1000, 1000, 1000);
+        Fee fee = new Fee(PGType.TOSS, 10000);
 
         // then
         assertThat(fee).isNotNull();
     }
 
-    @ParameterizedTest(name = "[{index}] payment : {0}, brokerage : {1}, valueAdded : {2}")
+    @ParameterizedTest(name = "[{index}] pgType : {0}, payAmount : {1}")
     @MethodSource("invalidFee")
     @DisplayName("필드 값이 유효하지 않은 경우 Fee 생성에 실패한다.")
-    public void failFee(int payment, int brokerage, int valueAdded) {
-        assertThatThrownBy(() -> new Fee(payment, brokerage, valueAdded))
+    public void failFee(PGType pgType, int payAmount) {
+        assertThatThrownBy(() -> new Fee(pgType, payAmount))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     static Stream<Arguments> invalidFee() {
         return Stream.of(
-                Arguments.arguments(-1000, -1000, -1000),
-                Arguments.arguments(-1000, -1000, 1000),
-                Arguments.arguments(-1000, 1000, -1000),
-                Arguments.arguments(-1000, 1000, 1000),
-                Arguments.arguments(1000, -1000, -1000),
-                Arguments.arguments(1000, -1000, 1000),
-                Arguments.arguments(1000, 1000, -1000)
+                Arguments.arguments(null, 1000),
+                Arguments.arguments(null, -1000)
         );
     }
 
