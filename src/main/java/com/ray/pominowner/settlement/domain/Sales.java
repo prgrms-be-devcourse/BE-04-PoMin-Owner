@@ -24,8 +24,8 @@ public class Sales {
     private LocalDate salesDate;
 
     public Sales(int salesAmount, LocalDate salesDate) {
-        validate(salesAmount < 0, INVALID_AMOUNT);
-        validate(salesDate.isAfter(LocalDate.now()), SALES_DATE_IS_AFTER_NOW);
+        validate(salesAmount >= 0, INVALID_AMOUNT);
+        validate(orderedAt.isBefore(LocalDate.now()) || orderedAt.isEqual(LocalDate.now()), SALES_DATE_IS_AFTER_NOW);
 
         this.salesAmount = salesAmount;
         this.salesDate = salesDate;

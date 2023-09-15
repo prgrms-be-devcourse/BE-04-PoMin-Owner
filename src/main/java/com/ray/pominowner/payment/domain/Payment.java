@@ -11,6 +11,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.Hibernate;
+import org.springframework.util.Assert;
 
 import java.util.Objects;
 
@@ -18,7 +19,6 @@ import static com.ray.pominowner.global.util.ExceptionMessage.INVALID_AMOUNT;
 import static com.ray.pominowner.global.util.ExceptionMessage.NULL_PAYMENT_PROVIDER;
 import static com.ray.pominowner.global.util.ExceptionMessage.NULL_PAYMENT_STATUS;
 import static com.ray.pominowner.global.util.Validator.validate;
-import static java.util.Objects.isNull;
 
 @Entity
 @Getter
@@ -39,9 +39,9 @@ public class Payment extends BaseTimeEntity {
 
     @Builder
     public Payment(Long id, int amount, PaymentStatus status, PGType provider) {
-        validate(amount < 0, INVALID_AMOUNT);
-        validate(isNull(status), NULL_PAYMENT_STATUS);
-        validate(isNull(provider), NULL_PAYMENT_PROVIDER);
+        validate(amount >= 0, INVALID_AMOUNT);
+        Assert.notNull(status, NULL_PAYMENT_STATUS.getMessage());
+        Assert.notNull(provider, NULL_PAYMENT_PROVIDER.getMessage());
 
         this.id = id;
         this.amount = amount;
