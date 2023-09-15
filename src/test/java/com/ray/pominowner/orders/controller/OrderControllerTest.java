@@ -2,7 +2,6 @@ package com.ray.pominowner.orders.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ray.pominowner.global.domain.PhoneNumber;
-import com.ray.pominowner.orders.controller.dto.GetOrdersRequest;
 import com.ray.pominowner.orders.controller.dto.ReceiveOrderRequest;
 import com.ray.pominowner.orders.domain.Order;
 import com.ray.pominowner.orders.service.OrderService;
@@ -137,12 +136,11 @@ class OrderControllerTest {
     void successGetTodayOrders() throws Exception {
         given(orderService.getTodayOrders(any(Long.class))).willReturn(List.of(order));
 
-        GetOrdersRequest request = new GetOrdersRequest(1L);
+        Long storeId = 1L;
 
-        this.mockMvc.perform(get("/api/v1/orders/today")
+        this.mockMvc.perform(get("/api/v1/orders/{storeId}/today", storeId)
                         .with(csrf())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(request)))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print());
     }
