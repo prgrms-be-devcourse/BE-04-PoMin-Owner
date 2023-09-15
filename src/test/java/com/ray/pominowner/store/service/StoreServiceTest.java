@@ -91,4 +91,29 @@ class StoreServiceTest {
                 .isThrownBy(() -> storeService.deletePhoneNumber(store.getId()));
     }
 
+
+    @Test
+    @DisplayName("가게 정보가 정상적으로 등록된다")
+    void successRegisterInformation() {
+        // given
+        String validInformation = "가게 정보입니다. 테스트 용 입니다.";
+        given(storeRepository.findById(store.getId())).willReturn(Optional.of(store));
+
+        // when, then
+        assertThatNoException()
+                .isThrownBy(() -> storeService.registerInformation(validInformation, store.getId()));
+    }
+
+    @Test
+    @DisplayName("가게 정보가 정상적으로 삭제된다")
+    void successDeleteInformation() {
+        // given
+        given(storeRepository.findById(store.getId())).willReturn(Optional.of(store));
+
+        // when, then
+        assertThatNoException()
+                .isThrownBy(() -> storeService.deleteInformation(store.getId()));
+    }
+
 }
+

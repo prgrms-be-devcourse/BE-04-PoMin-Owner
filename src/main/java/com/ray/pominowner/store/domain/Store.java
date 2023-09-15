@@ -15,8 +15,6 @@ import org.springframework.util.Assert;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Store extends BaseTimeEntity {
 
-    private static final String DEFAULT_VALUE = "NOT_SELECTED";
-
     @Id
     @Column(name = "STORE_ID")
     @GeneratedValue
@@ -25,17 +23,16 @@ public class Store extends BaseTimeEntity {
     @Embedded
     private RequiredStoreInfo requiredStoreInfo;
 
-    @Column(columnDefinition = "TEXT default 'NOT_SELECTED'")
-    private String info = DEFAULT_VALUE;    // 선택
+    @Embedded
+    private Information info = new Information();
 
     @Embedded
-    @Column(columnDefinition = "TEXT default 'NOT_SELECTED'")
-    private PhoneNumber tel = new PhoneNumber();    // 선택
+    private PhoneNumber tel = new PhoneNumber();
 
     private Long ownerId;   // 추후 연관관계 설정 예정
 
     @Builder
-    private Store(Long id, RequiredStoreInfo requiredStoreInfo, String info, PhoneNumber tel, Long ownerId) {
+    private Store(Long id, RequiredStoreInfo requiredStoreInfo, Information info, PhoneNumber tel, Long ownerId) {
         this.id = id;
         this.requiredStoreInfo = requiredStoreInfo;
         this.info = info;
@@ -77,6 +74,26 @@ public class Store extends BaseTimeEntity {
                 .build();
     }
 
+    public Store retrieveStoreAfterRegisteringInfo(String information) {
+        return Store.builder()
+                .id(this.id)
+                .requiredStoreInfo(this.requiredStoreInfo)
+                .info(new Information(information))
+                .tel(this.tel)
+                .ownerId(this.ownerId)
+                .build();
+    }
+
+    public Store retrieveStoreAfterDeletingInfo() {
+        return Store.builder()
+                .id(this.id)
+                .requiredStoreInfo(this.requiredStoreInfo)
+                .info(new Information())
+                .tel(this.tel)
+                .ownerId(this.ownerId)
+                .build();
+    }
+
     public Long getId() {
         return id;
     }
@@ -85,4 +102,7 @@ public class Store extends BaseTimeEntity {
         return tel;
     }
 
+    public Information getInformation() {
+        return info;
+    }
 }

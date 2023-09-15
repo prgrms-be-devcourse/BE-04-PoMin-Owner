@@ -2,6 +2,7 @@ package com.ray.pominowner.store.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ray.pominowner.store.controller.dto.CategoryRequest;
+import com.ray.pominowner.store.controller.dto.StoreInformationRequest;
 import com.ray.pominowner.store.controller.dto.PhoneNumberRequest;
 import com.ray.pominowner.store.controller.dto.StoreRegisterRequest;
 import com.ray.pominowner.store.service.StoreService;
@@ -44,6 +45,16 @@ public class StoreController {
     @DeleteMapping("/{storeId}/phone-numbers")
     public void deletePhoneNumber(@PathVariable Long storeId) {
         storeService.deletePhoneNumber(storeId);
+    }
+
+    @PatchMapping("/{storeId}/info")
+    public void registerInformation(@RequestBody @Valid StoreInformationRequest infoRequest, @PathVariable Long storeId) {
+        storeService.registerInformation(infoRequest.information(), storeId);
+    }
+
+    @DeleteMapping("/{storeId}/info")
+    public void deleteInformation(@PathVariable Long storeId) {
+        storeService.deleteInformation(storeId);
     }
 
 }

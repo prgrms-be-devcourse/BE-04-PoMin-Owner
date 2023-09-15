@@ -32,7 +32,7 @@ class StoreTest {
     }
 
     @Test
-    @DisplayName("전화번호를 등록하면 전화번호가 설정된다")
+    @DisplayName("정상적으로 전화번호가 설정된다")
     void successRegisterPhoneNumber() {
         // given
         Store store = StoreTestFixture.store();
@@ -59,7 +59,38 @@ class StoreTest {
 
         // then
         assertThat(deletedPhoneNumberStore.getPhoneNumber()).isEqualTo(new PhoneNumber());
+        assertThat(deletedPhoneNumberStore.getPhoneNumber()).isNotEqualTo(new PhoneNumber(validPhoneNumber));
     }
 
+    @Test
+    @DisplayName("정상적으로 가게 정보가 설정된다")
+    void successRegisterInformation() {
+        // given
+        Store store = StoreTestFixture.store();
+        Information validInformation = new Information("가게 정보입니다. 테스트 용도입니다.");
+
+        // when
+        Store storeAfterRegisteredPhoneNumber = store.retrieveStoreAfterRegisteringInfo(validInformation.getInfo());
+
+        // then
+        assertThat(store.getInformation()).isEqualTo(new Information());
+        assertThat(storeAfterRegisteredPhoneNumber.getInformation()).isEqualTo(validInformation);
+    }
+
+    @Test
+    @DisplayName("정상적으로 가게 정보가 삭제된다")
+    void successDeletingInformation() {
+        // given
+        String validInformation = "가게 정보입니다. 테스트 용도입니다.";
+        Store store = StoreTestFixture.store()
+                .retrieveStoreAfterRegisteringInfo(validInformation);
+
+        // when
+        Store deletedInfoStore = store.retrieveStoreAfterDeletingInfo();
+
+        // then
+        assertThat(deletedInfoStore.getInformation()).isEqualTo(new Information());
+        assertThat(deletedInfoStore.getInformation()).isNotEqualTo(new Information(validInformation));
+    }
 
 }
