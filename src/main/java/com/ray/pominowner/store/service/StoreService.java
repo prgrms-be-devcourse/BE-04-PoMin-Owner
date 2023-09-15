@@ -25,16 +25,41 @@ public class StoreService {
     @Transactional
     public Long registerStore(Store store) throws JsonProcessingException {
         storeServiceValidator.validateBusinessNumber(store.getBusinessNumber());
+
         return storeRepository.save(store).getId();
     }
 
     @Transactional
-    public void registerCategory(final List<String> categories, Long storeId) {
+    public void registerCategory(List<String> categories, Long storeId) {
         storeServiceValidator.validateCategory(categories);
         storeCategoryService.saveCategories(findStore(storeId), categories);
     }
 
-    private Store findStore(final Long storeId) {
+    @Transactional
+    public void registerPhoneNumber(String phoneNumber, Long storeId) {
+        Store store = findStore(storeId).retrieveStoreAfterRegisteringPhoneNumber(phoneNumber);
+        storeRepository.save(store);
+    }
+
+    @Transactional
+    public void deletePhoneNumber(Long storeId) {
+        Store store = findStore(storeId).retrieveStoreAfterDeletingPhoneNumber();
+        storeRepository.save(store);
+    }
+
+    @Transactional
+    public void registerInformation(String information, Long storeId) {
+        Store store = findStore(storeId).retrieveStoreAfterRegisteringInfo(information);
+        storeRepository.save(store);
+    }
+
+    @Transactional
+    public void deleteInformation(Long storeId) {
+        Store store = findStore(storeId).retrieveStoreAfterDeletingInfo();
+        storeRepository.save(store);
+    }
+
+    private Store findStore(Long storeId) {
         return storeRepository.findById(storeId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 가게입니다."));
     }
