@@ -20,6 +20,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDateTime;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
@@ -54,6 +56,8 @@ class OrderControllerTest {
                 .totalPrice(30000)
                 .customerPhoneNumber(new PhoneNumber("01012345678"))
                 .storeId(1L)
+                .paymentId(1L)
+                .orderedAt(LocalDateTime.now())
                 .build();
     }
 
@@ -76,7 +80,8 @@ class OrderControllerTest {
                         10000,
                         PaymentStatus.COMPLETE,
                         PGType.TOSS
-                )
+                ),
+                LocalDateTime.now()
         );
 
         Payment payment = Payment.builder()

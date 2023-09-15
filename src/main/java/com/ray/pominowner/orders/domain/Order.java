@@ -53,6 +53,8 @@ public class Order extends BaseTimeEntity {
 
     private String rejectReason;
 
+    private LocalDateTime orderedAt;
+
     // STORE 와 다대일 매핑
     private Long storeId;
 
