@@ -20,8 +20,11 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -54,6 +57,7 @@ class OrderControllerTest {
                 .totalPrice(30000)
                 .customerPhoneNumber(new PhoneNumber("01012345678"))
                 .storeId(1L)
+                .paymentId(1L)
                 .build();
     }
 
@@ -122,6 +126,21 @@ class OrderControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("orderId", "1"))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @Test
+    @WithMockUser
+    @DisplayName("오늘의 주문 내역을 가져오기를 성공한다")
+    void successGetTodayOrders() throws Exception {
+        given(orderService.getTodayOrders(any(Long.class))).willReturn(List.of(order));
+
+        Long storeId = 1L;
+
+        this.mockMvc.perform(get("/api/v1/orders/{storeId}/today", storeId)
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print());
     }
