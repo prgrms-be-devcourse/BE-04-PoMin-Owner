@@ -2,8 +2,9 @@ package com.ray.pominowner.store.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ray.pominowner.store.controller.dto.CategoryRequest;
-import com.ray.pominowner.store.controller.dto.StoreInformationRequest;
 import com.ray.pominowner.store.controller.dto.PhoneNumberRequest;
+import com.ray.pominowner.store.controller.dto.StoreImageRequest;
+import com.ray.pominowner.store.controller.dto.StoreInformationRequest;
 import com.ray.pominowner.store.controller.dto.StoreRegisterRequest;
 import com.ray.pominowner.store.service.StoreService;
 import jakarta.validation.Valid;
@@ -55,6 +56,11 @@ public class StoreController {
     @DeleteMapping("/{storeId}/info")
     public void deleteInformation(@PathVariable Long storeId) {
         storeService.deleteInformation(storeId);
+    }
+
+    @PostMapping("/{storeId}/store-image")
+    public void saveStoreImage(@RequestBody @Valid StoreImageRequest requestImages, @PathVariable Long storeId) {
+        storeService.saveStoreImage(requestImages.images(), storeId);
     }
 
 }
