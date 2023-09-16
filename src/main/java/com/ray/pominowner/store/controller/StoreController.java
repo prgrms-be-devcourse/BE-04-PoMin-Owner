@@ -60,7 +60,7 @@ public class StoreController {
 
     @PostMapping("/{storeId}/store-image")
     public void saveStoreImage(@RequestBody @Valid StoreImageRequest requestImages, @PathVariable Long storeId) {
-        storeService.saveStoreImage(requestImages.images(), storeId);
+        storeService.saveStoreImages(requestImages.images(), storeId);
     }
 
 }

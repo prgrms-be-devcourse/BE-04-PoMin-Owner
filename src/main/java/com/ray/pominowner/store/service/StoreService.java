@@ -7,13 +7,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class StoreService {
 
     private final StoreServiceValidator storeServiceValidator;
@@ -22,41 +23,41 @@ public class StoreService {
 
     private final StoreCategoryService storeCategoryService;
 
-    @Transactional
+    private final StoreImageService storeImageService;
+
     public Long registerStore(Store store) throws JsonProcessingException {
         storeServiceValidator.validateBusinessNumber(store.getBusinessNumber());
 
         return storeRepository.save(store).getId();
     }
 
-    @Transactional
     public void registerCategory(List<String> categories, Long storeId) {
         storeServiceValidator.validateCategory(categories);
         storeCategoryService.saveCategories(findStore(storeId), categories);
     }
 
-    @Transactional
     public void registerPhoneNumber(String phoneNumber, Long storeId) {
         Store store = findStore(storeId).retrieveStoreAfterRegisteringPhoneNumber(phoneNumber);
         storeRepository.save(store);
     }
 
-    @Transactional
     public void deletePhoneNumber(Long storeId) {
         Store store = findStore(storeId).retrieveStoreAfterDeletingPhoneNumber();
         storeRepository.save(store);
     }
 
-    @Transactional
     public void registerInformation(String information, Long storeId) {
         Store store = findStore(storeId).retrieveStoreAfterRegisteringInfo(information);
         storeRepository.save(store);
     }
 
-    @Transactional
     public void deleteInformation(Long storeId) {
         Store store = findStore(storeId).retrieveStoreAfterDeletingInfo();
         storeRepository.save(store);
+    }
+
+    public void saveStoreImages(List<MultipartFile> images, Long storeId) {
+        storeImageService.saveImages(images, findStore(storeId));
     }
 
     private Store findStore(Long storeId) {
