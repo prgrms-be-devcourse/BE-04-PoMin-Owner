@@ -20,3 +20,10 @@ spring:
         highlight_sql: true
     defer-datasource-initialization: true
     open-in-view: false
+
+file:
+  store:
+    image:
+      path: /store-image/
+    logo:
+      path: /store-logo-image/
