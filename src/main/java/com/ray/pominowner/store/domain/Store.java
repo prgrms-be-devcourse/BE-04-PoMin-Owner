@@ -6,12 +6,20 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static jakarta.persistence.CascadeType.ALL;
+
 @Entity
+@EqualsAndHashCode(of = "id")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Store extends BaseTimeEntity {
 
@@ -29,14 +37,18 @@ public class Store extends BaseTimeEntity {
     @Embedded
     private PhoneNumber tel = new PhoneNumber();
 
+    @OneToMany(mappedBy = "store", cascade = ALL, orphanRemoval = true)
+    private List<StoreImage> images = new ArrayList<>();
+
     private Long ownerId;   // 추후 연관관계 설정 예정
 
     @Builder
-    private Store(Long id, RequiredStoreInfo requiredStoreInfo, Information info, PhoneNumber tel, Long ownerId) {
+    private Store(Long id, RequiredStoreInfo requiredStoreInfo, Information info, PhoneNumber tel, List<StoreImage> images, Long ownerId) {
         this.id = id;
         this.requiredStoreInfo = requiredStoreInfo;
         this.info = info;
         this.tel = tel;
+        this.images = images;
         this.ownerId = ownerId;
     }
 
@@ -60,6 +72,7 @@ public class Store extends BaseTimeEntity {
                 .requiredStoreInfo(this.requiredStoreInfo)
                 .info(this.info)
                 .tel(new PhoneNumber(phoneNumber))
+                .images(this.images)
                 .ownerId(this.ownerId)
                 .build();
     }
@@ -70,6 +83,7 @@ public class Store extends BaseTimeEntity {
                 .requiredStoreInfo(this.requiredStoreInfo)
                 .info(this.info)
                 .tel(new PhoneNumber())
+                .images(this.images)
                 .ownerId(this.ownerId)
                 .build();
     }
@@ -80,6 +94,7 @@ public class Store extends BaseTimeEntity {
                 .requiredStoreInfo(this.requiredStoreInfo)
                 .info(new Information(information))
                 .tel(this.tel)
+                .images(this.images)
                 .ownerId(this.ownerId)
                 .build();
     }
@@ -90,6 +105,7 @@ public class Store extends BaseTimeEntity {
                 .requiredStoreInfo(this.requiredStoreInfo)
                 .info(new Information())
                 .tel(this.tel)
+                .images(this.images)
                 .ownerId(this.ownerId)
                 .build();
     }
@@ -105,4 +121,9 @@ public class Store extends BaseTimeEntity {
     public Information getInformation() {
         return info;
     }
+
+    public List<StoreImage> getImages() {
+        return images;
+    }
+
 }
