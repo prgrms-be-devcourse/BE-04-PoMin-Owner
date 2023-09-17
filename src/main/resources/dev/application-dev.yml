@@ -21,9 +21,15 @@ spring:
     defer-datasource-initialization: true
     open-in-view: false
 
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
 file:
   store:
     image:
       path: /store-image/
     logo:
       path: /store-logo-image/
+
