@@ -29,7 +29,7 @@ spring:
 file:
   store:
     image:
-      path: /store-image/
+      path: src/main/resources/store-image/
     logo:
-      path: /store-logo-image/
+      path: src/main/resources/store-logo-image/
 
