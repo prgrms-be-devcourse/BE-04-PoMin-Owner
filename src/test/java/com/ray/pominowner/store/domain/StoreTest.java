@@ -32,7 +32,7 @@ class StoreTest {
     }
 
     @Test
-    @DisplayName("정상적으로 전화번호가 설정된다")
+    @DisplayName("전화번호 설저에 성공한다")
     void successRegisterPhoneNumber() {
         // given
         Store store = StoreTestFixture.store();
@@ -47,8 +47,8 @@ class StoreTest {
     }
 
     @Test
-    @DisplayName("정상적으로 전화번호가 삭제된다")
-    void successDeletingPhoneNumber() {
+    @DisplayName("전화번호 삭제에 성공한다")
+    void successDeletePhoneNumber() {
         // given
         String validPhoneNumber = "010-1234-5678";
         Store store = StoreTestFixture.store()
@@ -63,7 +63,7 @@ class StoreTest {
     }
 
     @Test
-    @DisplayName("정상적으로 가게 정보가 설정된다")
+    @DisplayName("가게 정보 설정에 성공한다")
     void successRegisterInformation() {
         // given
         Store store = StoreTestFixture.store();
@@ -78,7 +78,7 @@ class StoreTest {
     }
 
     @Test
-    @DisplayName("정상적으로 가게 정보가 삭제된다")
+    @DisplayName("가게 정보 삭제에 성공한다")
     void successDeletingInformation() {
         // given
         String validInformation = "가게 정보입니다. 테스트 용도입니다.";

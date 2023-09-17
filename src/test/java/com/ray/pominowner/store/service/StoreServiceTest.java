@@ -11,9 +11,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.mockito.ArgumentMatchers.any;
@@ -35,6 +39,9 @@ class StoreServiceTest {
     @Mock
     private StoreCategoryService storeCategoryService;
 
+    @Mock
+    private StoreImageService storeImageService;
+
     private Store store;
 
     @BeforeEach
@@ -53,7 +60,6 @@ class StoreServiceTest {
         assertThatNoException()
                 .isThrownBy(() -> storeService.registerStore(store));
     }
-
 
     @Test
     @DisplayName("카테고리가 정상적으로 등록된다")
@@ -115,5 +121,17 @@ class StoreServiceTest {
                 .isThrownBy(() -> storeService.deleteInformation(store.getId()));
     }
 
-}
+    @Test
+    @DisplayName("가게 이미지가 정상적으로 등록된다")
+    void successRegisterStoreImage() {
+        // given
+        MockMultipartFile firstMultipartFile = new MockMultipartFile("TEST", "test1.png", MediaType.IMAGE_PNG_VALUE, UUID.randomUUID().toString().getBytes(StandardCharsets.UTF_8));
+        MockMultipartFile secondMultipartFile = new MockMultipartFile("TEST2", "test2.png", MediaType.IMAGE_PNG_VALUE, UUID.randomUUID().toString().getBytes(StandardCharsets.UTF_8));
+        given(storeRepository.findById(store.getId())).willReturn(Optional.of(store));
 
+        // when, then
+        assertThatNoException()
+                .isThrownBy(() -> storeService.saveStoreImages(List.of(firstMultipartFile, secondMultipartFile), store.getId()));
+    }
+
+}
