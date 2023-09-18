@@ -54,7 +54,7 @@ public class OrderService {
         return rejectedOrder;
     }
 
-    public Order finishCooking(Long orderId) {
+    public Order readyToServe(Long orderId) {
         Order order = orderRepository.findById(orderId).orElseThrow(
                 () -> new IllegalArgumentException("해당하는 주문이 없습니다"));
 

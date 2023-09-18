@@ -111,7 +111,7 @@ class OrderServiceTest {
         given(orderRepository.save(any(Order.class))).willReturn(order);
 
         // when
-        Order readyOrder = orderService.finishCooking(1L);
+        Order readyOrder = orderService.readyToServe(1L);
 
         // then
         assertThat(readyOrder).hasFieldOrPropertyWithValue("status", OrderStatus.READY);
