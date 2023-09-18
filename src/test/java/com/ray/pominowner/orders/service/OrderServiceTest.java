@@ -1,6 +1,7 @@
 package com.ray.pominowner.orders.service;
 
 import com.ray.pominowner.global.domain.PhoneNumber;
+import com.ray.pominowner.orders.controller.dto.ApproveOrderRequest;
 import com.ray.pominowner.orders.domain.Order;
 import com.ray.pominowner.orders.domain.OrderStatus;
 import com.ray.pominowner.orders.repository.OrderRepository;
@@ -76,13 +77,16 @@ class OrderServiceTest {
         given(orderRepository.findById(1L)).willReturn(Optional.ofNullable(order));
         given(generator.incrementAndGet()).willReturn(1);
 
+        ApproveOrderRequest request = new ApproveOrderRequest(90);
+
         // when
-        Order approvedOrder = orderService.approve(order.getId());
+        Order approvedOrder = orderService.approve(order.getId(), request.cookingMinute());
 
         // then
         assertThat(approvedOrder).hasFieldOrPropertyWithValue("status", OrderStatus.COOKING);
         assertThat(approvedOrder).hasFieldOrPropertyWithValue("receiptNumber", 1);
         assertThat(approvedOrder).hasFieldOrPropertyWithValue("estimatedCookingTime", approvedOrder.getEstimatedCookingTime());
+        assertThat(approvedOrder.getEstimatedCookingTime().isAfter(approvedOrder.getOrderedAt().toLocalTime())).isTrue();
     }
 
     @Test
