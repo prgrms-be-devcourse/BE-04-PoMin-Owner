@@ -20,8 +20,8 @@ public class MenuController {
 
     private final MenuService menuService;
 
-    @PostMapping({"{storeId}"})
-    public ResponseEntity<?> registerMenu(@RequestBody MenuInfoRequest request, @PathVariable Long storeId) {
+    @PostMapping("{storeId}")
+    public ResponseEntity<Void> registerMenu(@RequestBody MenuInfoRequest request, @PathVariable Long storeId) {
         MenuImage image = menuService.createImage(request.image());
         Long menuId = menuService.registerMenu(request.generateMenuEntityWithImage(image));
 
