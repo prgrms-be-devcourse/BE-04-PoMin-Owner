@@ -1,6 +1,7 @@
 package com.ray.pominowner.settlement.domain;
 
 import com.ray.pominowner.payment.domain.PGType;
+import com.ray.pominowner.settlement.SettlementTestFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -10,6 +11,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.time.LocalDate;
 import java.util.stream.Stream;
 
+import static com.ray.pominowner.settlement.SettlementTestFixture.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -25,22 +27,7 @@ class SettlementTest {
     @Test
     @DisplayName("Settlement 생성에 성공한다.")
     public void successSettlement() {
-        // given, when
-        Settlement settlement = Settlement.builder()
-                .id(1L)
-                .fee(fee)
-                .payOut(payOut)
-                .sales(sales)
-                .depositStatus(DepositStatus.SCHEDULED)
-                .storeId(1L)
-                .orderId(1L)
-                .paymentId(1L)
-                .deleted(false)
-                .build();
-
-
-        // then
-        assertThat(settlement).isNotNull();
+        assertThat(settlement()).isNotNull();
     }
 
     @ParameterizedTest(name = "[{index}] amount : {0}, date : {1}")

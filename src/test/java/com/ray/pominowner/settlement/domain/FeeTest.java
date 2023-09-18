@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
+import static com.ray.pominowner.settlement.SettlementTestFixture.fee;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -17,11 +18,7 @@ class FeeTest {
     @Test
     @DisplayName("Fee 생성에 성공한다.")
     public void successFee() {
-        // given, when
-        Fee fee = new Fee(PGType.TOSS, 10000);
-
-        // then
-        assertThat(fee).isNotNull();
+        assertThat(fee()).isNotNull();
     }
 
     @ParameterizedTest(name = "[{index}] pgType : {0}, payAmount : {1}")
