@@ -62,6 +62,8 @@ public class OrderService {
 
         orderRepository.save(readyOrder);
 
+        // 향후 restTemplate 적용 예정
+
         return readyOrder;
     }
 
