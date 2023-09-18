@@ -2,6 +2,7 @@ package com.ray.pominowner.orders.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ray.pominowner.global.domain.PhoneNumber;
+import com.ray.pominowner.orders.controller.dto.ApproveOrderRequest;
 import com.ray.pominowner.orders.controller.dto.ReceiveOrderRequest;
 import com.ray.pominowner.orders.domain.Order;
 import com.ray.pominowner.orders.service.OrderService;
@@ -21,6 +22,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -109,12 +111,15 @@ class OrderControllerTest {
     @WithMockUser
     @DisplayName("주문 수락을 성공한다")
     void successApproveOrder() throws Exception {
-        given(orderService.approve(any(Long.class))).willReturn(order);
+        given(orderService.approve(any(Long.class), any(Integer.class))).willReturn(order);
+
+        ApproveOrderRequest request = new ApproveOrderRequest(90);
 
         this.mockMvc.perform(post("/api/v1/orders/1/approve")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .param("orderId", "1"))
+                        .param("orderId", "1")
+                        .content(mapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andDo(print());
     }

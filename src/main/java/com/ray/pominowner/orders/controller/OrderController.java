@@ -1,5 +1,6 @@
 package com.ray.pominowner.orders.controller;
 
+import com.ray.pominowner.orders.controller.dto.ApproveOrderRequest;
 import com.ray.pominowner.orders.controller.dto.ApproveOrderResponse;
 import com.ray.pominowner.orders.controller.dto.OrderResponse;
 import com.ray.pominowner.orders.controller.dto.ReceiveOrderRequest;
@@ -42,8 +43,8 @@ public class OrderController {
     }
 
     @PostMapping("/orders/{orderId}/approve")
-    public ApproveOrderResponse acceptOrder(@PathVariable Long orderId) {
-        Order approved = orderService.approve(orderId);
+    public ApproveOrderResponse acceptOrder(@PathVariable Long orderId, @RequestBody ApproveOrderRequest request) {
+        Order approved = orderService.approve(orderId, request.cookingMinute());
 
         return new ApproveOrderResponse(approved);
     }
