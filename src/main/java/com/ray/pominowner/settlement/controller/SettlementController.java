@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -15,8 +16,8 @@ public class SettlementController {
 
     private final SettlementService settlementService;
 
-    @GetMapping("/{orderId}")
-    public SettlementResponse getSettlementInfoByOrder(@PathVariable Long orderId) {
+    @GetMapping
+    public SettlementResponse getSettlementInfoByOrder(@RequestParam("orderId") Long orderId) {
         return settlementService.getSettlementByOrder(orderId);
     }
 
