@@ -15,7 +15,6 @@ public final class SettlementTestFixture {
         return new Fee(PGType.TOSS, 10000);
     }
 
-
     public static PayOut payOut() {
         return new PayOut(10000, fee(), LocalDate.now());
     }
