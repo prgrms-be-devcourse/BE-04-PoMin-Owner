@@ -13,10 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -127,6 +130,23 @@ class StoreControllerTest {
         mvc.perform(delete("/api/v1/stores/1/info")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser
+    @DisplayName("가게 이미지 저장에 성공한다")
+    void successSaveImages() throws Exception {
+        // given
+        MockMultipartFile firstMultipartFile = new MockMultipartFile("TEST", "test1.png", MediaType.IMAGE_PNG_VALUE, UUID.randomUUID().toString().getBytes(StandardCharsets.UTF_8));
+        MockMultipartFile secondMultipartFile = new MockMultipartFile("TEST2", "test2.png", MediaType.IMAGE_PNG_VALUE, UUID.randomUUID().toString().getBytes(StandardCharsets.UTF_8));
+
+        // when, then
+        mvc.perform(multipart("/api/v1/stores/1/store-images")
+                        .file(firstMultipartFile)
+                        .file(secondMultipartFile)
+                        .contentType(MediaType.MULTIPART_FORM_DATA)
+                        .with(csrf()))
                 .andExpect(status().isOk());
     }
 

@@ -2,12 +2,13 @@ package com.ray.pominowner.store.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ray.pominowner.store.controller.dto.CategoryRequest;
-import com.ray.pominowner.store.controller.dto.StoreInformationRequest;
 import com.ray.pominowner.store.controller.dto.PhoneNumberRequest;
+import com.ray.pominowner.store.controller.dto.StoreInformationRequest;
 import com.ray.pominowner.store.controller.dto.StoreRegisterRequest;
 import com.ray.pominowner.store.service.StoreService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/stores")
@@ -55,6 +58,11 @@ public class StoreController {
     @DeleteMapping("/{storeId}/info")
     public void deleteInformation(@PathVariable Long storeId) {
         storeService.deleteInformation(storeId);
+    }
+
+    @PostMapping(value = "/{storeId}/store-images", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public void saveStoreImage(@RequestBody List<MultipartFile> images, @PathVariable Long storeId) {
+        storeService.saveStoreImages(images, storeId);
     }
 
 }

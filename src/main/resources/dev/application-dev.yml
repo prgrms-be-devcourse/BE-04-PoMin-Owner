@@ -20,3 +20,16 @@ spring:
         highlight_sql: true
     defer-datasource-initialization: true
     open-in-view: false
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+file:
+  store:
+    image:
+      path: src/main/resources/store-image/
+    logo:
+      path: src/main/resources/store-logo-image/
+
