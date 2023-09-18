@@ -5,6 +5,11 @@ import com.ray.pominowner.orders.domain.Order;
 import com.ray.pominowner.orders.domain.OrderStatus;
 import com.ray.pominowner.payment.domain.Payment;
 import com.ray.pominowner.payment.dto.PaymentCreateRequest;
+import com.ray.pominowner.settlement.domain.DepositStatus;
+import com.ray.pominowner.settlement.domain.Fee;
+import com.ray.pominowner.settlement.domain.PayOut;
+import com.ray.pominowner.settlement.domain.Sales;
+import com.ray.pominowner.settlement.domain.Settlement;
 
 import java.time.LocalDateTime;
 
@@ -37,10 +42,26 @@ public record ReceiveOrderRequest(
 
     public Payment toPaymentEntity() {
         return Payment.builder()
-                .id(this.payment.id())
-                .amount(this.payment.amount())
-                .status(this.payment.status())
-                .provider(this.payment.provider())
+                .id(payment.id())
+                .amount(payment.amount())
+                .status(payment.status())
+                .provider(payment.provider())
+                .build();
+    }
+
+    public Settlement toSettlementEntity() {
+        Fee fee = new Fee(payment.provider(), payment.amount());
+
+        return Settlement.builder()
+                .id(payment.id())
+                .fee(fee)
+                .payOut(new PayOut(payment.amount(), fee, orderedAt.toLocalDate()))
+                .sales(new Sales(payment.amount(), orderedAt.toLocalDate()))
+                .depositStatus(DepositStatus.SCHEDULED)
+                .storeId(storeId)
+                .orderId(id)
+                .paymentId(payment.id())
+                .deleted(false)
                 .build();
     }
 

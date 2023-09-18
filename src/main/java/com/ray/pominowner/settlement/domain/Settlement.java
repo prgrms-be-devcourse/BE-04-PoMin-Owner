@@ -24,7 +24,6 @@ import static com.ray.pominowner.global.util.ExceptionMessage.NULL_SALES_OBJECT;
 public class Settlement extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
     @Column(name = "SETTLEMENT_ID")
     private Long id;
 
@@ -48,9 +47,10 @@ public class Settlement extends BaseTimeEntity {
     private boolean deleted;
 
     @Builder
-    public Settlement(Fee fee, PayOut payOut, Sales sales, DepositStatus depositStatus, Long storeId, Long orderId, Long paymentId, boolean deleted) {
+    public Settlement(Long id, Fee fee, PayOut payOut, Sales sales, DepositStatus depositStatus, Long storeId, Long orderId, Long paymentId, boolean deleted) {
         validateSettlement(fee, payOut, sales, depositStatus);
 
+        this.id = id;
         this.fee = fee;
         this.payOut = payOut;
         this.sales = sales;

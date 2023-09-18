@@ -4,12 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ray.pominowner.global.domain.PhoneNumber;
 import com.ray.pominowner.orders.controller.dto.ReceiveOrderRequest;
 import com.ray.pominowner.orders.domain.Order;
+import com.ray.pominowner.orders.service.OrderProcessingService;
 import com.ray.pominowner.orders.service.OrderService;
 import com.ray.pominowner.payment.domain.PGType;
-import com.ray.pominowner.payment.domain.Payment;
 import com.ray.pominowner.payment.domain.PaymentStatus;
 import com.ray.pominowner.payment.dto.PaymentCreateRequest;
-import com.ray.pominowner.payment.service.PaymentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,8 +36,9 @@ class OrderControllerTest {
     @MockBean
     private OrderService orderService;
 
+
     @MockBean
-    private PaymentService paymentService;
+    private OrderProcessingService orderProcessingService;
 
     @Autowired
     private MockMvc mockMvc;
@@ -85,16 +85,6 @@ class OrderControllerTest {
                         PGType.TOSS
                 )
         );
-
-        Payment payment = Payment.builder()
-                .id(1L)
-                .amount(10000)
-                .status(PaymentStatus.COMPLETE)
-                .provider(PGType.TOSS)
-                .build();
-
-        given(orderService.receiveOrder(any(Order.class))).willReturn(order);
-        given(paymentService.create(any(Payment.class))).willReturn(payment);
 
         // when, then
         this.mockMvc.perform(post("/api/v1/orders")

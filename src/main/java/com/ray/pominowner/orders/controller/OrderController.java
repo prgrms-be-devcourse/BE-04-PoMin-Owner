@@ -5,9 +5,10 @@ import com.ray.pominowner.orders.controller.dto.OrderResponse;
 import com.ray.pominowner.orders.controller.dto.ReceiveOrderRequest;
 import com.ray.pominowner.orders.controller.dto.RejectOrderResponse;
 import com.ray.pominowner.orders.domain.Order;
+import com.ray.pominowner.orders.service.OrderProcessingService;
 import com.ray.pominowner.orders.service.OrderService;
 import com.ray.pominowner.payment.domain.Payment;
-import com.ray.pominowner.payment.service.PaymentService;
+import com.ray.pominowner.settlement.domain.Settlement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,18 +28,16 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    private final PaymentService paymentService;
+    private final OrderProcessingService orderProcessingService;
 
     @PostMapping("/orders")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void createOrder(@RequestBody ReceiveOrderRequest request) {
-
         Order order = request.toEntity();
         Payment payment = request.toPaymentEntity();
+        Settlement settlement = request.toSettlementEntity();
 
-
-        orderService.receiveOrder(order);
-        paymentService.create(payment);
+        orderProcessingService.create(order, payment, settlement);
     }
 
     @PostMapping("/orders/{orderId}/approve")

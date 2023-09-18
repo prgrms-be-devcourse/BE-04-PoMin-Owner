@@ -27,6 +27,7 @@ class SettlementTest {
     public void successSettlement() {
         // given, when
         Settlement settlement = Settlement.builder()
+                .id(1L)
                 .fee(fee)
                 .payOut(payOut)
                 .sales(sales)
@@ -48,6 +49,7 @@ class SettlementTest {
     public void failSettlement(Fee fee, PayOut payOut, Sales sales) {
         assertThatThrownBy(() ->
                 Settlement.builder()
+                        .id(1L)
                         .fee(fee)
                         .payOut(payOut)
                         .sales(sales)
