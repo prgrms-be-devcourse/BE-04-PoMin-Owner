@@ -72,6 +72,7 @@ public class Order extends BaseTimeEntity {
                 .customerPhoneNumber(order.customerPhoneNumber)
                 .reservationTime(order.reservationTime)
                 .estimatedCookingTime(estimatedCookingTime)
+                .orderedAt(order.orderedAt)
                 .storeId(order.storeId)
                 .paymentId(order.paymentId)
                 .build();
@@ -87,6 +88,22 @@ public class Order extends BaseTimeEntity {
                 .customerPhoneNumber(order.customerPhoneNumber)
                 .reservationTime(order.reservationTime)
                 .rejectReason(rejectReason)
+                .orderedAt(order.orderedAt)
+                .storeId(order.storeId)
+                .paymentId(order.paymentId)
+                .build();
+    }
+
+    public static Order of(Order order, OrderStatus status) {
+        return Order.builder()
+                .id(order.id)
+                .orderNumber(order.orderNumber)
+                .status(status)
+                .requestedDetails(order.requestedDetails)
+                .totalPrice(order.totalPrice)
+                .customerPhoneNumber(order.customerPhoneNumber)
+                .reservationTime(order.reservationTime)
+                .orderedAt(order.orderedAt)
                 .storeId(order.storeId)
                 .paymentId(order.paymentId)
                 .build();

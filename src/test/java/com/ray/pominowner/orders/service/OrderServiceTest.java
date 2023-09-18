@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -100,6 +101,20 @@ class OrderServiceTest {
         // then
         assertThat(rejectedOrder).hasFieldOrPropertyWithValue("status", OrderStatus.REJECTED);
         assertThat(rejectedOrder).hasFieldOrPropertyWithValue("rejectReason", "재고 소진");
+    }
+
+    @Test
+    @DisplayName("주문 상태를 요리 완료로 설정하는데 성공한다")
+    void successGetReadyOrder() {
+        // given
+        given(orderRepository.findById(any(Long.class))).willReturn(Optional.ofNullable(order));
+        given(orderRepository.save(any(Order.class))).willReturn(order);
+
+        // when
+        Order readyOrder = orderService.readyToServe(1L);
+
+        // then
+        assertThat(readyOrder).hasFieldOrPropertyWithValue("status", OrderStatus.READY);
     }
 
 }

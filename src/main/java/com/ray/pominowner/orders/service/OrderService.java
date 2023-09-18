@@ -4,9 +4,9 @@ import com.ray.pominowner.orders.domain.Order;
 import com.ray.pominowner.orders.domain.OrderStatus;
 import com.ray.pominowner.orders.repository.OrderRepository;
 import com.ray.pominowner.payment.service.PaymentService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -34,6 +34,7 @@ public class OrderService {
                 OrderStatus.COOKING,
                 generator.incrementAndGet(),
                 LocalTime.now().plusMinutes(15));
+
         orderRepository.save(approvedOrder);
 
         return approvedOrder;
@@ -51,6 +52,17 @@ public class OrderService {
         paymentService.cancel(order.getPaymentId());
 
         return rejectedOrder;
+    }
+
+    public Order readyToServe(Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(
+                () -> new IllegalArgumentException("해당하는 주문이 없습니다"));
+
+        Order readyOrder = Order.of(order, OrderStatus.READY);
+
+        orderRepository.save(readyOrder);
+
+        return readyOrder;
     }
 
     public List<Order> getTodayOrders(Long storeId) {
