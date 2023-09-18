@@ -32,7 +32,7 @@ class StoreTest {
     }
 
     @Test
-    @DisplayName("전화번호 설저에 성공한다")
+    @DisplayName("전화번호 설정에 성공한다")
     void successRegisterPhoneNumber() {
         // given
         Store store = StoreTestFixture.store();

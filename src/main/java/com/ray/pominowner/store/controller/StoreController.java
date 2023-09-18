@@ -61,8 +61,8 @@ public class StoreController {
     }
 
     @PostMapping(value = "/{storeId}/store-images", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public void saveStoreImage(@RequestBody List<MultipartFile> multipartFiles, @PathVariable Long storeId) {
-        storeService.saveStoreImages(multipartFiles, storeId);
+    public void saveStoreImage(@RequestBody List<MultipartFile> images, @PathVariable Long storeId) {
+        storeService.saveStoreImages(images, storeId);
     }
 
 }

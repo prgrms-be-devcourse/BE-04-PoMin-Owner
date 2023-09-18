@@ -69,7 +69,7 @@ public class StoreImageService {
     }
 
     private String extractFileExtension(String originalFilename) {
-        int dotIndex = originalFilename.lastIndexOf(".");
+        int dotIndex = originalFilename.lastIndexOf(DOT);
         return originalFilename.substring(dotIndex);
     }
 
