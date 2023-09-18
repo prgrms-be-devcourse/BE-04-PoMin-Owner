@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.time.LocalDate;
 import java.util.stream.Stream;
 
+import static com.ray.pominowner.settlement.SettlementTestFixture.sales;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -17,11 +18,7 @@ class SalesTest {
     @Test
     @DisplayName("Sales 생성에 성공한다.")
     public void successSales() {
-        // given, when
-        Sales sales = new Sales(1000, LocalDate.now());
-
-        // then
-        assertThat(sales).isNotNull();
+        assertThat(sales()).isNotNull();
     }
 
     @ParameterizedTest(name = "[{index}] salesAmount : {0}, orderedAt : {1}")
