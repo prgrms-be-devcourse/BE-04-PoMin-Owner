@@ -32,4 +32,7 @@ file:
       path: src/main/resources/store-image/
     logo:
       path: src/main/resources/store-logo-image/
+  menu:
+    image:
+      path: src/main/resources/menu-image/
 
