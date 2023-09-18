@@ -25,6 +25,11 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
 
 file:
   store:
