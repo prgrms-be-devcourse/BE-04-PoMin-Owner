@@ -64,4 +64,9 @@ public class OrderController {
                 .toList();
     }
 
+    @PostMapping("/orders/{orderId}/ready")
+    public void readyOrder(@PathVariable Long orderId) {
+        orderService.readyToServe(orderId);
+    }
+
 }

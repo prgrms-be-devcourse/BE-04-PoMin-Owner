@@ -148,4 +148,19 @@ class OrderControllerTest {
                 .andDo(print());
     }
 
+    @Test
+    @WithMockUser
+    @DisplayName("주문 상태를 요리 완료로 변경하는 데 성공한다")
+    void successReadyOrder() throws Exception {
+        given(orderService.readyToServe(any(Long.class))).willReturn(order);
+
+        Long orderId = 1L;
+
+        this.mockMvc.perform(post("/api/v1/orders/{orderId}/ready", orderId)
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
 }
