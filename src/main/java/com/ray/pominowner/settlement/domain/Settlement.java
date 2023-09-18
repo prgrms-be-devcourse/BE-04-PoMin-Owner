@@ -4,7 +4,6 @@ import com.ray.pominowner.global.domain.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -66,6 +65,22 @@ public class Settlement extends BaseTimeEntity {
         Assert.notNull(payOut, NULL_PAYOUT_OBJECT.getMessage());
         Assert.notNull(sales, NULL_SALES_OBJECT.getMessage());
         Assert.notNull(depositStatus, NULL_DEPOSIT_STATUS.getMessage());
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Fee getFee() {
+        return fee;
+    }
+
+    public PayOut getPayOut() {
+        return payOut;
+    }
+
+    public Sales getSales() {
+        return sales;
     }
 
     @Override
