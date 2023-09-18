@@ -1,10 +1,13 @@
 package com.ray.pominowner.orders.service;
 
 import com.ray.pominowner.orders.controller.dto.ReceiveOrderRequest;
+import com.ray.pominowner.orders.domain.Order;
 import com.ray.pominowner.payment.domain.PGType;
+import com.ray.pominowner.payment.domain.Payment;
 import com.ray.pominowner.payment.domain.PaymentStatus;
 import com.ray.pominowner.payment.dto.PaymentCreateRequest;
 import com.ray.pominowner.payment.service.PaymentService;
+import com.ray.pominowner.settlement.domain.Settlement;
 import com.ray.pominowner.settlement.service.SettlementService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -57,13 +60,17 @@ class OrderProcessingServiceTest {
     @DisplayName("Order가 성공적으로 생성된다.")
     public void successCreateOrder() {
         // given
-        given(orderService.receiveOrder(request.toEntity())).willReturn(request.toEntity());
-        given(paymentService.create(request.toPaymentEntity())).willReturn(request.toPaymentEntity());
-        given(settlementService.create(request.toSettlementEntity())).willReturn(request.toSettlementEntity());
+        Order order = request.toEntity();
+        Payment payment = request.toPaymentEntity();
+        Settlement settlement = request.toSettlementEntity();
+
+        given(orderService.receiveOrder(order)).willReturn(order);
+        given(paymentService.create(payment)).willReturn(payment);
+        given(settlementService.create(settlement)).willReturn(settlement);
 
         // when, then
         assertThatNoException()
-                .isThrownBy(() -> orderProcessingService.create(request));
+                .isThrownBy(() -> orderProcessingService.create(order, payment, settlement));
 
         verify(orderService, times(1)).receiveOrder(any());
         verify(paymentService, times(1)).create(any());

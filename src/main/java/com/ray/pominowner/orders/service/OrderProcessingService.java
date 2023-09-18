@@ -21,11 +21,7 @@ public class OrderProcessingService {
 
     private final SettlementService settlementService;
 
-    public void create(ReceiveOrderRequest request) {
-        Order order = request.toEntity();
-        Payment payment = request.toPaymentEntity();
-        Settlement settlement = request.toSettlementEntity();
-
+    public void create(Order order, Payment payment, Settlement settlement) {
         orderService.receiveOrder(order);
         paymentService.create(payment);
         settlementService.create(settlement);
