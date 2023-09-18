@@ -1,5 +1,6 @@
 package com.ray.pominowner.settlement.domain;
 
+import com.ray.pominowner.payment.domain.PGType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,29 +15,35 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class PayOutTest {
 
+    private static final Fee fee = new Fee(PGType.TOSS, 10000);
+
     @Test
     @DisplayName("Payout 생성에 성공한다.")
     public void successPayout() {
         // given, when
-        PayOut payOut = new PayOut(1000, LocalDate.now());
+        PayOut payOut = new PayOut(10000, fee, LocalDate.now());
 
         // then
         assertThat(payOut).isNotNull();
     }
 
-    @ParameterizedTest(name = "[{index}] amount : {0}, date : {1}")
+    @ParameterizedTest(name = "[{index}] paymentAmount : {0}, fee: {1} payoutDate : {2}")
     @MethodSource("invalidPayout")
     @DisplayName("필드 값이 유효하지 않은 경우 Payout 생성에 실패한다.")
-    public void failPayout(int amount, LocalDate date) {
-        assertThatThrownBy(() -> new PayOut(amount, date))
+    public void failPayout(int paymentAmount, Fee fee, LocalDate payoutDate) {
+        assertThatThrownBy(() -> new PayOut(paymentAmount, fee, payoutDate))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     static Stream<Arguments> invalidPayout() {
         return Stream.of(
-                Arguments.arguments(1000, LocalDate.now().minusDays(1)),
-                Arguments.arguments(-1000, LocalDate.now()),
-                Arguments.arguments(-1000, LocalDate.now().minusDays(1))
+                Arguments.arguments(-1000, null, LocalDate.now().minusDays(1)),
+                Arguments.arguments(-1000, null, LocalDate.now()),
+                Arguments.arguments(-1000, fee, LocalDate.now().minusDays(1)),
+                Arguments.arguments(-1000, fee, LocalDate.now()),
+                Arguments.arguments(1000, null, LocalDate.now().minusDays(1)),
+                Arguments.arguments(1000, null, LocalDate.now()),
+                Arguments.arguments(1000, fee, LocalDate.now().minusDays(1))
         );
     }
 

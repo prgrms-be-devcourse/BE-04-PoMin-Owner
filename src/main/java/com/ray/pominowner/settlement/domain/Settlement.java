@@ -7,17 +7,19 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
+import org.hibernate.Hibernate;
+import org.springframework.util.Assert;
 
+import java.util.Objects;
+
+import static com.ray.pominowner.global.util.ExceptionMessage.NULL_DEPOSIT_STATUS;
 import static com.ray.pominowner.global.util.ExceptionMessage.NULL_FEE_OBJECT;
 import static com.ray.pominowner.global.util.ExceptionMessage.NULL_PAYOUT_OBJECT;
 import static com.ray.pominowner.global.util.ExceptionMessage.NULL_SALES_OBJECT;
-import static com.ray.pominowner.global.util.Validator.validate;
-import static java.util.Objects.isNull;
 
 @Entity
-@EqualsAndHashCode(of = "id", callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Settlement extends BaseTimeEntity {
 
@@ -35,23 +37,48 @@ public class Settlement extends BaseTimeEntity {
     @Embedded
     private Sales sales;
 
+    private DepositStatus depositStatus;
+
     private Long storeId;
 
     private Long orderId;
 
     private Long paymentId;
 
-    public Settlement(Fee fee, PayOut payOut, Sales sales, Long storeId, Long orderId, Long paymentId) {
-        validate(isNull(fee), NULL_FEE_OBJECT);
-        validate(isNull(payOut), NULL_PAYOUT_OBJECT);
-        validate(isNull(sales), NULL_SALES_OBJECT);
+    private boolean deleted;
+
+    @Builder
+    public Settlement(Fee fee, PayOut payOut, Sales sales, DepositStatus depositStatus, Long storeId, Long orderId, Long paymentId, boolean deleted) {
+        validateSettlement(fee, payOut, sales, depositStatus);
 
         this.fee = fee;
         this.payOut = payOut;
         this.sales = sales;
+        this.depositStatus = depositStatus;
         this.storeId = storeId;
         this.orderId = orderId;
         this.paymentId = paymentId;
+        this.deleted = deleted;
+    }
+
+    private void validateSettlement(Fee fee, PayOut payOut, Sales sales, DepositStatus depositStatus) {
+        Assert.notNull(fee, NULL_FEE_OBJECT.getMessage());
+        Assert.notNull(payOut, NULL_PAYOUT_OBJECT.getMessage());
+        Assert.notNull(sales, NULL_SALES_OBJECT.getMessage());
+        Assert.notNull(depositStatus, NULL_DEPOSIT_STATUS.getMessage());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Settlement that = (Settlement) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 
 }

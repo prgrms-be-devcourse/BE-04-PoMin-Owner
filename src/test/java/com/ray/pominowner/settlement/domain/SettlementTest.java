@@ -1,5 +1,6 @@
 package com.ray.pominowner.settlement.domain;
 
+import com.ray.pominowner.payment.domain.PGType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,17 +15,28 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class SettlementTest {
 
-    private static final Fee fee = new Fee(1000, 1000, 1000);
+    private static final Fee fee = new Fee(PGType.TOSS, 10000);
 
-    private static final PayOut payOut = new PayOut(1000, LocalDate.now().plusDays(1));
+    private static final PayOut payOut = new PayOut(10000, fee, LocalDate.now().plusDays(1));
 
     private static final Sales sales = new Sales(1000, LocalDate.now());
+
 
     @Test
     @DisplayName("Settlement 생성에 성공한다.")
     public void successSettlement() {
         // given, when
-        Settlement settlement = new Settlement(fee, payOut, sales, 1L, 1L, 1L);
+        Settlement settlement = Settlement.builder()
+                .fee(fee)
+                .payOut(payOut)
+                .sales(sales)
+                .depositStatus(DepositStatus.SCHEDULED)
+                .storeId(1L)
+                .orderId(1L)
+                .paymentId(1L)
+                .deleted(false)
+                .build();
+
 
         // then
         assertThat(settlement).isNotNull();
@@ -35,7 +47,16 @@ class SettlementTest {
     @DisplayName("필드 값이 유효하지 않으면 Settlement 생성에 실패한다.")
     public void failSettlement(Fee fee, PayOut payOut, Sales sales) {
         assertThatThrownBy(() ->
-                new Settlement(fee, payOut, sales, 1L, 1L, 1L))
+                Settlement.builder()
+                        .fee(fee)
+                        .payOut(payOut)
+                        .sales(sales)
+                        .depositStatus(DepositStatus.SCHEDULED)
+                        .storeId(1L)
+                        .orderId(1L)
+                        .paymentId(1L)
+                        .deleted(false)
+                        .build())
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
