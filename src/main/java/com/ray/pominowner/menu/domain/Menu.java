@@ -46,6 +46,7 @@ public class Menu extends BaseTimeEntity {
     public Menu(Long id, String name, String info, int price, Long storeId, MenuImage image) {
         validateMenu(name, info, price);
 
+        this.id = id;
         this.name = name;
         this.image = image;
         this.info = info;
