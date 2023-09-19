@@ -2,6 +2,7 @@ package com.ray.pominowner.menu.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ray.pominowner.menu.service.MenuImageService;
 import com.ray.pominowner.menu.service.MenuService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,6 +14,8 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMultipartHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
@@ -38,6 +41,9 @@ class MenuControllerTest {
 
     @MockBean
     private MenuService menuService;
+
+    @MockBean
+    private MenuImageService menuImageService;
 
     private MockMultipartFile image;
 
@@ -89,7 +95,14 @@ class MenuControllerTest {
         doNothing().when(menuService).updateMenu(any(), any());
 
 
-        mvc.perform(multipart("/api/v1/menus/1")
+        // when, then
+        MockMultipartHttpServletRequestBuilder builder = MockMvcRequestBuilders.multipart("/api/v1/menus/1");
+        builder.with(request -> {
+            request.setMethod("PUT");
+            return request;
+        });
+
+        mvc.perform(builder
                         .file(menuRequest)
                         .file(image)
                         .contentType(MediaType.MULTIPART_FORM_DATA)

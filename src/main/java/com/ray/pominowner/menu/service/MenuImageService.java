@@ -7,6 +7,7 @@ import com.ray.pominowner.menu.domain.MenuImage;
 import com.ray.pominowner.menu.repository.MenuImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Component
@@ -19,6 +20,7 @@ public class MenuImageService {
 
     private final MenuImageRepository menuImageRepository;
 
+    @Transactional
     public MenuImage saveImage(MultipartFile image) {
         final String rootPath = imagePathProvider.getMenuImageRootPath();
         FileInfo fileInfo = fileSaver.retrieveFileInfoAfterSavingFile(image, rootPath);
