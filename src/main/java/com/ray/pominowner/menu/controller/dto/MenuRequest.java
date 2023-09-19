@@ -5,7 +5,7 @@ import com.ray.pominowner.menu.domain.MenuImage;
 
 public record MenuRequest(String name, String info, int price) {
 
-  public Menu generateMenuEntity(MenuImage image) {
+  public Menu toMenuEntity(MenuImage image) {
 
     return Menu.builder()
             .name(name)

@@ -31,7 +31,7 @@ public class MenuController {
     @PostMapping(value = "/stores/{storeId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> registerMenu(@RequestPart MenuRequest request, @RequestPart MultipartFile image, @PathVariable Long storeId) {
         MenuImage menuImage = menuImageService.saveImage(image);
-        Long menuId = menuService.registerMenu(request.generateMenuEntity(menuImage));
+        Long menuId = menuService.registerMenu(request.toMenuEntity(menuImage));
 
         final String url = "/api/v1/menus/%d/stores/%d".formatted(menuId, storeId);
 
@@ -41,7 +41,7 @@ public class MenuController {
     @PutMapping(value = "/{menuId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public void updateMenu(@RequestPart MenuRequest request, @RequestPart MultipartFile image, @PathVariable Long menuId) {
         MenuImage menuImage = menuService.createImage(image);
-        menuService.updateMenu(request.generateMenuEntity(menuImage), menuId);
+        menuService.updateMenu(request.toMenuEntity(menuImage), menuId);
     }
 
 }
