@@ -4,6 +4,7 @@ import com.ray.pominowner.payment.domain.PGType;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
@@ -11,6 +12,7 @@ import static com.ray.pominowner.global.util.ExceptionMessage.INVALID_AMOUNT;
 import static com.ray.pominowner.global.util.ExceptionMessage.NULL_PAYMENT_PROVIDER;
 import static com.ray.pominowner.global.util.Validator.validate;
 
+@Getter
 @Embeddable
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
