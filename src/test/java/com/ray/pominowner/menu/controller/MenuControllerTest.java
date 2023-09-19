@@ -57,7 +57,7 @@ class MenuControllerTest {
                 MediaType.IMAGE_PNG_VALUE,
                 UUID.randomUUID().toString().getBytes(StandardCharsets.UTF_8));
 
-        Map<String, String> request = Map.of("name", "메뉴이름", "info", "메뉴정보", "price", "10000");
+        Map<String, String> request = Map.of("name", "메뉴이름", "info", "메뉴정보", "price", "10000", "storeId", "1");
         menuRequest = new MockMultipartFile(
                 "request",
                 "",
@@ -75,7 +75,7 @@ class MenuControllerTest {
         given(menuService.registerMenu(any())).willReturn(1L);
 
         // when, then
-        mvc.perform(multipart("/api/v1/menus/stores/1")
+        mvc.perform(multipart("/api/v1/menus")
                         .file(menuRequest)
                         .file(image)
                         .contentType(MediaType.MULTIPART_FORM_DATA)
@@ -84,7 +84,7 @@ class MenuControllerTest {
                         .with(csrf()))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(header().stringValues("Location", "/api/v1/menus/1/stores/1"));
+                .andExpect(header().stringValues("Location", "/api/v1/menus/1"));
     }
 
     @Test
