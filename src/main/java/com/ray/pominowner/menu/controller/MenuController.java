@@ -28,12 +28,12 @@ public class MenuController {
 
     private final MenuImageService menuImageService;
 
-    @PostMapping(value = "/stores/{storeId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Void> registerMenu(@RequestPart MenuRequest request, @RequestPart MultipartFile image, @PathVariable Long storeId) {
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Void> registerMenu(@RequestPart MenuRequest request, @RequestPart MultipartFile image) {
         MenuImage menuImage = menuImageService.saveImage(image);
         Long menuId = menuService.registerMenu(request.toMenuEntity(menuImage));
 
-        final String url = "/api/v1/menus/%d/stores/%d".formatted(menuId, storeId);
+        final String url = "/api/v1/menus/%d".formatted(menuId);
 
         return ResponseEntity.created(URI.create(url)).build();
     }
