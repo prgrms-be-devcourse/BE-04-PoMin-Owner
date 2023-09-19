@@ -77,6 +77,22 @@ public class Settlement extends BaseTimeEntity {
         Assert.notNull(serviceType, NULL_SERVICE_TYPE.getMessage());
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public Fee getFee() {
+        return fee;
+    }
+
+    public PayOut getPayOut() {
+        return payOut;
+    }
+
+    public Sales getSales() {
+        return sales;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

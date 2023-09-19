@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
 
+import static com.ray.pominowner.global.util.ExceptionMessage.INVALID_ORDER;
 import static jakarta.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -125,6 +126,12 @@ public class Order extends BaseTimeEntity {
     public boolean isToday() {
         LocalDate today = LocalDate.now();
         return this.createdAt.toLocalDate().equals(today);
+    }
+
+    public void validateStatus() {
+        if (this.getStatus() == OrderStatus.CANCELED || this.getStatus() == OrderStatus.REJECTED) {
+            throw new IllegalArgumentException(INVALID_ORDER.getMessage());
+        }
     }
 
 }
