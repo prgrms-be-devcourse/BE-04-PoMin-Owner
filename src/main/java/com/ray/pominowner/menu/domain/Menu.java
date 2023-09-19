@@ -61,6 +61,8 @@ public class Menu extends BaseTimeEntity {
     }
 
     public Menu updateMenu(Menu menu) {
+        validateStoreId(menu);
+
         return Menu.builder()
                 .id(id)
                 .name(menu.name)
@@ -69,6 +71,17 @@ public class Menu extends BaseTimeEntity {
                 .image(menu.image)
                 .storeId(storeId)
                 .build();
+    }
+
+    private void validateStoreId(Menu menu) {
+        if (isNotValidStoreId(menu)){
+            throw new IllegalArgumentException("유효한 storeId가 아닙니다.");
+        }
+    }
+
+    private boolean isNotValidStoreId(Menu menu) {
+        return !menu.storeId
+                .equals(this.storeId);
     }
 
     public Long getId() {
