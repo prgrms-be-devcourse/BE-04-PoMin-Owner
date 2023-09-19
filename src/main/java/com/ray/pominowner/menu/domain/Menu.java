@@ -56,7 +56,7 @@ public class Menu extends BaseTimeEntity {
     private void validateMenu(String name, String info, int price) {
         Assert.hasText(name, ExceptionMessage.INVALID_MENU.getMessage());
         Assert.hasText(info, ExceptionMessage.INVALID_MENU.getMessage());
-        validate(price < 0, ExceptionMessage.INVALID_MENU);
+        validate(price >= 0, ExceptionMessage.INVALID_MENU);
     }
 
     public Menu updateMenu(Menu menu) {
