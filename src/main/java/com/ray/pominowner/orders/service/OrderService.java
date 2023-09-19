@@ -26,14 +26,14 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    public Order approve(Long orderId) {
+    public Order approve(Long orderId, int cookingMinute) {
         Order order = orderRepository.findById(orderId).orElseThrow(
                 () -> new IllegalArgumentException("해당하는 주문이 없습니다"));
 
         Order approvedOrder = Order.of(order,
                 OrderStatus.COOKING,
                 generator.incrementAndGet(),
-                LocalTime.now().plusMinutes(15));
+                order.getOrderedAt().toLocalTime().plusMinutes(cookingMinute));
 
         orderRepository.save(approvedOrder);
 
