@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.time.LocalDate;
 import java.util.stream.Stream;
 
+import static com.ray.pominowner.settlement.SettlementTestFixture.payOut;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -20,11 +21,7 @@ class PayOutTest {
     @Test
     @DisplayName("Payout 생성에 성공한다.")
     public void successPayout() {
-        // given, when
-        PayOut payOut = new PayOut(10000, fee, LocalDate.now());
-
-        // then
-        assertThat(payOut).isNotNull();
+        assertThat(payOut()).isNotNull();
     }
 
     @ParameterizedTest(name = "[{index}] paymentAmount : {0}, fee: {1} payoutDate : {2}")
