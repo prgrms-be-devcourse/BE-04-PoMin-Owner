@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -21,6 +20,8 @@ public class OrderService {
     private final OrderRepository orderRepository;
 
     private final PaymentService paymentService;
+
+    private final RestTemplateServiceProvider restTemplateServiceProvider;
 
     public Order receiveOrder(Order order) {
         return orderRepository.save(order);
@@ -36,6 +37,8 @@ public class OrderService {
                 order.getOrderedAt().toLocalTime().plusMinutes(cookingMinute));
 
         orderRepository.save(approvedOrder);
+
+        restTemplateServiceProvider.notifyToApprove(cookingMinute, approvedOrder);
 
         return approvedOrder;
     }
