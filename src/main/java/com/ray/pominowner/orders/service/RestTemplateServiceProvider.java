@@ -34,7 +34,6 @@ public class RestTemplateServiceProvider {
                 .body(body);
 
         send(request);
-
     }
 
     private void send(RequestEntity<ApproveOrderNotifyRequest> request) {
