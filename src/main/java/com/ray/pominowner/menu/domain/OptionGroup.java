@@ -24,6 +24,8 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED)
 public class OptionGroup extends BaseTimeEntity {
 
+    private static final int MAX_OPTION_COUNT = 10;
+
     @Id
     @Column(name = "OPTION_GROUP_ID")
     @GeneratedValue
@@ -66,7 +68,21 @@ public class OptionGroup extends BaseTimeEntity {
                 .build();
 
         this.options.add(optionGroupChangedOption);
-        checkOptionCount();
+        checkMaxOptionCount();
+        checkSelectedOptionCount();
+    }
+
+    private void checkMaxOptionCount() {
+        if (options.size() > MAX_OPTION_COUNT) {
+            throw new IllegalArgumentException("옵션 개수는 10개를 초과할 수 없습니다.");
+        }
+    }
+
+    private void checkSelectedOptionCount() {
+        long totalCheckedOptionCount = this.options.stream().filter(Option::isSelected).count();
+        if (this.maxOptionCount < totalCheckedOptionCount) {
+            throw new IllegalArgumentException("최대 옵션 개수를 초과하였습니다.");
+        }
     }
 
     public int getTotalPrice() {
@@ -74,13 +90,6 @@ public class OptionGroup extends BaseTimeEntity {
                 .filter(Option::isSelected)
                 .mapToInt(Option::getPrice)
                 .sum();
-    }
-
-    private void checkOptionCount() {
-        long totalCheckedOptionCount = this.options.stream().filter(Option::isSelected).count();
-        if (this.maxOptionCount < totalCheckedOptionCount) {
-            throw new IllegalArgumentException("최대 옵션 개수를 초과하였습니다.");
-        }
     }
 
     public void checkRequiredOption() {

@@ -287,6 +287,5 @@ class OptionTest {
         assertThatThrownBy(() -> optionGroup.addOption(eleventhOption))
                 .isInstanceOf(IllegalArgumentException.class);
     }
-    
 
 }
