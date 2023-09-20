@@ -6,7 +6,6 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -91,6 +90,14 @@ public class Settlement extends BaseTimeEntity {
 
     public Sales getSales() {
         return sales;
+    }
+
+    public DepositStatus getDepositStatus() {
+        return depositStatus;
+    }
+
+    public ServiceType getServiceType() {
+        return serviceType;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.ray.pominowner.settlement.service;
 
 import com.ray.pominowner.orders.repository.OrderRepository;
-import com.ray.pominowner.settlement.controller.vo.SettlementByStoreRequest;
+import com.ray.pominowner.settlement.service.vo.SettlementByStoreRequest;
 import com.ray.pominowner.settlement.domain.Settlement;
 import com.ray.pominowner.settlement.repository.SettlementRepository;
 import com.ray.pominowner.store.repository.StoreRepository;
@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import static com.ray.pominowner.global.util.ExceptionMessage.NO_ORDER;
@@ -44,7 +43,7 @@ public class SettlementService {
         storeRepository.findById(request.storeId())
                 .orElseThrow(() -> new IllegalArgumentException(NO_STORE.getMessage()));
 
-        return request.dateType().getSettlements(settlementRepository, request);
+        return DateType.valueOf(request.dateType()).getSettlements(settlementRepository, request);
     }
 
 }
