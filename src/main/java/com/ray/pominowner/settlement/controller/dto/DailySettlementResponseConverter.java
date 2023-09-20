@@ -40,22 +40,22 @@ public class DailySettlementResponseConverter {
     }
 
     private DailySettlementResponse calculateTotalAmountAndFee(List<Settlement> settlements) {
-        double totalSales = calculateTotal(settlements, settlement -> settlement.getSales().getSalesAmount());
-        double totalPaymentFee = calculateTotal(settlements, settlement -> settlement.getFee().getPaymentFee());
-        double totalBrokerageFee = calculateTotal(settlements, settlement -> settlement.getFee().getBrokerageFee());
-        double totalValueAddedFee = calculateTotal(settlements, settlement -> settlement.getFee().getValueAddedFee());
-        double totalPayout = calculateTotal(settlements, settlement -> settlement.getPayOut().getPayOutAmount());
+        int totalSales = (int) calculateTotal(settlements, settlement -> settlement.getSales().getSalesAmount());
+        int totalPaymentFee = (int) calculateTotal(settlements, settlement -> settlement.getFee().getPaymentFee());
+        int totalBrokerageFee = (int) calculateTotal(settlements, settlement -> settlement.getFee().getBrokerageFee());
+        int totalValueAddedFee = (int) calculateTotal(settlements, settlement -> settlement.getFee().getValueAddedFee());
+        int totalPayout = (int) calculateTotal(settlements, settlement -> settlement.getPayOut().getPayOutAmount());
 
         return new DailySettlementResponse(
                 settlements.get(0).getPayOut().getPayOutDate(),
                 settlements.get(0).getDepositStatus(),
                 settlements.get(0).getSales().getSalesDate(),
                 settlements.get(0).getServiceType(),
-                (int) totalSales,
-                (int) totalPaymentFee,
-                (int) totalBrokerageFee,
-                (int) totalValueAddedFee,
-                (int) totalPayout
+                totalSales,
+                totalPaymentFee,
+                totalBrokerageFee,
+                totalValueAddedFee,
+                totalPayout
         );
     }
 
