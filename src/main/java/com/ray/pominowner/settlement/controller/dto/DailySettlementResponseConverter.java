@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.function.ToDoubleFunction;
+import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
 @Component
@@ -40,11 +40,11 @@ public class DailySettlementResponseConverter {
     }
 
     private DailySettlementResponse calculateTotalAmountAndFee(List<Settlement> settlements) {
-        int totalSales = (int) calculateTotal(settlements, settlement -> settlement.getSales().getSalesAmount());
-        int totalPaymentFee = (int) calculateTotal(settlements, settlement -> settlement.getFee().getPaymentFee());
-        int totalBrokerageFee = (int) calculateTotal(settlements, settlement -> settlement.getFee().getBrokerageFee());
-        int totalValueAddedFee = (int) calculateTotal(settlements, settlement -> settlement.getFee().getValueAddedFee());
-        int totalPayout = (int) calculateTotal(settlements, settlement -> settlement.getPayOut().getPayOutAmount());
+        int totalSales = calculateTotal(settlements, settlement -> settlement.getSales().getSalesAmount());
+        int totalPaymentFee = calculateTotal(settlements, settlement -> settlement.getFee().getPaymentFee());
+        int totalBrokerageFee = calculateTotal(settlements, settlement -> settlement.getFee().getBrokerageFee());
+        int totalValueAddedFee = calculateTotal(settlements, settlement -> settlement.getFee().getValueAddedFee());
+        int totalPayout = calculateTotal(settlements, settlement -> settlement.getPayOut().getPayOutAmount());
 
         return new DailySettlementResponse(
                 settlements.get(0).getPayOut().getPayOutDate(),
@@ -59,9 +59,9 @@ public class DailySettlementResponseConverter {
         );
     }
 
-    private double calculateTotal(List<Settlement> settlements, ToDoubleFunction<Settlement> mapper) {
+    private int calculateTotal(List<Settlement> settlements, ToIntFunction<Settlement> mapper) {
         return settlements.stream()
-                .mapToDouble(mapper)
+                .mapToInt(mapper)
                 .sum();
     }
 
