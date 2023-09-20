@@ -20,12 +20,12 @@ public class SettlementController {
 
     private final SettlementService settlementService;
 
-    @GetMapping("/byOrder/{orderId}")
+    @GetMapping("/by-order/{orderId}")
     public SettlementResponse getSettlementByOrder(@PathVariable Long orderId) {
         return new SettlementResponse(settlementService.getSettlementByOrder(orderId));
     }
 
-    @GetMapping("/byStore/{storeId}")
+    @GetMapping("/by-store/{storeId}")
     public List<SettlementResponse> getDailySettlementByStore(@PathVariable Long storeId, @RequestParam DateType dateType, @RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
         return settlementService.getDailySettlementByStore(storeId, dateType, startDate, endDate)
                 .stream()
