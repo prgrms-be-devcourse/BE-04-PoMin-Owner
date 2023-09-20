@@ -2,6 +2,8 @@ package com.ray.pominowner.orders.service;
 
 import com.ray.pominowner.orders.domain.Order;
 import com.ray.pominowner.orders.service.dto.ApproveOrderNotifyRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -13,7 +15,14 @@ import java.net.URI;
 @Component
 public class RestTemplateServiceProvider {
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
+
+    @Autowired
+    public RestTemplateServiceProvider(RestTemplateBuilder restTemplateBuilder) {
+        this.restTemplate = restTemplateBuilder
+                .errorHandler(new RestTemplateResponseErrorHandler())
+                .build();
+    }
 
     public void notifyToApprove(int cookingMinute, Order approvedOrder) {
         URI uri = UriComponentsBuilder
