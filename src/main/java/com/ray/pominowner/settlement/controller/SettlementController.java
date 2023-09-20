@@ -1,6 +1,7 @@
 package com.ray.pominowner.settlement.controller;
 
 import com.ray.pominowner.settlement.controller.dto.SettlementResponse;
+import com.ray.pominowner.settlement.controller.vo.SettlementByStoreRequest;
 import com.ray.pominowner.settlement.service.DateType;
 import com.ray.pominowner.settlement.service.SettlementService;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class SettlementController {
 
     @GetMapping("/by-store/{storeId}")
     public List<SettlementResponse> getDailySettlementByStore(@PathVariable Long storeId, @RequestParam DateType dateType, @RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
-        return settlementService.getDailySettlementByStore(storeId, dateType, startDate, endDate)
+        return settlementService.getDailySettlementByStore(new SettlementByStoreRequest(storeId, dateType, startDate, endDate))
                 .stream()
                 .map(SettlementResponse::new)
                 .toList();

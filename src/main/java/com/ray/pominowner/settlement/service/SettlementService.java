@@ -1,6 +1,7 @@
 package com.ray.pominowner.settlement.service;
 
 import com.ray.pominowner.orders.repository.OrderRepository;
+import com.ray.pominowner.settlement.controller.vo.SettlementByStoreRequest;
 import com.ray.pominowner.settlement.domain.Settlement;
 import com.ray.pominowner.settlement.repository.SettlementRepository;
 import com.ray.pominowner.store.repository.StoreRepository;
@@ -39,11 +40,11 @@ public class SettlementService {
                 .orElseThrow(() -> new IllegalArgumentException(NO_SETTLEMENT.getMessage()));
     }
 
-    public List<Settlement> getDailySettlementByStore(Long storeId, DateType dateType, LocalDate startDate, LocalDate endDate) {
-        storeRepository.findById(storeId)
+    public List<Settlement> getDailySettlementByStore(SettlementByStoreRequest request) {
+        storeRepository.findById(request.storeId())
                 .orElseThrow(() -> new IllegalArgumentException(NO_STORE.getMessage()));
 
-        return dateType.getSettlements(settlementRepository, storeId, startDate, endDate);
+        return request.dateType().getSettlements(settlementRepository, request);
     }
 
 }
