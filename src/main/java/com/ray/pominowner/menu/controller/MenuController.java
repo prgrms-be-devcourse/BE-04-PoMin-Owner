@@ -40,7 +40,7 @@ public class MenuController {
 
     @PutMapping(value = "/{menuId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public void updateMenu(@RequestPart MenuRequest request, @RequestPart MultipartFile image, @PathVariable Long menuId) {
-        MenuImage menuImage = menuService.createImage(image);
+        MenuImage menuImage = menuImageService.saveImage(image);
         menuService.updateMenu(request.toMenuEntity(menuImage), menuId);
     }
 
