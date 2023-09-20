@@ -32,7 +32,7 @@ public class SettlementController {
     }
 
     @GetMapping("/by-store/{storeId}")
-    public List<DailySettlementResponse> getDailySettlementByStore(@PathVariable Long storeId, @RequestParam DateType dateType, @RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
+    public List<DailySettlementResponse> getDailySettlementByStore(@PathVariable Long storeId, @RequestParam String dateType, @RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
         List<Settlement> settlements = settlementService.getDailySettlementByStore(new SettlementByStoreRequest(storeId, dateType, startDate, endDate));
 
         return dailySettlementResponseConverter.convert(settlements);

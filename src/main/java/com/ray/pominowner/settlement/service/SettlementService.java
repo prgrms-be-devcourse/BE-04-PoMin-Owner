@@ -43,7 +43,7 @@ public class SettlementService {
         storeRepository.findById(request.storeId())
                 .orElseThrow(() -> new IllegalArgumentException(NO_STORE.getMessage()));
 
-        return request.dateType().getSettlements(settlementRepository, request);
+        return DateType.valueOf(request.dateType()).getSettlements(settlementRepository, request);
     }
 
 }

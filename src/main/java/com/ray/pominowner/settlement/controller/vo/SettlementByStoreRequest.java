@@ -4,6 +4,6 @@ import com.ray.pominowner.settlement.service.DateType;
 
 import java.time.LocalDate;
 
-public record SettlementByStoreRequest(Long storeId, DateType dateType, LocalDate startDate, LocalDate endDate) {
+public record SettlementByStoreRequest(Long storeId, String dateType, LocalDate startDate, LocalDate endDate) {
 
 }
