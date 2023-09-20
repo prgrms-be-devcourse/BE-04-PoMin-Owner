@@ -24,14 +24,14 @@ public class PayOut {
 
     private LocalDate payOutDate;
 
-    public PayOut(int paymentAmount, Fee fee, LocalDate payOutDate) {
+    public PayOut(int paymentAmount, Fee fee, LocalDate orderedAt) {
+        this.payOutDate = calculatePayoutDate(orderedAt);
         validatePayOut(paymentAmount, fee, payOutDate);
 
         int payOutAmount = paymentAmount - fee.calculateTotalMinusAmount();
         validate(payOutAmount >= 0, INVALID_AMOUNT);  // 추후 처리 예정
 
         this.payOutAmount = payOutAmount;
-        this.payOutDate = payOutDate;
     }
 
     private void validatePayOut(int paymentAmount, Fee fee, LocalDate payOutDate) {
@@ -41,8 +41,7 @@ public class PayOut {
     }
 
     public LocalDate calculatePayoutDate(LocalDate orderedAt) {
-        // 추후 구현 예정
-        return orderedAt;
+        return orderedAt.plusDays(3);
     }
 
 }
