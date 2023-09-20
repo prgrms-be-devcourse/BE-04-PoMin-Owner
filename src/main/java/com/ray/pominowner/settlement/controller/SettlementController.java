@@ -16,9 +16,9 @@ public class SettlementController {
 
     private final SettlementService settlementService;
 
-    @GetMapping
-    public SettlementResponse getSettlementInfoByOrder(@RequestParam("orderId") Long orderId) {
-        return settlementService.getSettlementByOrder(orderId);
+    @GetMapping("/byOrder/{orderId}")
+    public SettlementResponse getSettlementByOrder(@PathVariable Long orderId) {
+        return new SettlementResponse(settlementService.getSettlementByOrder(orderId));
     }
 
 }

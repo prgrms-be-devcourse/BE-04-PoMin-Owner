@@ -24,13 +24,14 @@ public class SettlementService {
         return settlementRepository.save(settlement);
     }
 
-    public SettlementResponse getSettlementByOrder(Long orderId) {
+    public Settlement getSettlementByOrder(Long orderId) {
         orderRepository.findById(orderId)
                 .orElseThrow(() -> new IllegalArgumentException(NO_ORDER.getMessage()))
                 .validateStatus();
 
-        Settlement settlement = settlementRepository.findSettlementByOrderIdAndDeleted(orderId, false)
+        return settlementRepository.findSettlementByOrderIdAndDeleted(orderId, false)
                 .orElseThrow(() -> new IllegalArgumentException(NO_SETTLEMENT.getMessage()));
+    }
 
         return new SettlementResponse(settlement);
     }
