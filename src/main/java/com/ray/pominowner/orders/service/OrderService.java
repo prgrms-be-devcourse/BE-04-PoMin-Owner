@@ -5,10 +5,10 @@ import com.ray.pominowner.orders.domain.OrderStatus;
 import com.ray.pominowner.orders.repository.OrderRepository;
 import com.ray.pominowner.payment.service.PaymentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -21,6 +21,8 @@ public class OrderService {
     private final OrderRepository orderRepository;
 
     private final PaymentService paymentService;
+
+    private final RestTemplateServiceProvider restTemplateServiceProvider;
 
     public Order receiveOrder(Order order) {
         return orderRepository.save(order);
@@ -36,6 +38,12 @@ public class OrderService {
                 order.getOrderedAt().toLocalTime().plusMinutes(cookingMinute));
 
         orderRepository.save(approvedOrder);
+
+        HttpStatusCode statusCode = restTemplateServiceProvider.notifyToApprove(cookingMinute, approvedOrder);
+
+        if (statusCode.isError()) {
+            throw new IllegalStateException("고객측 서버의 응답이 없습니다");
+        }
 
         return approvedOrder;
     }
