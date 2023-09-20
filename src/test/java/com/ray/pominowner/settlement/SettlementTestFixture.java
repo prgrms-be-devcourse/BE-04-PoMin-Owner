@@ -5,6 +5,7 @@ import com.ray.pominowner.settlement.domain.DepositStatus;
 import com.ray.pominowner.settlement.domain.Fee;
 import com.ray.pominowner.settlement.domain.PayOut;
 import com.ray.pominowner.settlement.domain.Sales;
+import com.ray.pominowner.settlement.domain.ServiceType;
 import com.ray.pominowner.settlement.domain.Settlement;
 
 import java.time.LocalDate;
@@ -30,6 +31,7 @@ public final class SettlementTestFixture {
                 .payOut(payOut())
                 .sales(sales())
                 .depositStatus(DepositStatus.SCHEDULED)
+                .serviceType(ServiceType.PACKAGING)
                 .storeId(1L)
                 .orderId(1L)
                 .paymentId(1L)

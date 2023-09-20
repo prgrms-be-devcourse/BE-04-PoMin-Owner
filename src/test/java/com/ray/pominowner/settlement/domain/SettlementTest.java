@@ -41,6 +41,7 @@ class SettlementTest {
                         .payOut(payOut)
                         .sales(sales)
                         .depositStatus(DepositStatus.SCHEDULED)
+                        .serviceType(ServiceType.PACKAGING)
                         .storeId(1L)
                         .orderId(1L)
                         .paymentId(1L)
