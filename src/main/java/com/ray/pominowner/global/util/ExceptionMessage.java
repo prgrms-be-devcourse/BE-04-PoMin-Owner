@@ -20,7 +20,8 @@ public enum ExceptionMessage {
     NO_PAYMENT("해당 결제 건이 존재하지 않습니다"),
     NO_ORDER("해당 주문 건이 존재하지 않습니다."),
     NO_SETTLEMENT("해당 결제 건이 존재하지 않습니다."),
-    INVALID_ORDER("취소되거나 거절된 주문입니다.");
+    INVALID_ORDER("취소되거나 거절된 주문입니다."),
+    INVALID_MENU("메뉴 형식이 올바르지 않습니다.");
 
     private final String message;
 
