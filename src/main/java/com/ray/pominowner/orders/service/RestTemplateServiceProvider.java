@@ -23,6 +23,7 @@ public class RestTemplateServiceProvider {
 
         ApproveOrderNotifyRequest body = new ApproveOrderNotifyRequest(
                 approvedOrder.getReceiptNumber(),
+                approvedOrder.getRequestedDetails(),
                 cookingMinute,
                 approvedOrder.getStoreId()
         );
