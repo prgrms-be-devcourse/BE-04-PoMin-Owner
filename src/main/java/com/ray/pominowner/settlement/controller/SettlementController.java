@@ -1,11 +1,9 @@
 package com.ray.pominowner.settlement.controller;
 
 import com.ray.pominowner.settlement.controller.dto.DailySettlementResponse;
-import com.ray.pominowner.settlement.controller.dto.DailySettlementResponseConverter;
 import com.ray.pominowner.settlement.controller.dto.SettlementResponse;
 import com.ray.pominowner.settlement.controller.vo.SettlementByStoreRequest;
 import com.ray.pominowner.settlement.domain.Settlement;
-import com.ray.pominowner.settlement.service.DateType;
 import com.ray.pominowner.settlement.service.SettlementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

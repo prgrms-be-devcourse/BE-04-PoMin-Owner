@@ -1,5 +1,6 @@
-package com.ray.pominowner.settlement.controller.dto;
+package com.ray.pominowner.settlement.controller;
 
+import com.ray.pominowner.settlement.controller.dto.DailySettlementResponse;
 import com.ray.pominowner.settlement.domain.ServiceType;
 import com.ray.pominowner.settlement.domain.Settlement;
 import org.springframework.stereotype.Component;
