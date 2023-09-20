@@ -23,7 +23,8 @@ public enum ExceptionMessage {
     NO_SETTLEMENT("해당 결제 건이 존재하지 않습니다."),
     NO_STORE("해당 가게가 존재하지 않습니다."),
     INVALID_ORDER("취소되거나 거절된 주문입니다."),
-    INVALID_DATE_TYPE("유요하지 않은 기준 날짜 타입입니다.");
+    INVALID_DATE_TYPE("유효하지 않은 기준 날짜 타입입니다."),
+    INVALID_MENU("메뉴 형식이 올바르지 않습니다.");
 
     private final String message;
 

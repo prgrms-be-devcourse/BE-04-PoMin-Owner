@@ -6,15 +6,21 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import lombok.AccessLevel;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
 import static com.ray.pominowner.global.util.Validator.validate;
+import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.FetchType.EAGER;
+import static lombok.AccessLevel.PROTECTED;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode(of = "id")
+@NoArgsConstructor(access = PROTECTED)
 public class Menu extends BaseTimeEntity {
 
     @Id
@@ -26,29 +32,56 @@ public class Menu extends BaseTimeEntity {
 
     private String info;
 
-    private Long menuImageId;
+    private int price;
 
     private Long storeId;
 
-    private int price;
+    @OneToOne(fetch = EAGER, cascade = ALL, orphanRemoval = true)
+    @JoinColumn(name = "MENU_IMAGE_ID")
+    private MenuImage image;
 
     //    private Integer listOrder; // 추후 수정 예정
 
     @Builder
-    public Menu(String name, String info, int price, Long menuImageId, Long storeId) {
+    public Menu(Long id, String name, String info, int price, Long storeId, MenuImage image) {
         validateMenu(name, info, price);
 
+        this.id = id;
         this.name = name;
-        this.menuImageId = menuImageId;
+        this.image = image;
         this.info = info;
         this.price = price;
         this.storeId = storeId;
     }
 
     private void validateMenu(String name, String info, int price) {
-        Assert.hasText(name, "메뉴 형식이 올바르지 않습니다.");
-        Assert.hasText(info, "메뉴 형식이 올바르지 않습니다.");
-        validate(price < 0, ExceptionMessage.valueOf("메뉴 형식이 올바르지 않습니다."));
+        Assert.hasText(name, ExceptionMessage.INVALID_MENU.getMessage());
+        Assert.hasText(info, ExceptionMessage.INVALID_MENU.getMessage());
+        validate(price >= 0, ExceptionMessage.INVALID_MENU);
+    }
+
+    public Menu updateMenu(Menu menu) {
+        validateStoreId(menu);
+
+        return Menu.builder()
+                .id(id)
+                .name(menu.name)
+                .info(menu.info)
+                .price(menu.price)
+                .image(menu.image)
+                .storeId(storeId)
+                .build();
+    }
+
+    private void validateStoreId(Menu menu) {
+        if (isNotValidStoreId(menu)){
+            throw new IllegalArgumentException("유효한 storeId가 아닙니다.");
+        }
+    }
+
+    private boolean isNotValidStoreId(Menu menu) {
+        return !menu.storeId
+                .equals(this.storeId);
     }
 
     public Long getId() {
