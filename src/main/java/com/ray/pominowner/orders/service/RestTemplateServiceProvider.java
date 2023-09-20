@@ -2,7 +2,6 @@ package com.ray.pominowner.orders.service;
 
 import com.ray.pominowner.orders.domain.Order;
 import com.ray.pominowner.orders.service.dto.ApproveOrderNotifyRequest;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -14,7 +13,9 @@ import java.net.URI;
 @Component
 public class RestTemplateServiceProvider {
 
-    public HttpStatusCode notifyToApprove(int cookingMinute, Order approvedOrder) {
+    private final RestTemplate restTemplate = new RestTemplate();
+
+    public void notifyToApprove(int cookingMinute, Order approvedOrder) {
         URI uri = UriComponentsBuilder
                 .fromUriString("http://pomin-server:8080")
                 .path("/api/v1/orders/{orderNumber}")
@@ -32,13 +33,15 @@ public class RestTemplateServiceProvider {
                 .post(uri)
                 .body(body);
 
-        RestTemplate restTemplate = new RestTemplate();
+        send(request);
+
+    }
+
+    private void send(RequestEntity<ApproveOrderNotifyRequest> request) {
         ResponseEntity<ApproveOrderNotifyRequest> response = restTemplate.exchange(request, ApproveOrderNotifyRequest.class);
         if (response.getStatusCode().isError()) {
             throw new IllegalStateException("고객측 서버의 응답이 없습니다");
         }
-
-        return response.getStatusCode();
     }
 
 }

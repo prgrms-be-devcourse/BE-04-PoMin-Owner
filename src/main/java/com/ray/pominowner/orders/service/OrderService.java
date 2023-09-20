@@ -5,7 +5,6 @@ import com.ray.pominowner.orders.domain.OrderStatus;
 import com.ray.pominowner.orders.repository.OrderRepository;
 import com.ray.pominowner.payment.service.PaymentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,11 +38,7 @@ public class OrderService {
 
         orderRepository.save(approvedOrder);
 
-        HttpStatusCode statusCode = restTemplateServiceProvider.notifyToApprove(cookingMinute, approvedOrder);
-
-        if (statusCode.isError()) {
-            throw new IllegalStateException("고객측 서버의 응답이 없습니다");
-        }
+        restTemplateServiceProvider.notifyToApprove(cookingMinute, approvedOrder);
 
         return approvedOrder;
     }

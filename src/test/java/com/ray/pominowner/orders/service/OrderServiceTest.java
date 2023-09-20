@@ -24,6 +24,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 
 @ExtendWith(MockitoExtension.class)
 class OrderServiceTest {
@@ -80,7 +81,7 @@ class OrderServiceTest {
         given(orderRepository.save(order)).willReturn(order);
         given(orderRepository.findById(1L)).willReturn(Optional.ofNullable(order));
         given(generator.incrementAndGet()).willReturn(1);
-        given(restTemplateServiceProvider.notifyToApprove(any(Integer.class), any(Order.class))).willReturn(HttpStatus.OK);
+        doNothing().when(restTemplateServiceProvider).notifyToApprove(any(Integer.class), any(Order.class));
 
         ApproveOrderRequest request = new ApproveOrderRequest(90);
 
