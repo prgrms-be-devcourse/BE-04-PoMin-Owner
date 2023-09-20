@@ -68,10 +68,10 @@ class SettlementServiceTest {
         given(settlementRepository.findSettlementByOrderIdAndDeleted(order.getId(), false)).willReturn(Optional.of(settlement()));
 
         // when
-        SettlementResponse settlementResponse = settlementService.getSettlementByOrder(order.getId());
+        Settlement settlement = settlementService.getSettlementByOrder(order.getId());
 
         // then
-        assertThat(new SettlementResponse(settlement())).isEqualTo(settlementResponse);
+        assertThat(new SettlementResponse(settlement())).isEqualTo(new SettlementResponse(settlement));
     }
 
     @Test
