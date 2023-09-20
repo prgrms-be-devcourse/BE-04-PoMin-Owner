@@ -220,5 +220,73 @@ class OptionTest {
         assertThatNoException()
                 .isThrownBy(optionGroup::checkRequiredOption);
     }
+    
+    @Test
+    @DisplayName("옵션 그룹에 옵션 개수가 10개를 초과하면 옵션 추가에 실패한다")
+    void failAddOptionWhenOptionCountIsOverTen() {
+        // given
+        Option firstOption = selectedOptions.get(0).changeSelectionStatus(false);
+        Option secondOption = selectedOptions.get(1).changeSelectionStatus(false);
+        Option thridOption = selectedOptions.get(2).changeSelectionStatus(false);
+        Option fourthOption = selectedOptions.get(3).changeSelectionStatus(false);
+        Option fifthOption = Option.builder()
+                .name("옵션 5")
+                .price(1000)
+                .selected(false)
+                .optionGroup(optionGroup)
+                .build();
+        Option sixthOption = Option.builder()
+                .name("옵션 6")
+                .price(1000)
+                .selected(false)
+                .optionGroup(optionGroup)
+                .build();
+        Option seventhOption = Option.builder()
+                .name("옵션 7")
+                .price(1000)
+                .selected(false)
+                .optionGroup(optionGroup)
+                .build();
+        Option eighthOption = Option.builder()
+                .name("옵션 8")
+                .price(1000)
+                .selected(false)
+                .optionGroup(optionGroup)
+                .build();
+        Option ninthOption = Option.builder()
+                .name("옵션 9")
+                .price(1000)
+                .selected(false)
+                .optionGroup(optionGroup)
+                .build();
+        Option tenthOption = Option.builder()
+                .name("옵션 10")
+                .price(1000)
+                .selected(false)
+                .optionGroup(optionGroup)
+                .build();
+        Option eleventhOption = Option.builder()
+                .name("옵션 11")
+                .price(1000)
+                .selected(false)
+                .optionGroup(optionGroup)
+                .build();
+
+        optionGroup.addOption(firstOption);
+        optionGroup.addOption(secondOption);
+        optionGroup.addOption(thridOption);
+        optionGroup.addOption(fourthOption);
+        optionGroup.addOption(fifthOption);
+        optionGroup.addOption(sixthOption);
+        optionGroup.addOption(seventhOption);
+        optionGroup.addOption(eighthOption);
+        optionGroup.addOption(ninthOption);
+        optionGroup.addOption(tenthOption);
+
+        // when, then
+        assertThatThrownBy(() -> optionGroup.addOption(eleventhOption))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+    
 
 }
