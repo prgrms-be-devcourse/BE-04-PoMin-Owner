@@ -1,7 +1,7 @@
 package com.ray.pominowner.settlement.service;
 
 import com.ray.pominowner.orders.repository.OrderRepository;
-import com.ray.pominowner.settlement.controller.vo.SettlementByStoreRequest;
+import com.ray.pominowner.settlement.service.vo.SettlementByStoreRequest;
 import com.ray.pominowner.settlement.domain.Settlement;
 import com.ray.pominowner.settlement.repository.SettlementRepository;
 import com.ray.pominowner.store.repository.StoreRepository;

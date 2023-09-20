@@ -1,6 +1,4 @@
-package com.ray.pominowner.settlement.controller.vo;
-
-import com.ray.pominowner.settlement.service.DateType;
+package com.ray.pominowner.settlement.service.vo;
 
 import java.time.LocalDate;
 
