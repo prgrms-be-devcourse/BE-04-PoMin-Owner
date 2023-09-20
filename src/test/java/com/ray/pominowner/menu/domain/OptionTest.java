@@ -54,12 +54,11 @@ class OptionTest {
     @Test
     @DisplayName("옵선 생성에 성공한다")
     void successGeneratingOption() {
-
         // given
         Option firstOption = selectedOptions.get(0);
 
         // when
-        optionGroup.add(firstOption);
+        optionGroup.addOption(firstOption);
 
         // then
         assertThat(optionGroup.getOptions())
@@ -68,16 +67,16 @@ class OptionTest {
     }
 
     @Test
-    @DisplayName("옵션 가격을 성공적으로 가져온다")
+    @DisplayName("옵션 가격을 계산하는데 성공한다")
     void successCalculatingPrice() {
         // given
         Option firstOption = selectedOptions.get(0);
         Option secondOption = selectedOptions.get(1);
         Option thirdOption = selectedOptions.get(2);
 
-        optionGroup.add(firstOption);
-        optionGroup.add(secondOption);
-        optionGroup.add(thirdOption);
+        optionGroup.addOption(firstOption);
+        optionGroup.addOption(secondOption);
+        optionGroup.addOption(thirdOption);
 
         // when
         int totalPrice = optionGroup.getTotalPrice();
@@ -88,7 +87,7 @@ class OptionTest {
     }
 
     @Test
-    @DisplayName("옵션 그룹의 최대 선택 옵션 개수를 초과해 옵션을 선택하면 예외가 발생한다")
+    @DisplayName("옵션 그룹의 최대 선택 옵션 개수를 초과해 옵션을 선택하면 옵션 추가에 실패한다")
     void failWhenExceedingMaxOptionCount() {
         // given
         Option firstOption = selectedOptions.get(0);
@@ -96,17 +95,17 @@ class OptionTest {
         Option thirdOption = selectedOptions.get(2);
         Option fourthOption = selectedOptions.get(3);
 
-        optionGroup.add(firstOption);
-        optionGroup.add(secondOption);
-        optionGroup.add(thirdOption);
+        optionGroup.addOption(firstOption);
+        optionGroup.addOption(secondOption);
+        optionGroup.addOption(thirdOption);
 
         // when, then
-        assertThatThrownBy(() -> optionGroup.add(fourthOption))
+        assertThatThrownBy(() -> optionGroup.addOption(fourthOption))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
-    @DisplayName("옵션 그룹의 최대 선택 옵션 개수를 초과하지 않으면 예외가 발생하지 않는다")
+    @DisplayName("옵션 그룹의 최대 선택 옵션 개수를 초과하지 않으면 옵션 추가에 성공한다")
     void successWhenNotExceedingMaxOptionCount() {
         // given
         Option firstOption = selectedOptions.get(0);
@@ -119,13 +118,13 @@ class OptionTest {
                 .optionGroup(optionGroup)
                 .build();
 
-        optionGroup.add(firstOption);
-        optionGroup.add(secondOption);
-        optionGroup.add(thirdOption);
+        optionGroup.addOption(firstOption);
+        optionGroup.addOption(secondOption);
+        optionGroup.addOption(thirdOption);
 
         // when, then
         assertThatNoException()
-                .isThrownBy(() -> optionGroup.add(unSelectedFourthOption));
+                .isThrownBy(() -> optionGroup.addOption(unSelectedFourthOption));
     }
 
     @Test
@@ -136,37 +135,38 @@ class OptionTest {
 
         Option unselectedOption = firstOption.changeSelectionStatus(false);
 
-
         // when, then
         assertThat(unselectedOption.isSelected()).isFalse();
     }
 
     @Test
-    @DisplayName("옵션 그룹에서 옵션 선택이 필수일 경우, 옵션을 하나도 선택하지 않으면 예외가 발생한다")
+    @DisplayName("옵션 그룹에서 옵션 선택이 필수일 경우, 옵션을 하나도 선택하지 않으면 필수 옵션 검증 통과에 실페한다")
     void failWhenOptionGroupStatusIsRequiredAndNotSelectingAnyOption() {
+        // given
         Option firstOption = selectedOptions.get(0).changeSelectionStatus(false);
         Option secondOption = selectedOptions.get(1).changeSelectionStatus(false);
         Option thridOption = selectedOptions.get(2).changeSelectionStatus(false);
 
-        optionGroup.add(firstOption);
-        optionGroup.add(secondOption);
-        optionGroup.add(thridOption);
+        optionGroup.addOption(firstOption);
+        optionGroup.addOption(secondOption);
+        optionGroup.addOption(thridOption);
 
+        // when, then
         assertThatThrownBy(() -> optionGroup.checkRequiredOption())
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
-    @DisplayName("옵션 그룹에서 옵션 선택이 필수일 경우, 옵션을 하나라도 선택할 경우 예외가 발생하지 않는다")
-    void successWhenOptionGroupStatausIsRequiredAndSelectingAtLeastOneOption() {
+    @DisplayName("옵션 그룹에서 옵션 선택이 필수일 경우, 옵션을 하나라도 선택할 경우 옵션 검증 통과에 성공한다")
+    void successWhenOptionGroupStatusIsRequiredAndSelectingAtLeastOneOption() {
         // given
         Option firstOption = selectedOptions.get(0).changeSelectionStatus(false);
         Option secondOption = selectedOptions.get(1).changeSelectionStatus(false);
         Option thridOption = selectedOptions.get(2).changeSelectionStatus(true);
 
-        optionGroup.add(firstOption);
-        optionGroup.add(secondOption);
-        optionGroup.add(thridOption);
+        optionGroup.addOption(firstOption);
+        optionGroup.addOption(secondOption);
+        optionGroup.addOption(thridOption);
 
         // when, then
         assertThatNoException()
@@ -174,8 +174,8 @@ class OptionTest {
     }
 
     @Test
-    @DisplayName("옵션 그룹에서 옵션 선택이 필수가 아닐 경우, 옵션을 선택하지 않아도 예외가 발생하지 않는다")
-    void successWhenOptionGroupStatausIsNotRequiredAndNotSelectingAnyOption() {
+    @DisplayName("옵션 그룹에서 옵션 선택이 필수가 아닐 경우, 옵션을 선택하지 않아도 옵션 검증 통과에 성공한다")
+    void successWhenOptionGroupStatusIsNotRequiredAndNotSelectingAnyOption() {
         // given
         OptionGroup optionGroup = OptionGroup.builder()
                 .name("첫번째 옵션 그룹")
@@ -188,9 +188,9 @@ class OptionTest {
         Option secondOption = selectedOptions.get(1).changeSelectionStatus(false);
         Option thridOption = selectedOptions.get(2).changeSelectionStatus(false);
 
-        optionGroup.add(firstOption);
-        optionGroup.add(secondOption);
-        optionGroup.add(thridOption);
+        optionGroup.addOption(firstOption);
+        optionGroup.addOption(secondOption);
+        optionGroup.addOption(thridOption);
 
         // when, then
         assertThatNoException()
@@ -198,8 +198,8 @@ class OptionTest {
     }
 
     @Test
-    @DisplayName("옵션 그룹에서 옵션 선택이 필수가 아닐 경우, 옵션을 선택해도 예외가 발생하지 않는다")
-    void successWhenOptionGroupStatausIsNotRequiredAndSelectingOption() {
+    @DisplayName("옵션 그룹에서 옵션 선택이 필수가 아닐 경우, 옵션을 선택해도 옵션 검증 통과에 성공한다")
+    void successWhenOptionGroupStatusIsNotRequiredAndSelectingOption() {
         // given
         OptionGroup optionGroup = OptionGroup.builder()
                 .name("첫번째 옵션 그룹")
@@ -212,9 +212,9 @@ class OptionTest {
         Option secondOption = selectedOptions.get(1).changeSelectionStatus(true);
         Option thridOption = selectedOptions.get(2).changeSelectionStatus(true);
 
-        optionGroup.add(firstOption);
-        optionGroup.add(secondOption);
-        optionGroup.add(thridOption);
+        optionGroup.addOption(firstOption);
+        optionGroup.addOption(secondOption);
+        optionGroup.addOption(thridOption);
 
         // when, then
         assertThatNoException()
