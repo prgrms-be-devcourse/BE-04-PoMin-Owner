@@ -29,6 +29,7 @@ public class OptionGroupController {
     @GetMapping
     public OptionGroupWithOptionResponse getOptionGroup(@RequestParam Long optionGroupId) {
         OptionGroup optionGroup = optionGroupService.getOptionGroup(optionGroupId);
+
         return OptionGroupWithOptionResponse.from(optionGroup);
     }
 
