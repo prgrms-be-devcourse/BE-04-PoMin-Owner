@@ -1,6 +1,7 @@
 package com.ray.pominowner.menu.domain;
 
 import com.ray.pominowner.global.domain.BaseTimeEntity;
+import com.ray.pominowner.menu.service.vo.OptionGroupUpdateInfo;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
@@ -20,11 +22,10 @@ import static jakarta.persistence.FetchType.EAGER;
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity
+@Getter
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor(access = PROTECTED)
 public class OptionGroup extends BaseTimeEntity {
-
-    private static final int MAX_OPTION_COUNT = 10;
 
     @Id
     @Column(name = "OPTION_GROUP_ID")
@@ -58,7 +59,7 @@ public class OptionGroup extends BaseTimeEntity {
         Assert.isTrue(maxOptionCount >= 0, "최대 옵션 개수는 0 이상이어야 합니다.");
     }
 
-    public void addOption(Option option) {
+    public Option addOption(Option option) {
         Option optionGroupChangedOption = Option.builder()
                 .id(option.getId())
                 .name(option.getName())
@@ -70,10 +71,14 @@ public class OptionGroup extends BaseTimeEntity {
         this.options.add(optionGroupChangedOption);
         checkMaxOptionCount();
         checkSelectedOptionCount();
+
+        return optionGroupChangedOption;
     }
 
     private void checkMaxOptionCount() {
-        if (options.size() > MAX_OPTION_COUNT) {
+        final int maxOptionCount = 10;
+
+        if (options.size() > maxOptionCount) {
             throw new IllegalArgumentException("옵션 개수는 10개를 초과할 수 없습니다.");
         }
     }
@@ -98,8 +103,22 @@ public class OptionGroup extends BaseTimeEntity {
         }
     }
 
+    public OptionGroup update(OptionGroupUpdateInfo optionGroupUpdateInfo) {
+        return OptionGroup.builder()
+                .id(id)
+                .name(optionGroupUpdateInfo.name())
+                .maxOptionCount(optionGroupUpdateInfo.maxOptionCount())
+                .required(optionGroupUpdateInfo.required())
+                .storeId(storeId)
+                .build();
+    }
+
     public List<Option> getOptions() {
         return options;
+    }
+
+    public Long getId() {
+        return id;
     }
 
 }
