@@ -30,14 +30,13 @@ public class OptionController {
     private final OptionService optionService;
     private final OptionGroupService optionGroupService;
 
-    // 개별 옵션 조회
     @GetMapping
     public OptionResponse getOption(@RequestParam Long optionId) {
         Option option = optionService.getOption(optionId);
+
         return OptionResponse.from(option);
     }
 
-    // 개별 옵션 등록
     @PostMapping
     public ResponseEntity<Void> registerOption(@RequestBody OptionRequest request) {
         OptionGroup optionGroup = optionGroupService.getOptionGroup(request.optionGroupId());
@@ -46,14 +45,12 @@ public class OptionController {
         return ResponseEntity.created(URI.create("/api/v1/options/" + optionId)).build();
     }
 
-    // 개별 옵션 수정
     @PutMapping
     public void updateOption(@RequestBody OptionUpdateRequest request) {
         OptionUpdateInfo optionUpdateInfo = new OptionUpdateInfo(request.name(), request.price(), request.selected());
         optionService.updateOption(optionUpdateInfo, request.optionId());
     }
 
-    // 개별 옵션 삭제
     @DeleteMapping
     public void deleteOption(@RequestParam Long optionId) {
         optionService.deleteOption(optionId);
