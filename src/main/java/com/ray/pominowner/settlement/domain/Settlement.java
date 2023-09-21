@@ -9,6 +9,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.Hibernate;
 import org.springframework.util.Assert;
@@ -24,6 +25,7 @@ import static com.ray.pominowner.global.util.ExceptionMessage.NULL_SERVICE_TYPE;
 import static com.ray.pominowner.global.util.Validator.validate;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Settlement extends BaseTimeEntity {
 
@@ -77,30 +79,6 @@ public class Settlement extends BaseTimeEntity {
         Assert.notNull(sales, NULL_SALES_OBJECT.getMessage());
         Assert.notNull(depositStatus, NULL_DEPOSIT_STATUS.getMessage());
         Assert.notNull(serviceType, NULL_SERVICE_TYPE.getMessage());
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Fee getFee() {
-        return fee;
-    }
-
-    public PayOut getPayOut() {
-        return payOut;
-    }
-
-    public Sales getSales() {
-        return sales;
-    }
-
-    public DepositStatus getDepositStatus() {
-        return depositStatus;
-    }
-
-    public ServiceType getServiceType() {
-        return serviceType;
     }
 
     @Override
