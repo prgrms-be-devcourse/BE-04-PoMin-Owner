@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 import static com.ray.pominowner.global.util.ExceptionMessage.INVALID_AMOUNT;
-import static com.ray.pominowner.global.util.ExceptionMessage.SALES_DATE_IS_AFTER_NOW;
 import static com.ray.pominowner.global.util.Validator.validate;
 
 
@@ -25,7 +24,6 @@ public class Sales {
 
     public Sales(int salesAmount, LocalDate orderedAt) {
         validate(salesAmount >= 0, INVALID_AMOUNT);
-        validate(orderedAt.isBefore(LocalDate.now()) || orderedAt.isEqual(LocalDate.now()), SALES_DATE_IS_AFTER_NOW);
 
         this.salesAmount = salesAmount;
         this.salesDate = orderedAt;

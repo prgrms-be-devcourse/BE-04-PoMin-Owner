@@ -15,11 +15,13 @@ import org.springframework.util.Assert;
 
 import java.util.Objects;
 
+import static com.ray.pominowner.global.util.ExceptionMessage.INVALID_SALES_AND_PAYOUT_DATE;
 import static com.ray.pominowner.global.util.ExceptionMessage.NULL_DEPOSIT_STATUS;
 import static com.ray.pominowner.global.util.ExceptionMessage.NULL_FEE_OBJECT;
 import static com.ray.pominowner.global.util.ExceptionMessage.NULL_PAYOUT_OBJECT;
 import static com.ray.pominowner.global.util.ExceptionMessage.NULL_SALES_OBJECT;
 import static com.ray.pominowner.global.util.ExceptionMessage.NULL_SERVICE_TYPE;
+import static com.ray.pominowner.global.util.Validator.validate;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -55,6 +57,7 @@ public class Settlement extends BaseTimeEntity {
     @Builder
     public Settlement(Long id, Fee fee, PayOut payOut, Sales sales, DepositStatus depositStatus, ServiceType serviceType, Long storeId, Long orderId, Long paymentId, boolean deleted) {
         validateSettlement(fee, payOut, sales, depositStatus, serviceType);
+        validate(sales.getSalesDate().isBefore(payOut.getPayOutDate()) || sales.getSalesDate().isEqual(payOut.getPayOutDate()), INVALID_SALES_AND_PAYOUT_DATE);
 
         this.id = id;
         this.fee = fee;
