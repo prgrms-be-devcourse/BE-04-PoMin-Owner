@@ -47,8 +47,13 @@ public class OptionController {
 
     @PutMapping
     public void updateOption(@RequestBody OptionUpdateRequest request) {
-        OptionUpdateInfo optionUpdateInfo = new OptionUpdateInfo(request.name(), request.price(), request.selected());
-        optionService.updateOption(optionUpdateInfo, request.optionId());
+        OptionUpdateInfo optionUpdateInfo = new OptionUpdateInfo(
+                request.name(),
+                request.price(),
+                request.selected(),
+                request.optionId()
+        );
+        optionService.updateOption(optionUpdateInfo);
     }
 
     @DeleteMapping

@@ -29,8 +29,8 @@ public class OptionService {
         return optionGroupAddedOption.getId();
     }
 
-    public void updateOption(OptionUpdateInfo optionUpdateInfo, Long optionId) {
-        Option option = getOption(optionId);
+    public void updateOption(OptionUpdateInfo optionUpdateInfo ) {
+        Option option = getOption(optionUpdateInfo.optionId());
         Option updatedOption = option.update(optionUpdateInfo);
         optionRepository.save(updatedOption);
     }
