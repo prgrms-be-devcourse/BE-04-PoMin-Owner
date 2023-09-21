@@ -60,8 +60,7 @@ class SettlementTest {
                 Arguments.arguments(fee(), payOut(), null)
         );
     }
-
-
+    
     @Test
     @DisplayName("지급일이 매출일보다 빠르면 Settlement 생성에 실패한다.")
     public void failSettlementWhenPayOutDateIsBeforeThanSalesDate() {
