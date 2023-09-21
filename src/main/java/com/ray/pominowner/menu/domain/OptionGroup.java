@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.persistence.CascadeType.PERSIST;
+import static jakarta.persistence.CascadeType.REMOVE;
 import static jakarta.persistence.FetchType.EAGER;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -22,6 +23,8 @@ import static lombok.AccessLevel.PROTECTED;
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor(access = PROTECTED)
 public class OptionGroup extends BaseTimeEntity {
+
+    private static final int MAX_OPTION_COUNT = 10;
 
     @Id
     @Column(name = "OPTION_GROUP_ID")
@@ -36,7 +39,7 @@ public class OptionGroup extends BaseTimeEntity {
 
     private Long storeId;
 
-    @OneToMany(mappedBy = "optionGroup", fetch = EAGER, orphanRemoval = true, cascade = PERSIST)
+    @OneToMany(mappedBy = "optionGroup", fetch = EAGER, orphanRemoval = true, cascade = {PERSIST, REMOVE})
     private final List<Option> options = new ArrayList<>();
 
     @Builder
@@ -55,8 +58,8 @@ public class OptionGroup extends BaseTimeEntity {
         Assert.isTrue(maxOptionCount >= 0, "최대 옵션 개수는 0 이상이어야 합니다.");
     }
 
-    public void add(Option option) {
-        Option changeOptionGroup = Option.builder()
+    public void addOption(Option option) {
+        Option optionGroupChangedOption = Option.builder()
                 .id(option.getId())
                 .name(option.getName())
                 .price(option.getPrice())
@@ -64,8 +67,22 @@ public class OptionGroup extends BaseTimeEntity {
                 .optionGroup(this)
                 .build();
 
-        this.options.add(changeOptionGroup);
-        checkOptionCount();
+        this.options.add(optionGroupChangedOption);
+        checkMaxOptionCount();
+        checkSelectedOptionCount();
+    }
+
+    private void checkMaxOptionCount() {
+        if (options.size() > MAX_OPTION_COUNT) {
+            throw new IllegalArgumentException("옵션 개수는 10개를 초과할 수 없습니다.");
+        }
+    }
+
+    private void checkSelectedOptionCount() {
+        long totalCheckedOptionCount = this.options.stream().filter(Option::isSelected).count();
+        if (this.maxOptionCount < totalCheckedOptionCount) {
+            throw new IllegalArgumentException("최대 옵션 개수를 초과하였습니다.");
+        }
     }
 
     public int getTotalPrice() {
@@ -73,13 +90,6 @@ public class OptionGroup extends BaseTimeEntity {
                 .filter(Option::isSelected)
                 .mapToInt(Option::getPrice)
                 .sum();
-    }
-
-    private void checkOptionCount() {
-        long totalCheckedOptionCount = this.options.stream().filter(Option::isSelected).count();
-        if (this.maxOptionCount < totalCheckedOptionCount) {
-            throw new IllegalArgumentException("최대 옵션 개수를 초과하였습니다.");
-        }
     }
 
     public void checkRequiredOption() {
