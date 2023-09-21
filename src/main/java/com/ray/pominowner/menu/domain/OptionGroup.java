@@ -79,7 +79,7 @@ public class OptionGroup extends BaseTimeEntity {
         final int maxOptionCount = 10;
 
         if (options.size() > maxOptionCount) {
-            throw new IllegalArgumentException("옵션 개수는 10개를 초과할 수 없습니다.");
+            throw new IllegalArgumentException("옵션 개수는 " + maxOptionCount + "개를 초과할 수 없습니다.");
         }
     }
 
