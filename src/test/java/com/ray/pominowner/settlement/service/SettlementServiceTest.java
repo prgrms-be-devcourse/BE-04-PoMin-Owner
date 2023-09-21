@@ -164,6 +164,5 @@ class SettlementServiceTest {
         assertThatThrownBy(() -> settlementService.getDailySettlementByStore(request))
                 .isInstanceOf(IllegalArgumentException.class);
     }
-
-
+    
 }
