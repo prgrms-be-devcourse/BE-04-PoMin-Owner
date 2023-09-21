@@ -25,6 +25,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -60,18 +61,18 @@ class SettlementControllerTest {
         // then
         actions
                 .andExpect(status().isOk())
-                .andDo(document("/api/v1/settlements/by-order/{orderId}",
+                .andDo(document("settlements/by-order/{orderId}",
                                 pathParameters(
                                         parameterWithName("orderId").description("주문 id")
                                 ),
                                 responseFields(
-                                        fieldWithPath("id").type(JsonFieldType.NUMBER).description("정산 id"),
-                                        fieldWithPath("salesAmount").type(JsonFieldType.NUMBER).description("판매 금액"),
-                                        fieldWithPath("paymentFee").type(JsonFieldType.NUMBER).description("결제 수수료"),
-                                        fieldWithPath("brokerageFee").type(JsonFieldType.NUMBER).description("중개 수수료"),
-                                        fieldWithPath("valueAddedFee").type(JsonFieldType.NUMBER).description("부가세"),
-                                        fieldWithPath("payOutAmount").type(JsonFieldType.NUMBER).description("지불 금액"),
-                                        fieldWithPath("payOutDate").type(JsonFieldType.STRING).description("지불 날짜")
+                                        fieldWithPath("id").type(NUMBER).description("정산 id"),
+                                        fieldWithPath("salesAmount").type(NUMBER).description("판매 금액"),
+                                        fieldWithPath("paymentFee").type(NUMBER).description("결제 수수료"),
+                                        fieldWithPath("brokerageFee").type(NUMBER).description("중개 수수료"),
+                                        fieldWithPath("valueAddedFee").type(NUMBER).description("부가세"),
+                                        fieldWithPath("payOutAmount").type(NUMBER).description("지불 금액"),
+                                        fieldWithPath("payOutDate").type(STRING).description("지불 날짜")
                                 )
                         )
                 );
@@ -103,7 +104,7 @@ class SettlementControllerTest {
         // then
         actions
                 .andExpect(status().isOk())
-                .andDo(document("/api/v1/settlements/by-store/{storeId}",
+                .andDo(document("settlements/by-store/{storeId}",
                                 pathParameters(
                                         parameterWithName("storeId").description("가게 id")
                                 ),
@@ -113,16 +114,16 @@ class SettlementControllerTest {
                                         parameterWithName("endDate").description("종료 날짜 (예: '2023-09-21')")
                                 ),
                                 responseFields(
-                                        fieldWithPath("[]").type(JsonFieldType.ARRAY).description("정산 배열"),
-                                        fieldWithPath("[].payOutDate").type(JsonFieldType.STRING).description("지불 날짜"),
-                                        fieldWithPath("[].depositStatus").type(JsonFieldType.STRING).description("입금 상태"),
-                                        fieldWithPath("[].salesDate").type(JsonFieldType.STRING).description("판매 날짜"),
-                                        fieldWithPath("[].serviceType").type(JsonFieldType.STRING).description("이용 서비스 타입"),
-                                        fieldWithPath("[].salesAmount").type(JsonFieldType.NUMBER).description("판매 금액"),
-                                        fieldWithPath("[].paymentFee").type(JsonFieldType.NUMBER).description("결제 수수료"),
-                                        fieldWithPath("[].brokerageFee").type(JsonFieldType.NUMBER).description("중개 수수료"),
-                                        fieldWithPath("[].valueAddedFee").type(JsonFieldType.NUMBER).description("부가세"),
-                                        fieldWithPath("[].payOutAmount").type(JsonFieldType.NUMBER).description("지불 금액")
+                                        fieldWithPath("[]").type(ARRAY).description("정산 배열"),
+                                        fieldWithPath("[].payOutDate").type(STRING).description("지불 날짜"),
+                                        fieldWithPath("[].depositStatus").type(STRING).description("입금 상태"),
+                                        fieldWithPath("[].salesDate").type(STRING).description("판매 날짜"),
+                                        fieldWithPath("[].serviceType").type(STRING).description("이용 서비스 타입"),
+                                        fieldWithPath("[].salesAmount").type(NUMBER).description("판매 금액"),
+                                        fieldWithPath("[].paymentFee").type(NUMBER).description("결제 수수료"),
+                                        fieldWithPath("[].brokerageFee").type(NUMBER).description("중개 수수료"),
+                                        fieldWithPath("[].valueAddedFee").type(NUMBER).description("부가세"),
+                                        fieldWithPath("[].payOutAmount").type(NUMBER).description("지불 금액")
                                 )
 
                         )
