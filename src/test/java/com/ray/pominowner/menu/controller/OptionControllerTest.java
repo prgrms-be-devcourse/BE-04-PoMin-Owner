@@ -2,6 +2,7 @@ package com.ray.pominowner.menu.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ray.pominowner.menu.controller.dto.OptionRequest;
+import com.ray.pominowner.menu.controller.dto.OptionResponse;
 import com.ray.pominowner.menu.controller.dto.OptionUpdateRequest;
 import com.ray.pominowner.menu.domain.Option;
 import com.ray.pominowner.menu.domain.OptionGroup;
@@ -18,7 +19,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.ray.pominowner.menu.controller.dto.OptionGroupWithOptionResponse.OptionResponse;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
