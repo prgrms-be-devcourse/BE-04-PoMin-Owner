@@ -14,30 +14,38 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(OrderController.class)
+@AutoConfigureRestDocs
 class OrderControllerTest {
 
     @MockBean
     private OrderService orderService;
-
 
     @MockBean
     private OrderProcessingService orderProcessingService;
@@ -88,13 +96,33 @@ class OrderControllerTest {
                 )
         );
 
-        // when, then
-        this.mockMvc.perform(post("/api/v1/orders")
-                        .with(csrf())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(request)))
-                .andExpect(status().isNoContent())
-                .andDo(print());
+        // when
+        ResultActions result = this.mockMvc.perform(post("/api/v1/orders")
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(request)));
+
+        // then
+        result.andExpect(status().isNoContent())
+                .andDo(print())
+                .andDo(document("receive-order",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestFields(
+                                fieldWithPath("id").type(JsonFieldType.NUMBER).description("주문 ID"),
+                                fieldWithPath("orderNumber").type(JsonFieldType.STRING).description("주문 번호"),
+                                fieldWithPath("requestedDetails").type(JsonFieldType.STRING).description("요구사항"),
+                                fieldWithPath("totalPrice").type(JsonFieldType.NUMBER).description("총 가격"),
+                                fieldWithPath("customerPhoneNumber").type(JsonFieldType.STRING).description("고객 전화번호"),
+                                fieldWithPath("reservationTime").type(JsonFieldType.NULL).description("예약시간"),
+                                fieldWithPath("orderedAt").type(JsonFieldType.STRING).description("주문 시각"),
+                                fieldWithPath("storeId").type(JsonFieldType.NUMBER).description("가게 ID"),
+                                fieldWithPath("payment").type(JsonFieldType.OBJECT).description("결제 객체"),
+                                fieldWithPath("payment.id").type(JsonFieldType.NUMBER).description("결제 ID"),
+                                fieldWithPath("payment.amount").type(JsonFieldType.NUMBER).description("결제된 금액"),
+                                fieldWithPath("payment.status").type(JsonFieldType.STRING).description("결제 상태"),
+                                fieldWithPath("payment.provider").type(JsonFieldType.STRING).description("결제 대행사")
+                        )));
     }
 
     @Test
