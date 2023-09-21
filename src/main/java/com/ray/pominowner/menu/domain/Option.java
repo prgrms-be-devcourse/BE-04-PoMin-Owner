@@ -1,6 +1,7 @@
 package com.ray.pominowner.menu.domain;
 
 import com.ray.pominowner.global.domain.BaseTimeEntity;
+import com.ray.pominowner.menu.service.vo.OptionUpdateInfo;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -65,6 +66,20 @@ public class Option extends BaseTimeEntity {
                 .selected(selected)
                 .optionGroup(this.optionGroup)
                 .build();
+    }
+
+    public Option update(OptionUpdateInfo request) {
+        return Option.builder()
+                .id(this.id)
+                .name(request.name())
+                .price(request.price())
+                .selected(request.selected())
+                .optionGroup(this.optionGroup)
+                .build();
+    }
+
+    public Long getId() {
+        return id;
     }
 
 }
