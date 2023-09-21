@@ -104,7 +104,7 @@ class OptionControllerTest {
     void successUpdateOption() throws Exception {
         // given
         OptionUpdateRequest optionUpdateRequest = new OptionUpdateRequest("옵션 1", 500, true, 1L);
-        doNothing().when(optionService).updateOption(any(OptionUpdateInfo.class), any(Long.class));
+        doNothing().when(optionService).updateOption(any(OptionUpdateInfo.class));
 
         // when, then
         mvc.perform(put("/api/v1/options")
