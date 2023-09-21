@@ -15,7 +15,8 @@ public class OptionGroupService {
     private final OptionGroupRepository optionGroupRepository;
 
     public OptionGroup getOptionGroup(Long optionGroupId) {
-        return findOptionGroup(optionGroupId);
+        return optionGroupRepository.findById(optionGroupId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옵션그룹입니다."));
     }
 
     public Long registerOptionGroup(OptionGroup optiongroup) {
@@ -23,19 +24,14 @@ public class OptionGroupService {
     }
 
     public void updateOptionGroup(OptionGroupUpdateInfo optionGroupUpdateInfo, Long optionGroupId) {
-        OptionGroup optionGroupToUpdate = findOptionGroup(optionGroupId);
+        OptionGroup optionGroupToUpdate = getOptionGroup(optionGroupId);
         OptionGroup updatedOptionGroup = optionGroupToUpdate.update(optionGroupUpdateInfo);
         optionGroupRepository.save(updatedOptionGroup);
     }
 
     public void deleteOptionGroup(Long optionGroupId) {
-        OptionGroup optionGroup = findOptionGroup(optionGroupId);
+        OptionGroup optionGroup = getOptionGroup(optionGroupId);
         optionGroupRepository.delete(optionGroup);
-    }
-
-    private OptionGroup findOptionGroup(Long optionGroupId) {
-        return optionGroupRepository.findById(optionGroupId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옵션그룹입니다."));
     }
 
 }

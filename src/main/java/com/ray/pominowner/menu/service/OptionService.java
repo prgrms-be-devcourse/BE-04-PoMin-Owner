@@ -18,7 +18,8 @@ public class OptionService {
     private final OptionRepository optionRepository;
 
     public Option getOption(Long optionId) {
-        return findOption(optionId);
+        return optionRepository.findById(optionId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옵션입니다."));
     }
 
     public Long registerOption(Option option, OptionGroup optionGroup) {
@@ -29,19 +30,14 @@ public class OptionService {
     }
 
     public void updateOption(OptionUpdateInfo optionUpdateInfo, Long optionId) {
-        Option option = findOption(optionId);
+        Option option = getOption(optionId);
         Option updatedOption = option.update(optionUpdateInfo);
         optionRepository.save(updatedOption);
     }
 
     public void deleteOption(Long optionId) {
-        Option option = findOption(optionId);
+        Option option = getOption(optionId);
         optionRepository.delete(option);
-    }
-
-    private Option findOption(Long optionId) {
-        return optionRepository.findById(optionId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옵션입니다."));
     }
 
 }
