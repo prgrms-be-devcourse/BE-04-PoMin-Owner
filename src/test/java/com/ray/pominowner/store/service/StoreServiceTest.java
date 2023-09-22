@@ -1,6 +1,7 @@
 package com.ray.pominowner.store.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.ray.pominowner.global.vo.InfoSender;
 import com.ray.pominowner.store.StoreTestFixture;
 import com.ray.pominowner.store.domain.Store;
 import com.ray.pominowner.store.repository.StoreRepository;
@@ -41,6 +42,9 @@ class StoreServiceTest {
 
     @Mock
     private StoreImageService storeImageService;
+
+    @Mock
+    private InfoSender infoSender;
 
     private Store store;
 
