@@ -4,21 +4,28 @@ import com.ray.pominowner.global.domain.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.Hibernate;
 import org.springframework.util.Assert;
 
 import java.util.Objects;
 
+import static com.ray.pominowner.global.util.ExceptionMessage.INVALID_SALES_AND_PAYOUT_DATE;
 import static com.ray.pominowner.global.util.ExceptionMessage.NULL_DEPOSIT_STATUS;
 import static com.ray.pominowner.global.util.ExceptionMessage.NULL_FEE_OBJECT;
 import static com.ray.pominowner.global.util.ExceptionMessage.NULL_PAYOUT_OBJECT;
 import static com.ray.pominowner.global.util.ExceptionMessage.NULL_SALES_OBJECT;
+import static com.ray.pominowner.global.util.ExceptionMessage.NULL_SERVICE_TYPE;
+import static com.ray.pominowner.global.util.Validator.validate;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Settlement extends BaseTimeEntity {
 
@@ -35,7 +42,11 @@ public class Settlement extends BaseTimeEntity {
     @Embedded
     private Sales sales;
 
+    @Enumerated(EnumType.STRING)
     private DepositStatus depositStatus;
+
+    @Enumerated(EnumType.STRING)
+    private ServiceType serviceType;
 
     private Long storeId;
 
@@ -46,41 +57,28 @@ public class Settlement extends BaseTimeEntity {
     private boolean deleted;
 
     @Builder
-    public Settlement(Long id, Fee fee, PayOut payOut, Sales sales, DepositStatus depositStatus, Long storeId, Long orderId, Long paymentId, boolean deleted) {
-        validateSettlement(fee, payOut, sales, depositStatus);
+    public Settlement(Long id, Fee fee, PayOut payOut, Sales sales, DepositStatus depositStatus, ServiceType serviceType, Long storeId, Long orderId, Long paymentId, boolean deleted) {
+        validateSettlement(fee, payOut, sales, depositStatus, serviceType);
+        validate(sales.getSalesDate().isBefore(payOut.getPayOutDate()) || sales.getSalesDate().isEqual(payOut.getPayOutDate()), INVALID_SALES_AND_PAYOUT_DATE);
 
         this.id = id;
         this.fee = fee;
         this.payOut = payOut;
         this.sales = sales;
         this.depositStatus = depositStatus;
+        this.serviceType = serviceType;
         this.storeId = storeId;
         this.orderId = orderId;
         this.paymentId = paymentId;
         this.deleted = deleted;
     }
 
-    private void validateSettlement(Fee fee, PayOut payOut, Sales sales, DepositStatus depositStatus) {
+    private void validateSettlement(Fee fee, PayOut payOut, Sales sales, DepositStatus depositStatus, ServiceType serviceType) {
         Assert.notNull(fee, NULL_FEE_OBJECT.getMessage());
         Assert.notNull(payOut, NULL_PAYOUT_OBJECT.getMessage());
         Assert.notNull(sales, NULL_SALES_OBJECT.getMessage());
         Assert.notNull(depositStatus, NULL_DEPOSIT_STATUS.getMessage());
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Fee getFee() {
-        return fee;
-    }
-
-    public PayOut getPayOut() {
-        return payOut;
-    }
-
-    public Sales getSales() {
-        return sales;
+        Assert.notNull(serviceType, NULL_SERVICE_TYPE.getMessage());
     }
 
     @Override

@@ -23,8 +23,8 @@ public class OptionGroupService {
         return optionGroupRepository.save(optiongroup).getId();
     }
 
-    public void updateOptionGroup(OptionGroupUpdateInfo optionGroupUpdateInfo, Long optionGroupId) {
-        OptionGroup optionGroupToUpdate = getOptionGroup(optionGroupId);
+    public void updateOptionGroup(OptionGroupUpdateInfo optionGroupUpdateInfo) {
+        OptionGroup optionGroupToUpdate = getOptionGroup(optionGroupUpdateInfo.optionGroupId());
         OptionGroup updatedOptionGroup = optionGroupToUpdate.update(optionGroupUpdateInfo);
         optionGroupRepository.save(updatedOptionGroup);
     }

@@ -9,6 +9,7 @@ import com.ray.pominowner.settlement.domain.DepositStatus;
 import com.ray.pominowner.settlement.domain.Fee;
 import com.ray.pominowner.settlement.domain.PayOut;
 import com.ray.pominowner.settlement.domain.Sales;
+import com.ray.pominowner.settlement.domain.ServiceType;
 import com.ray.pominowner.settlement.domain.Settlement;
 
 import java.time.LocalDateTime;
@@ -58,6 +59,7 @@ public record ReceiveOrderRequest(
                 .payOut(new PayOut(payment.amount(), fee, orderedAt.toLocalDate()))
                 .sales(new Sales(payment.amount(), orderedAt.toLocalDate()))
                 .depositStatus(DepositStatus.SCHEDULED)
+                .serviceType(ServiceType.PACKAGING)
                 .storeId(storeId)
                 .orderId(id)
                 .paymentId(payment.id())
