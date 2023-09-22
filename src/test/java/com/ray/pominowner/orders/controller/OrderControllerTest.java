@@ -36,6 +36,8 @@ import static org.springframework.restdocs.operation.preprocess.Preprocessors.pr
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -129,61 +131,107 @@ class OrderControllerTest {
     @WithMockUser
     @DisplayName("주문 수락을 성공한다")
     void successApproveOrder() throws Exception {
+        // given
         given(orderService.approve(any(Long.class), any(Integer.class))).willReturn(order);
 
         ApproveOrderRequest request = new ApproveOrderRequest(90);
 
-        this.mockMvc.perform(post("/api/v1/orders/1/approve")
-                        .with(csrf())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .param("orderId", "1")
-                        .content(mapper.writeValueAsString(request)))
-                .andExpect(status().isOk())
-                .andDo(print());
+        // when
+        Long orderId = 1L;
+
+        ResultActions result = this.mockMvc.perform(post("/api/v1/orders/{orderId}/approve", orderId)
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("orderId", "1")
+                .content(mapper.writeValueAsString(request)));
+
+        // then
+        result.andExpect(status().isOk())
+                .andDo(print())
+                .andDo(document("approve-order",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(
+                                parameterWithName("orderId").description("주문 ID")
+                        ),
+                        requestFields(
+                                fieldWithPath("cookingMinute").type(JsonFieldType.NUMBER).description("요리 소요 예정 시간")
+                        )));
     }
 
     @Test
     @WithMockUser
     @DisplayName("주문 거절을 성공한다")
     void rejectApproveOrder() throws Exception {
+        // given
         given(orderService.reject(any(Long.class))).willReturn(order);
 
-        this.mockMvc.perform(post("/api/v1/orders/1/reject")
-                        .with(csrf())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .param("orderId", "1"))
-                .andExpect(status().isOk())
-                .andDo(print());
+        // when
+        Long orderId = 1L;
+
+        ResultActions result = this.mockMvc.perform(post("/api/v1/orders/{orderId}/reject", orderId)
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("orderId", "1"));
+
+        // then
+        result.andExpect(status().isOk())
+                .andDo(print())
+                .andDo(document("reject-order",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(
+                                parameterWithName("orderId").description("주문 ID")
+                        )));
     }
 
     @Test
     @WithMockUser
     @DisplayName("오늘의 주문 내역을 가져오기를 성공한다")
     void successGetTodayOrders() throws Exception {
+        // given
         given(orderService.getTodayOrders(any(Long.class))).willReturn(List.of(order));
 
+        // when
         Long storeId = 1L;
+        ResultActions result = this.mockMvc.perform(get("/api/v1/orders/{storeId}/today", storeId)
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON));
 
-        this.mockMvc.perform(get("/api/v1/orders/{storeId}/today", storeId)
-                        .with(csrf())
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andDo(print());
+        // then
+        result.andExpect(status().isOk())
+                .andDo(print())
+                .andDo(document("today-orders",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(
+                                parameterWithName("storeId").description("가게 ID")
+                        )));
     }
 
     @Test
     @WithMockUser
     @DisplayName("주문 상태를 요리 완료로 변경하는 데 성공한다")
     void successReadyOrder() throws Exception {
+        // given
         given(orderService.readyToServe(any(Long.class))).willReturn(order);
 
+        // when
         Long orderId = 1L;
 
-        this.mockMvc.perform(post("/api/v1/orders/{orderId}/ready", orderId)
-                        .with(csrf())
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andDo(print());
+        ResultActions result = this.mockMvc.perform(post("/api/v1/orders/{orderId}/ready", orderId)
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON));
+
+        // then
+        result.andExpect(status().isOk())
+                .andDo(print())
+                .andDo(document("ready-order",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(
+                                parameterWithName("orderId").description("주문 ID")
+                        )));
     }
 
 }
