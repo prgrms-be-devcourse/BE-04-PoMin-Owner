@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
@@ -18,6 +19,7 @@ import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.FetchType.EAGER;
 import static lombok.AccessLevel.PROTECTED;
 
+@Getter
 @Entity
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor(access = PROTECTED)
@@ -82,10 +84,6 @@ public class Menu extends BaseTimeEntity {
     private boolean isNotValidStoreId(Menu menu) {
         return !menu.storeId
                 .equals(this.storeId);
-    }
-
-    public Long getId() {
-        return id;
     }
 
 }
