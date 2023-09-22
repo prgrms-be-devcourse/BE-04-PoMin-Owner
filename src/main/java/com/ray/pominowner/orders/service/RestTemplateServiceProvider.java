@@ -26,7 +26,7 @@ public class RestTemplateServiceProvider {
 
     public void notifyToApprove(int cookingMinute, Order approvedOrder) {
         URI uri = UriComponentsBuilder
-                .fromUriString("http://pomin-server:8080")
+                .fromUriString("http://localhost:8080")
                 .path("/api/v1/orders/{orderNumber}")
                 .encode()
                 .build(approvedOrder.getOrderNumber());
