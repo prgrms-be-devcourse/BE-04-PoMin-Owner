@@ -1,5 +1,6 @@
 package com.ray.pominowner.store.domain;
 
+import com.ray.pominowner.global.domain.BaseFileEntity;
 import com.ray.pominowner.global.domain.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
@@ -118,12 +119,28 @@ public class Store extends BaseTimeEntity {
         return tel;
     }
 
+    public String getTel() {
+        return tel.getTel();
+    }
+
     public Information getInformation() {
         return info;
     }
 
-    public List<StoreImage> getImages() {
-        return images;
+    public List<String> getImages() {
+        return images.stream().map(BaseFileEntity::getPath).toList();
+    }
+
+    public String getName() {
+        return requiredStoreInfo.getName();
+    }
+
+    public String getMainAddress() {
+        return requiredStoreInfo.getMainAddress();
+    }
+
+    public String getDetailAddress() {
+        return requiredStoreInfo.getDetailAddress();
     }
 
 }
