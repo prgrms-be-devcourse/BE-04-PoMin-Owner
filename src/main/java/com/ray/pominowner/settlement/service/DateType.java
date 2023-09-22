@@ -7,7 +7,7 @@ import com.ray.pominowner.settlement.repository.SettlementRepository;
 import java.util.List;
 
 public enum DateType {
-    SOLD {
+    SALES {
         @Override
         public List<Settlement> getSettlements(SettlementRepository settlementRepository, SettlementByStoreRequest request) {
             return settlementRepository.findSettlementsByStoreIdAndDeletedAndSales_SalesDateBetween(request.storeId(), false, request.startDate(), request.endDate());
