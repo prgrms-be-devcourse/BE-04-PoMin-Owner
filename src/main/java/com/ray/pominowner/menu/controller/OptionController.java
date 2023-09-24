@@ -49,10 +49,10 @@ public class OptionController {
         OptionUpdateInfo optionUpdateInfo = new OptionUpdateInfo(
                 request.name(),
                 request.price(),
-                request.selected(),
-                request.optionId()
+                request.selected()
         );
-        optionService.updateOption(optionUpdateInfo);
+
+        optionService.updateOption(optionUpdateInfo, optionId);
     }
 
     @DeleteMapping("/{optionId}")

@@ -115,7 +115,7 @@ class OptionGroupControllerTest {
         Long optionGroupId = 1L;
         OptionGroupRequest optionGroupRequest = new OptionGroupRequest("옵션 그룹 1", 10, false, storeId);
         given(optionGroupService.registerOptionGroup(any(OptionGroup.class))).willReturn(optionGroupId);
-        
+
         // when, then
         mvc.perform(post("/api/v1/option-groups")
                         .with(csrf())

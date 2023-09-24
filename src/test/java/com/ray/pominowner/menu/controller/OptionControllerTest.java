@@ -125,7 +125,21 @@ class OptionControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(optionRequest)))
                 .andExpect(status().isCreated())
-                .andExpect(header().stringValues("Location", "/api/v1/options/1"));
+                .andExpect(header().stringValues("Location", "/api/v1/options/1"))
+                .andDo(
+                        document("option/save",
+                                requestFields(
+                                        fieldWithPath("name").type(STRING).description("옵션 이름"),
+                                        fieldWithPath("price").type(NUMBER).description("옵션 가격"),
+                                        fieldWithPath("selected").type(BOOLEAN).description("옵션 선택 여부"),
+                                        fieldWithPath("optionGroupId").type(NUMBER).description("옵션 그룹 id")
+                                ),
+                                responseHeaders(
+                                        headerWithName("Location").description("옵션 등록 후 세부 정보 redirection link")
+                                )
+                        )
+                );
+
     }
 
     @Test
@@ -142,7 +156,19 @@ class OptionControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(optionUpdateRequest)))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andDo(
+                    document("option/update",
+                            pathParameters(
+                                    parameterWithName("optionId").description("옵션 아이디")
+                            ),
+                            requestFields(
+                                    fieldWithPath("name").type(STRING).description("옵션 이름"),
+                                    fieldWithPath("price").type(NUMBER).description("옵션 가격"),
+                                    fieldWithPath("selected").type(BOOLEAN).description("옵션 선택 여부")
+                            )
+                    )
+                );
     }
 
     @Test

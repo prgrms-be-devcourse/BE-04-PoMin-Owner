@@ -40,8 +40,8 @@ public class OptionGroupController {
         return ResponseEntity.created(URI.create("/api/v1/option-groups/" + optionGroupId)).build();
     }
 
-    @PutMapping
-    public void updateOptionGroup(@RequestBody OptionGroupUpdateRequest request) {
+    @PutMapping("/{optionGroupId}")
+    public void updateOptionGroup(@RequestBody OptionGroupUpdateRequest request, @PathVariable Long optionGroupId) {
         OptionGroupUpdateInfo optionGroupUpdateInfo = new OptionGroupUpdateInfo(
                 request.name(),
                 request.maxOptionCount(),
@@ -50,8 +50,8 @@ public class OptionGroupController {
         optionGroupService.updateOptionGroup(optionGroupUpdateInfo, optionGroupId);
     }
 
-    @DeleteMapping
-    public void deleteOptionGroup(@RequestParam Long optionGroupId) {
+    @DeleteMapping("/{optionGroupId}")
+    public void deleteOptionGroup(@PathVariable Long optionGroupId) {
         optionGroupService.deleteOptionGroup(optionGroupId);
     }
 

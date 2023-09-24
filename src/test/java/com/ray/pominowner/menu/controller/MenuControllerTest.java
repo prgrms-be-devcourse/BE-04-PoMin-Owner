@@ -118,7 +118,6 @@ class MenuControllerTest {
         // given
         doNothing().when(menuService).updateMenu(any(), any());
 
-
         // when, then
         MockMultipartHttpServletRequestBuilder builder = RestDocumentationRequestBuilders.multipart("/api/v1/menus/1");
         builder.with(request -> {
