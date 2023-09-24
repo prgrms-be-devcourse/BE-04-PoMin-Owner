@@ -103,7 +103,7 @@ class StoreControllerTest {
                         .content(mapper.writeValueAsString(categoryRequest)))
                 .andExpect(status().isOk())
                 .andDo(
-                        document("category/save",
+                        document("store/category/save",
                                 pathParameters(
                                         parameterWithName("storeId").description("가게 id")
                                 ),
@@ -129,7 +129,7 @@ class StoreControllerTest {
                         .content(mapper.writeValueAsString(phoneNumberRequest)))
                 .andExpect(status().isOk())
                 .andDo(
-                        document("phone-number/update",
+                        document("store/phone-number/update",
                                pathParameters(
                                         parameterWithName("storeId").description("가게 id")
                                ),
@@ -154,7 +154,7 @@ class StoreControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(
-                        document("phone-number/delete",
+                        document("store/phone-number/delete",
                                 pathParameters(
                                         parameterWithName("storeId").description("가게 id")
                                 )
@@ -178,7 +178,7 @@ class StoreControllerTest {
                         .content(mapper.writeValueAsString(informationRequest)))
                 .andExpect(status().isOk())
                 .andDo(
-                        document("update/storeInfo",
+                        document("store/info/update",
                                 pathParameters(
                                         parameterWithName("storeId").description("가게 id")
                                 ),
@@ -203,7 +203,7 @@ class StoreControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(
-                        document("delete/storeInfo",
+                        document("store/info/delete",
                                 pathParameters(
                                         parameterWithName("storeId").description("가게 id")
                                 )
@@ -230,7 +230,7 @@ class StoreControllerTest {
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andDo(
-                        document("delete/storeInfo",
+                        document("store/image/save",
                                 pathParameters(
                                         parameterWithName("storeId").description("가게 id")
                                 ),
