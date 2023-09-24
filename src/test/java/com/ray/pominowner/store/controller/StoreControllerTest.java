@@ -73,7 +73,7 @@ class StoreControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(header().stringValues("Location", "/api/v1/stores/1"))
                 .andDo(
-                        document("save/store",
+                        document("store/save",
                                 requestFields(
                                         fieldWithPath("businessNumber").type(JsonFieldType.STRING).description("사업자 등록번호"),
                                         fieldWithPath("name").type(JsonFieldType.STRING).description("가게 이름"),
@@ -103,7 +103,7 @@ class StoreControllerTest {
                         .content(mapper.writeValueAsString(categoryRequest)))
                 .andExpect(status().isOk())
                 .andDo(
-                        document("save/category",
+                        document("category/save",
                                 pathParameters(
                                         parameterWithName("storeId").description("가게 id")
                                 ),
@@ -129,7 +129,7 @@ class StoreControllerTest {
                         .content(mapper.writeValueAsString(phoneNumberRequest)))
                 .andExpect(status().isOk())
                 .andDo(
-                        document("update/phone-number",
+                        document("phone-number/update",
                                pathParameters(
                                         parameterWithName("storeId").description("가게 id")
                                ),
@@ -154,7 +154,7 @@ class StoreControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(
-                        document("delete/phone-number",
+                        document("phone-number/delete",
                                 pathParameters(
                                         parameterWithName("storeId").description("가게 id")
                                 )

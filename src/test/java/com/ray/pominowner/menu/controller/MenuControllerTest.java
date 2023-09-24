@@ -94,7 +94,7 @@ class MenuControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(header().stringValues("Location", "/api/v1/menus/1"))
                 .andDo(
-                        document("save/menu",
+                        document("menu/save",
                                 requestParts(
                                         partWithName("request").description("메뉴 등록 요청"),
                                         partWithName("image").description("메뉴 이미지")
@@ -136,7 +136,7 @@ class MenuControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andDo(
-                        document("update/menu",
+                        document("menu/update",
                                 requestParts(
                                         partWithName("request").description("메뉴 등록 요청"),
                                         partWithName("image").description("메뉴 이미지")
