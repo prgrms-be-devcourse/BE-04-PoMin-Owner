@@ -5,8 +5,8 @@ import com.ray.pominowner.menu.domain.OptionGroup;
 import java.util.List;
 
 public record OptionGroupWithOptionResponse(
-        OptionGroupResponse optionGroupResponse,
-        List<OptionResponse> optionResponses) {
+        OptionGroupResponse optionGroup,
+        List<OptionResponse> options) {
 
     public static OptionGroupWithOptionResponse from(OptionGroup optionGroup) {
         return new OptionGroupWithOptionResponse(
