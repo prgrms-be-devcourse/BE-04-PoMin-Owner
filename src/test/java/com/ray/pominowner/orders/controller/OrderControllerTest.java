@@ -107,7 +107,7 @@ class OrderControllerTest {
         // then
         result.andExpect(status().isNoContent())
                 .andDo(print())
-                .andDo(document("receive-order",
+                .andDo(document("order/receive",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestFields(
@@ -148,7 +148,7 @@ class OrderControllerTest {
         // then
         result.andExpect(status().isOk())
                 .andDo(print())
-                .andDo(document("approve-order",
+                .andDo(document("order/approve",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
@@ -177,7 +177,7 @@ class OrderControllerTest {
         // then
         result.andExpect(status().isOk())
                 .andDo(print())
-                .andDo(document("reject-order",
+                .andDo(document("order/reject",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
@@ -201,7 +201,7 @@ class OrderControllerTest {
         // then
         result.andExpect(status().isOk())
                 .andDo(print())
-                .andDo(document("today-orders",
+                .andDo(document("order/today-orders",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
@@ -226,7 +226,7 @@ class OrderControllerTest {
         // then
         result.andExpect(status().isOk())
                 .andDo(print())
-                .andDo(document("ready-order",
+                .andDo(document("order/ready",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
