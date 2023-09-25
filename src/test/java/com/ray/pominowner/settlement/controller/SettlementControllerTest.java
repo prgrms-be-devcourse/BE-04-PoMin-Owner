@@ -61,7 +61,7 @@ class SettlementControllerTest {
         // then
         actions
                 .andExpect(status().isOk())
-                .andDo(document("settlements/by-order",
+                .andDo(document("settlement/by-order",
                                 pathParameters(
                                         parameterWithName("orderId").description("주문 id")
                                 ),
@@ -104,7 +104,7 @@ class SettlementControllerTest {
         // then
         actions
                 .andExpect(status().isOk())
-                .andDo(document("settlements/by-store",
+                .andDo(document("settlement/by-store",
                                 pathParameters(
                                         parameterWithName("storeId").description("가게 id")
                                 ),
