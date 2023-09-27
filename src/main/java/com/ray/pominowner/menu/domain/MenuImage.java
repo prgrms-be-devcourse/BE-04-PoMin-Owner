@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,9 @@ public class MenuImage extends BaseFileEntity {
     @Column(name = "MENU_IMAGE_ID")
     @GeneratedValue
     private Long id;
+
+    @OneToOne(mappedBy = "image")
+    private Menu menu;
 
     @Builder
     private MenuImage(String path, String uploadName, String fileName) {

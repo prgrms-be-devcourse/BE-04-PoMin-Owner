@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
 import static com.ray.pominowner.global.util.Validator.validate;
-import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.FetchType.EAGER;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -38,7 +37,7 @@ public class Menu extends BaseTimeEntity {
 
     private Long storeId;
 
-    @OneToOne(fetch = EAGER, cascade = ALL, orphanRemoval = true)
+    @OneToOne(fetch = EAGER, orphanRemoval = true)
     @JoinColumn(name = "MENU_IMAGE_ID")
     private MenuImage image;
 
