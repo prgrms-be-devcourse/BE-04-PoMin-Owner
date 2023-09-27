@@ -27,7 +27,7 @@ public class InfoSender {
         MenuInfo body = MenuInfo.from(menu);
 
         HttpEntity<MenuInfo> menuInfoHttpEntity = new HttpEntity<>(body);
-        ResponseEntity<String> response = restTemplate.exchange("http://52.78.144.166:8080/api/v1/stores", HttpMethod.POST, menuInfoHttpEntity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange("http://52.78.144.166:8080/api/v1/menus", HttpMethod.POST, menuInfoHttpEntity, String.class);
         validateResponse(response);
     }
 
