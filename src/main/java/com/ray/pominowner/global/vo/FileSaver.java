@@ -45,10 +45,7 @@ public class FileSaver {
 
     private void saveImageToPath(MultipartFile image, String path) {
         try {
-            Path dest = Path.of("/home/ubuntu/code/" + path);
-            System.out.println(dest);
-            System.out.println("---------------------");
-            image.transferTo(dest);
+            image.transferTo(Path.of("/home/ubuntu/code/" + path));
         } catch (IOException e) {
             throw new RuntimeException("파일 저장에 실패했습니다.",e);
         }
