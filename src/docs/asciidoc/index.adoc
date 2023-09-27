@@ -1,0 +1,87 @@
+
+= API Docs
+Spring-JPA-Board
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toc-title: API
+:toclevels: 2
+:sectlinks:
+
+== Store
+=== store : save
+operation::store/save[snippets='http-request,http-response']
+
+=== category : save
+operation::store/category/save[snippets='http-request,http-response']
+
+=== image : save
+operation::store/image/save[snippets='http-request,http-response,request-parts']
+
+=== info : update
+operation::store/info/update[snippets='http-request,http-response']
+
+=== info : delete
+operation::store/info/delete[snippets='http-request,http-response']
+
+=== phone-number : update
+operation::store/phone-number/update[snippets='http-request,http-response']
+
+=== phone-number : delete
+operation::store/phone-number/delete[snippets='http-request,http-response']
+
+== Menu
+=== menu : save
+operation::menu/save[snippets='http-request,http-response,request-parts,request-part-request-fields']
+
+=== menu : update
+operation::menu/update[snippets='http-request,http-response,request-parts,request-part-request-fields']
+
+== Option Group
+=== Option Group : save
+operation::option-group/save[snippets='http-request,http-response']
+
+=== Option Group : update
+operation::option-group/update[snippets='http-request,http-response']
+
+=== Option Group : find
+operation::option-group/find[snippets='http-request,http-response,response-fields']
+
+=== Option Group : delete
+operation::option-group/delete[snippets='http-request,http-response']
+
+== Option
+=== Option : save
+operation::option/save[snippets='http-request,http-response']
+
+=== Option : update
+operation::option/update[snippets='http-request,http-response']
+
+=== Option : find
+operation::option/find[snippets='http-request,http-response,response-fields']
+
+=== Option : delete
+operation::option/delete[snippets='http-request,http-response']
+
+== Order
+=== Order : approve
+operation::order/approve[snippets='http-request,http-response']
+
+=== Order : reject
+operation::order/reject[snippets='http-request,http-response']
+
+=== Order : receive
+operation::order/receive[snippets='http-request,http-response']
+
+=== Order : ready
+operation::order/ready[snippets='http-request,http-response']
+
+=== Order : today-orders
+operation::order/today-orders[snippets='http-request,http-response']
+
+== Settlement
+=== Settlement : by-order
+operation::settlement/by-order[snippets='http-request,http-response']
+
+=== Settlement : by-store
+operation::settlement/by-store[snippets='http-request,http-response']

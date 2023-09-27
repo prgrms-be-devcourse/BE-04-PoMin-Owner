@@ -8,14 +8,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMultipartHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
@@ -24,12 +26,19 @@ import java.util.UUID;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestPartFields;
+import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParts;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@AutoConfigureRestDocs
 @WebMvcTest(MenuController.class)
 class MenuControllerTest {
 
@@ -57,7 +66,7 @@ class MenuControllerTest {
                 MediaType.IMAGE_PNG_VALUE,
                 UUID.randomUUID().toString().getBytes(StandardCharsets.UTF_8));
 
-        Map<String, String> request = Map.of("name", "메뉴이름", "info", "메뉴정보", "price", "10000", "storeId", "1");
+        Map<String, Object> request = Map.of("name", "메뉴이름", "info", "메뉴정보", "price", 10000, "storeId", 1);
         menuRequest = new MockMultipartFile(
                 "request",
                 "",
@@ -75,16 +84,31 @@ class MenuControllerTest {
         given(menuService.registerMenu(any())).willReturn(1L);
 
         // when, then
-        mvc.perform(multipart("/api/v1/menus")
+        mvc.perform(RestDocumentationRequestBuilders.multipart("/api/v1/menus")
                         .file(menuRequest)
                         .file(image)
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
                         .characterEncoding(StandardCharsets.UTF_8)
                         .with(csrf()))
-                .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(header().stringValues("Location", "/api/v1/menus/1"));
+                .andExpect(header().stringValues("Location", "/api/v1/menus/1"))
+                .andDo(
+                        document("menu/save",
+                                requestParts(
+                                        partWithName("request").description("메뉴 등록 요청"),
+                                        partWithName("image").description("메뉴 이미지")
+                                ),
+                                requestPartFields("request",
+                                        fieldWithPath("name").type(JsonFieldType.STRING).description("메뉴 이름"),
+                                        fieldWithPath("info").type(JsonFieldType.STRING).description("메뉴 정보"),
+                                        fieldWithPath("price").type(JsonFieldType.NUMBER).description("메뉴 가격"),
+                                        fieldWithPath("storeId").type(JsonFieldType.NUMBER).description("가게 아이디")),
+                                responseHeaders(
+                                        headerWithName("Location").description("생성 후 세부 정보 redirection link")
+                                )
+                        )
+                );
     }
 
     @Test
@@ -94,9 +118,8 @@ class MenuControllerTest {
         // given
         doNothing().when(menuService).updateMenu(any(), any());
 
-
         // when, then
-        MockMultipartHttpServletRequestBuilder builder = MockMvcRequestBuilders.multipart("/api/v1/menus/1");
+        MockMultipartHttpServletRequestBuilder builder = RestDocumentationRequestBuilders.multipart("/api/v1/menus/1");
         builder.with(request -> {
             request.setMethod("PUT");
             return request;
@@ -110,7 +133,21 @@ class MenuControllerTest {
                         .characterEncoding(StandardCharsets.UTF_8)
                         .with(csrf()))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andDo(
+                        document("menu/update",
+                                requestParts(
+                                        partWithName("request").description("메뉴 등록 요청"),
+                                        partWithName("image").description("메뉴 이미지")
+                                ),
+                                requestPartFields("request",
+                                        fieldWithPath("name").type(JsonFieldType.STRING).description("메뉴 이름"),
+                                        fieldWithPath("info").type(JsonFieldType.STRING).description("메뉴 정보"),
+                                        fieldWithPath("price").type(JsonFieldType.NUMBER).description("메뉴 가격"),
+                                        fieldWithPath("storeId").type(JsonFieldType.NUMBER).description("가게 아이디")
+                                )
+                        )
+                );
     }
 
 }

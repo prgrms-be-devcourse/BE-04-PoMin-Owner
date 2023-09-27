@@ -10,11 +10,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
@@ -26,8 +26,8 @@ public class OptionGroupController {
 
     private final OptionGroupService optionGroupService;
 
-    @GetMapping
-    public OptionGroupWithOptionResponse getOptionGroup(@RequestParam Long optionGroupId) {
+    @GetMapping("/{optionGroupId}")
+    public OptionGroupWithOptionResponse getOptionGroup(@PathVariable Long optionGroupId) {
         OptionGroup optionGroup = optionGroupService.getOptionGroup(optionGroupId);
 
         return OptionGroupWithOptionResponse.from(optionGroup);
@@ -40,18 +40,18 @@ public class OptionGroupController {
         return ResponseEntity.created(URI.create("/api/v1/option-groups/" + optionGroupId)).build();
     }
 
-    @PutMapping
-    public void updateOptionGroup(@RequestBody OptionGroupUpdateRequest request) {
+    @PutMapping("/{optionGroupId}")
+    public void updateOptionGroup(@RequestBody OptionGroupUpdateRequest request, @PathVariable Long optionGroupId) {
         OptionGroupUpdateInfo optionGroupUpdateInfo = new OptionGroupUpdateInfo(
                 request.name(),
                 request.maxOptionCount(),
-                request.required(),
-                request.optionGroupId());
-        optionGroupService.updateOptionGroup(optionGroupUpdateInfo);
+                request.required()
+        );
+        optionGroupService.updateOptionGroup(optionGroupUpdateInfo, optionGroupId);
     }
 
-    @DeleteMapping
-    public void deleteOptionGroup(@RequestParam Long optionGroupId) {
+    @DeleteMapping("/{optionGroupId}")
+    public void deleteOptionGroup(@PathVariable Long optionGroupId) {
         optionGroupService.deleteOptionGroup(optionGroupId);
     }
 
