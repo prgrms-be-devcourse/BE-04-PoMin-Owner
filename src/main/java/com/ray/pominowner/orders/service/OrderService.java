@@ -43,13 +43,13 @@ public class OrderService {
         return approvedOrder;
     }
 
-    public Order reject(Long orderId) {
+    public Order reject(Long orderId, String rejectReason) {
         Order order = orderRepository.findById(orderId).orElseThrow(
                 () -> new IllegalArgumentException("해당하는 주문이 없습니다"));
 
         Order rejectedOrder = Order.of(order,
                 OrderStatus.REJECTED,
-                "재고 소진");
+                rejectReason);
 
         orderRepository.save(rejectedOrder);
         paymentService.cancel(order.getPaymentId());
