@@ -4,6 +4,10 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
 
+  sql:
+    init:
+      mode: always
+
 file:
   store:
     image:
