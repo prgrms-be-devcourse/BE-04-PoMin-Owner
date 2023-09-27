@@ -164,7 +164,7 @@ class OrderControllerTest {
     @DisplayName("주문 거절을 성공한다")
     void rejectApproveOrder() throws Exception {
         // given
-        given(orderService.reject(any(Long.class))).willReturn(order);
+        given(orderService.reject(any(Long.class), any(String.class))).willReturn(order);
 
         // when
         Long orderId = 1L;
@@ -172,7 +172,8 @@ class OrderControllerTest {
         ResultActions result = this.mockMvc.perform(post("/api/v1/orders/{orderId}/reject", orderId)
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
-                .param("orderId", "1"));
+                .param("orderId", "1")
+                .queryParam("rejectReason", "재고 소진"));
 
         // then
         result.andExpect(status().isOk())

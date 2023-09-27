@@ -26,7 +26,7 @@ public class RestTemplateServiceProvider {
 
     public void notifyToApprove(int cookingMinute, Order approvedOrder) {
         URI uri = UriComponentsBuilder
-                .fromUriString("http://localhost:8080")
+                .fromUriString("http://52.78.144.166:8080")
                 .path("/api/v1/orders/{orderNumber}")
                 .encode()
                 .build(approvedOrder.getOrderNumber());
