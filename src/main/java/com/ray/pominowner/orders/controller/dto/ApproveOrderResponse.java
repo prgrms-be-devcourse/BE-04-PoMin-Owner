@@ -2,11 +2,11 @@ package com.ray.pominowner.orders.controller.dto;
 
 import com.ray.pominowner.orders.domain.Order;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public record ApproveOrderResponse(
         Long orderId,
-        LocalTime estimatedCookingTime,
+        LocalDateTime estimatedCookingTime,
         Integer receiptNumber
 ) {
 

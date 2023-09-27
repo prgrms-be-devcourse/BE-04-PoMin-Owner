@@ -34,7 +34,7 @@ public class OrderService {
         Order approvedOrder = Order.of(order,
                 OrderStatus.COOKING,
                 generator.incrementAndGet(),
-                order.getOrderedAt().toLocalTime().plusMinutes(cookingMinute));
+                order.getOrderedAt().plusMinutes(cookingMinute));
 
         orderRepository.save(approvedOrder);
 
