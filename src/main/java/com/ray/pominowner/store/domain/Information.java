@@ -16,7 +16,7 @@ public class Information {
     private static final String DEFAULT_VALUE = "EMPTY";
     private static final int MIN_INFO_LENGTH = 10;
 
-    @Column(columnDefinition = "TEXT default 'EMPTY'")
+    @Column
     private String info = DEFAULT_VALUE;
 
     public Information(String info) {
