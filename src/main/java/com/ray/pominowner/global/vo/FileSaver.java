@@ -4,8 +4,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.UUID;
 
 @Component
@@ -45,7 +45,7 @@ public class FileSaver {
 
     private void saveImageToPath(MultipartFile image, String path) {
         try {
-            image.transferTo(new File(path));
+            image.transferTo(Path.of(path));
         } catch (IOException e) {
             throw new RuntimeException("파일 저장에 실패했습니다.",e);
         }
