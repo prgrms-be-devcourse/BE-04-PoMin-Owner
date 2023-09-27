@@ -106,7 +106,7 @@ class OrderServiceTest {
         given(paymentService.cancel(order.getPaymentId())).willReturn(canceled);
 
         // when
-        Order rejectedOrder = orderService.reject(order.getId());
+        Order rejectedOrder = orderService.reject(order.getId(), "재고 소진");
 
         // then
         assertThat(rejectedOrder).hasFieldOrPropertyWithValue("status", OrderStatus.REJECTED);
