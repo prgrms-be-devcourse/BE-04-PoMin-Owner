@@ -1,0 +1,15 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+file:
+  store:
+    image:
+      path: src/main/resources/store-image/
+    logo:
+      path: src/main/resources/store-logo-image/
+  menu:
+    image:
+      path: src/main/resources/menu-image/
