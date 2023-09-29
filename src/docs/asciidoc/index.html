@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<meta name="author" content="Spring-JPA-Board">
+<meta name="author" content="Pomin-Owner API Docs">
 <title>API Docs</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -440,26 +440,27 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>API Docs</h1>
 <div class="details">
-<span id="author" class="author">Spring-JPA-Board</span><br>
+<span id="author" class="author">Pomin-Owner API Docs</span><br>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">API</div>
 <ul class="sectlevel1">
 <li><a href="#_store">Store</a>
 <ul class="sectlevel2">
-<li><a href="#_store_save">store : save</a></li>
-<li><a href="#_category_save">category : save</a></li>
-<li><a href="#_image_save">image : save</a></li>
-<li><a href="#_info_update">info : update</a></li>
-<li><a href="#_info_delete">info : delete</a></li>
-<li><a href="#_phone_number_update">phone-number : update</a></li>
-<li><a href="#_phone_number_delete">phone-number : delete</a></li>
+<li><a href="#_store_save">Store : save</a></li>
+<li><a href="#_category_save">Category : save</a></li>
+<li><a href="#_image_save">Image : save</a></li>
+<li><a href="#_info_update">Info : update</a></li>
+<li><a href="#_info_delete">Info : delete</a></li>
+<li><a href="#_phone_number_update">Phone Number : update</a></li>
+<li><a href="#_phone_number_delete">Phone Number : delete</a></li>
 </ul>
 </li>
 <li><a href="#_menu">Menu</a>
 <ul class="sectlevel2">
-<li><a href="#_menu_save">menu : save</a></li>
-<li><a href="#_menu_update">menu : update</a></li>
+<li><a href="#_menu_save">Menu : save</a></li>
+<li><a href="#_menu_update">Menu : update</a></li>
+<li><a href="#_menu_add_option_group">Menu : add Option Group</a></li>
 </ul>
 </li>
 <li><a href="#_option_group">Option Group</a>
@@ -501,12 +502,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_store"><a class="link" href="#_store">Store</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_store_save"><a class="link" href="#_store_save">store : save</a></h3>
+<h3 id="_store_save"><a class="link" href="#_store_save">Store : save</a></h3>
 <div class="sect3">
 <h4 id="_store_save_http_request"><a class="link" href="#_store_save_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/stores?_csrf=0VVpnOZ-yDZL7fbxwRRwMm0BMZWNejBJZN7nHE6qUwVfQ4KVtG0L-tVNrVdmj5LHpDlEVAllHKzrGAJkVrzRLy2cYTZrc7et HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/stores?_csrf=Q1YiHeZvfyPwVzDAZrK_0VeOpuh-q8Y9N0RLmnGZMeRHqrvAIjMVKtAJSRbdMgOmUp-LtTG7i9FKyKQQDyJ5-BOhU9Uln97z HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 174
 Host: localhost:8080
@@ -526,12 +527,12 @@ Location: /api/v1/stores/1</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_category_save"><a class="link" href="#_category_save">category : save</a></h3>
+<h3 id="_category_save"><a class="link" href="#_category_save">Category : save</a></h3>
 <div class="sect3">
 <h4 id="_category_save_http_request"><a class="link" href="#_category_save_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/stores/1/categories?_csrf=rhksOuYyiRDFFlizR9WB4l0SYn85a8215NgSATHxjiJlaLafzS4aXt4F7yXoLmvVf_i10mlwTx0ICfSY3blwY1CQtkAHDteo HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/stores/1/categories?_csrf=qMqCzIpyds_MrxwjzQleAXI1FYVZUL8U1UGjO1nh_lAupqW7yv-wr-hGFanhyi0RqSRqZBNUOLxuMYY553XHAjqFyDIXn5Df HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 37
 Host: localhost:8080
@@ -550,7 +551,7 @@ Host: localhost:8080
 </div>
 </div>
 <div class="sect2">
-<h3 id="_image_save"><a class="link" href="#_image_save">image : save</a></h3>
+<h3 id="_image_save"><a class="link" href="#_image_save">Image : save</a></h3>
 <div class="sect3">
 <h4 id="_image_save_http_request"><a class="link" href="#_image_save_http_request">HTTP request</a></h4>
 <div class="listingblock">
@@ -563,17 +564,17 @@ Host: localhost:8080
 Content-Disposition: form-data; name=image1; filename=test1.png
 Content-Type: image/png
 
-0bcd53c6-77f7-4fe6-b8c7-f18e2ebe6ed8
+a8e9647c-7c71-4344-9f6f-a6202aa98035
 --6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
 Content-Disposition: form-data; name=image2; filename=test2.png
 Content-Type: image/png
 
-3e1416cd-9829-4f9c-87e5-0fc55d8c9a83
+cc57e112-f13c-4619-bd4b-e4ebb582253b
 --6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
 Content-Disposition: form-data; name=image3; filename=test3.png
 Content-Type: image/png
 
-d03890d9-47b1-4f86-8739-bf2c7060e80d
+07f9c982-10ac-458f-be3d-5d0236e10200
 --6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm--</code></pre>
 </div>
 </div>
@@ -617,12 +618,12 @@ d03890d9-47b1-4f86-8739-bf2c7060e80d
 </div>
 </div>
 <div class="sect2">
-<h3 id="_info_update"><a class="link" href="#_info_update">info : update</a></h3>
+<h3 id="_info_update"><a class="link" href="#_info_update">Info : update</a></h3>
 <div class="sect3">
 <h4 id="_info_update_http_request"><a class="link" href="#_info_update_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PATCH /api/v1/stores/1/info?_csrf=WZ4OefQbvNIojivklnLjaIiZ5RyY2umMnCLL3ByGXHUyo6M4OK1rH8R42rMFuxnU8F_XDL_8yCWs7Y2hrRv7viTkOkVXkcUP HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PATCH /api/v1/stores/1/info?_csrf=mGFCAwATAPksSd3FR7rl7_-6JPD3Vvtsej7HQtFbDhCef1AR_FRzZ2IiMM8BK-X3f5fR35uLCZLFMp1BGA7-cOVsaCOtTzMm HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 68
 Host: localhost:8080
@@ -641,7 +642,7 @@ Host: localhost:8080
 </div>
 </div>
 <div class="sect2">
-<h3 id="_info_delete"><a class="link" href="#_info_delete">info : delete</a></h3>
+<h3 id="_info_delete"><a class="link" href="#_info_delete">Info : delete</a></h3>
 <div class="sect3">
 <h4 id="_info_delete_http_request"><a class="link" href="#_info_delete_http_request">HTTP request</a></h4>
 <div class="listingblock">
@@ -662,12 +663,12 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_phone_number_update"><a class="link" href="#_phone_number_update">phone-number : update</a></h3>
+<h3 id="_phone_number_update"><a class="link" href="#_phone_number_update">Phone Number : update</a></h3>
 <div class="sect3">
 <h4 id="_phone_number_update_http_request"><a class="link" href="#_phone_number_update_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PATCH /api/v1/stores/1/phone-numbers?_csrf=dSWASXTLE4ZlLL_hjbWgsEAxlsstVGEfl_98iL4h7XGRbnGzRRW2cBb7crBIGt2F6JiUiXhVu6oVZFgyrpsduosY1EGpXRfQ HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PATCH /api/v1/stores/1/phone-numbers?_csrf=ENZNB0V_ZGiDFtsc1E_4uEIxj4-XcsiWcuS0_R_MopCTB1RLJud-YSFNBliudOgktmLM3iBSou3yQPm7FNSEmX7-m6enP2d_ HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 29
 Host: localhost:8080
@@ -686,7 +687,7 @@ Host: localhost:8080
 </div>
 </div>
 <div class="sect2">
-<h3 id="_phone_number_delete"><a class="link" href="#_phone_number_delete">phone-number : delete</a></h3>
+<h3 id="_phone_number_delete"><a class="link" href="#_phone_number_delete">Phone Number : delete</a></h3>
 <div class="sect3">
 <h4 id="_phone_number_delete_http_request"><a class="link" href="#_phone_number_delete_http_request">HTTP request</a></h4>
 <div class="listingblock">
@@ -712,7 +713,7 @@ Host: localhost:8080</code></pre>
 <h2 id="_menu"><a class="link" href="#_menu">Menu</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_menu_save"><a class="link" href="#_menu_save">menu : save</a></h3>
+<h3 id="_menu_save"><a class="link" href="#_menu_save">Menu : save</a></h3>
 <div class="sect3">
 <h4 id="_menu_save_http_request"><a class="link" href="#_menu_save_http_request">HTTP request</a></h4>
 <div class="listingblock">
@@ -726,12 +727,12 @@ Host: localhost:8080
 Content-Disposition: form-data; name=request
 Content-Type: application/json
 
-{"price":10000,"name":"메뉴이름","storeId":1,"info":"메뉴정보"}
+{"storeId":1,"name":"메뉴이름","price":10000,"info":"메뉴정보"}
 --6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
 Content-Disposition: form-data; name=image; filename=image.png
 Content-Type: image/png
 
-5d65da82-3c25-451d-93f6-75c3224401f1
+59605f01-ba34-4583-9a11-9e52274a8bbf
 --6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm--</code></pre>
 </div>
 </div>
@@ -811,7 +812,7 @@ Location: /api/v1/menus/1</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_menu_update"><a class="link" href="#_menu_update">menu : update</a></h3>
+<h3 id="_menu_update"><a class="link" href="#_menu_update">Menu : update</a></h3>
 <div class="sect3">
 <h4 id="_menu_update_http_request"><a class="link" href="#_menu_update_http_request">HTTP request</a></h4>
 <div class="listingblock">
@@ -825,12 +826,12 @@ Host: localhost:8080
 Content-Disposition: form-data; name=request
 Content-Type: application/json
 
-{"price":10000,"name":"메뉴이름","storeId":1,"info":"메뉴정보"}
+{"storeId":1,"name":"메뉴이름","price":10000,"info":"메뉴정보"}
 --6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
 Content-Disposition: form-data; name=image; filename=image.png
 Content-Type: image/png
 
-65402306-cc73-40b4-a24d-4ce9d3d54328
+9d402ea2-e26b-4ba8-9a35-f8c2452daafc
 --6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm--</code></pre>
 </div>
 </div>
@@ -908,6 +909,53 @@ Content-Type: image/png
 </table>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_menu_add_option_group"><a class="link" href="#_menu_add_option_group">Menu : add Option Group</a></h3>
+<div class="sect3">
+<h4 id="_menu_add_option_group_http_request"><a class="link" href="#_menu_add_option_group_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PATCH /api/v1/menus/1/option-groups/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_menu_add_option_group_http_response"><a class="link" href="#_menu_add_option_group_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_menu_add_option_group_path_parameters"><a class="link" href="#_menu_add_option_group_path_parameters">Path parameters</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. /api/v1/menus/{menuId}/option-groups/{optionGroupId}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>menuId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">메뉴 아이디</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>optionGroupId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">옵션 그룹 아이디</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -919,7 +967,7 @@ Content-Type: image/png
 <h4 id="_option_group_save_http_request"><a class="link" href="#_option_group_save_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/option-groups?_csrf=6nUiIXWYfSf3pA-y6AdjlNesq6SX4-VbVA0BtqxP3Jk5qTWw2hZBGUz5GRLakD6L3ypXre-Yhsak19N2bDozjpR-uKhbnwLS HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/option-groups?_csrf=ISVnQMINWqWjsY24YS4g-tUjPqDOv2ahx3MvejikENwQLJYBGRwCdaA9bJKO0OnZBwMUnrFCE5j5ileM_0sZTF2dJuQoSKRi HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 75
 Host: localhost:8080
@@ -944,7 +992,7 @@ Location: /api/v1/option-groups/1</code></pre>
 <h4 id="_option_group_update_http_request"><a class="link" href="#_option_group_update_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/option-groups/1?_csrf=V8P9hnQ7fjJ3kZ9q5JuN2LCWj86xJ0HG0jH6Krfx_axSEtXMY6DMs0BdGApaoK5c1La5uoihoqyFEXjr4wTKTIWUzJRrJLOu HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/option-groups/1?_csrf=RmH65H9XCEpOfJwIA6TBqvFqeoQRW7udNNlJYrs-K1fALzwPcVnP1Es1MH1jTf9pYIn1mZVYV70pY9-wV-lxUIsLT2eiTl5r HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 56
 Host: localhost:8080
@@ -968,7 +1016,7 @@ Host: localhost:8080
 <h4 id="_option_group_find_http_request"><a class="link" href="#_option_group_find_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/option-groups/1?_csrf=qr3bj5e3QGnVgVMF_SR8I8EjvsivKn6go9I1VGRzADwpypVKn9zsvfXWd1n45WIwxQlIFPgbk_GeGk2NmrZWZ11EZVof-qB7 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/option-groups/1?_csrf=Hr_Vxre7jLwapWMdRKYwMWFgbWQDxnBruxZMuJuIhEgif_f1eI3lpYWI7YU3wwF7cYsEA1hVQFxmo0ZGiCUp3a_u5ipBTsDF HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -1051,7 +1099,7 @@ Content-Type: application/x-www-form-urlencoded
 Host: localhost:8080
 Content-Length: 102
 
-_csrf=rQJSbxUI3qqLPkcRKK1Gxs1fBLQofpYwyIVYZ63ucPyUTUqazztjWSw855mmC3YmGoBy9fhoKYxMGKUdq7xpU5WKQp-jfHio</code></pre>
+_csrf=v9MdXEb_ZXkOiDpt-ZyJPSb6lzbjGvGY0G9J5DH4j80zZWjCh-cpb3LKBkgjsAhbyrG9WR_KulfVKMG151oq1gLMtvlQXVin</code></pre>
 </div>
 </div>
 </div>
@@ -1075,7 +1123,7 @@ _csrf=rQJSbxUI3qqLPkcRKK1Gxs1fBLQofpYwyIVYZ63ucPyUTUqazztjWSw855mmC3YmGoBy9fhoKY
 <h4 id="_option_save_http_request"><a class="link" href="#_option_save_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/options?_csrf=UZd_zX2ULbqDCr4QBUpReGFh2pgPGxhjD_Y7v8Vr5y48iF2NMKJJ_RmtGtuubo91YWdlTVYE9_lpei9OaZJdh6MPhE0Lujno HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/options?_csrf=6rL6Nn8J77cuRmNvZite1OFFQT154jHsCrpLL13V7S3L4EfW2IXKU0w52YIDd1sMBQZq5dh3bFxBgQjBMoN9Tmrs2xnz0HTn HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 65
 Host: localhost:8080
@@ -1100,7 +1148,7 @@ Location: /api/v1/options/1</code></pre>
 <h4 id="_option_update_http_request"><a class="link" href="#_option_update_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/options/1?_csrf=izaFlKu3XhZV7UPDHpMCebn20xb3iSTJAaKlQHOmmaab4CZe6AXnrJrRZnR43iDzf742SN2Q_nSS7x3kN8OcchWe_ZWu2BI6 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/options/1?_csrf=YDID8giQqKZycZ8abUvaCTBjmZx5_t4I4g_2HM3bXESECmLJVAQ6kGzxzcNfR69_VGbuPQdStKUYzucl0j7DLvTjZHXlbwP9 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 47
 Host: localhost:8080
@@ -1124,7 +1172,7 @@ Host: localhost:8080
 <h4 id="_option_find_http_request"><a class="link" href="#_option_find_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/options/1?_csrf=RYgcNR1nN_hGg4N05OMjGbVkARmJQEcJBXTnvvbWxEoGiwhFd7ksUCUDVJlrsLpD1c4XeoxSLHvsd3MkMxDT3cPvpilluT51 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/options/1?_csrf=tINL95CeFBVj2_5XBEvLcd7_ryqyrgKjkWxyKPiqhuRVcRz00rZ9wqP8JyRO6c5lM2b_E-jIghKLyzuOpAkWTJrIt4E2RnnM HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -1187,7 +1235,7 @@ Content-Type: application/x-www-form-urlencoded
 Host: localhost:8080
 Content-Length: 102
 
-_csrf=StAmyrYArQEZ7c7UY68DpyHkvSUPAlUpzCI6krpUbLvLzRM7K7IfroJmmDQ01Pu2UoI3xRTVkBw7NWIE_xVbp41iXIr7qXJf</code></pre>
+_csrf=QzXfdlvJn91K4Ro9wO_w0Z73doeSkpzSteyUg3V7099VxX4tJVPpTz_7rbxn2XkIosLEtfuWW76noKT_jIqs5kIa5r0290kf</code></pre>
 </div>
 </div>
 </div>
@@ -1211,7 +1259,7 @@ _csrf=StAmyrYArQEZ7c7UY68DpyHkvSUPAlUpzCI6krpUbLvLzRM7K7IfroJmmDQ01Pu2UoI3xRTVkB
 <h4 id="_order_approve_http_request"><a class="link" href="#_order_approve_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/orders/1/approve?orderId=1&amp;_csrf=kp94uLHEpAEJXB-8zH2ckUkgwB8hiAm_0NYopJpk7QtO7I-NpfpKgIj2lWUka3qN_1CopX8W7X0Y7jCS4-NKwflW2Dh33-m- HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/orders/1/approve?orderId=1&amp;_csrf=X3upKrOfqTLGgxifnFb9TPQzbVySX3WZ0Hukyink4mroIQ_mOk-aGoWvnFDrtyuv_3vJL8MBQD2mOUS06UqS_RvUh1mKFjaC HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 26
 Host: localhost:8080
@@ -1245,7 +1293,7 @@ Content-Length: 75
 <h4 id="_order_reject_http_request"><a class="link" href="#_order_reject_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/orders/1/reject HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/orders/1/reject?rejectReason=%EC%9E%AC%EA%B3%A0%20%EC%86%8C%EC%A7%84 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Host: localhost:8080</code></pre>
 </div>
@@ -1273,7 +1321,7 @@ Content-Length: 44
 <h4 id="_order_receive_http_request"><a class="link" href="#_order_receive_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/orders?_csrf=j7m5q70lUNn9UKI9aaBCbYulLGlHUpDPKbGMwK_bo1cuIsgMu4GPnY0VYuvQNcBYXo12XerHAVEiMPPiGdO09MzskjFMQ6pu HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/orders?_csrf=AuDJ8zmbC1OMUo9cjEIB5Fnwuw-x47429GvXVo2MoomH6pwiOobxkQmobWahM7tv7m81h2CSlm3SgN0blwjlN7W5wO-0i_lB HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 360
 Host: localhost:8080
@@ -1285,7 +1333,7 @@ Host: localhost:8080
   "totalPrice" : 30000,
   "customerPhoneNumber" : "01012345678",
   "reservationTime" : null,
-  "orderedAt" : "2023-09-25T15:23:10.427697",
+  "orderedAt" : "2023-09-29T14:52:58.301323",
   "storeId" : 1,
   "payment" : {
     "id" : 1,
@@ -1333,7 +1381,7 @@ Host: localhost:8080</code></pre>
 <h4 id="_order_today_orders_http_request"><a class="link" href="#_order_today_orders_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/orders/1/today?_csrf=jruoRUg8Zrk57D9rgwoNJNBd2yJdRHORTR-V3uQ1eleyjI9st43Mc38LVYwUjQ5bsyc5QeBr9kA4dxK8KHrwvdANSTPWuuxa HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/orders/1/today?_csrf=OV7eiHDUGTQB0-DiKK0f-kTN8iwxKKlAsjXtYsOhN9Svnt68CmbssECyIAAs4obbHoArmSH43xUDSc1t0QDaV6DDVOKbr-rZ HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Host: localhost:8080</code></pre>
 </div>
@@ -1386,7 +1434,7 @@ Host: localhost:8080</code></pre>
 Content-Type: application/json
 Content-Length: 130
 
-{"id":1,"salesAmount":10000,"paymentFee":300,"brokerageFee":600,"valueAddedFee":100,"payOutAmount":9000,"payOutDate":"2023-09-28"}</code></pre>
+{"id":1,"salesAmount":10000,"paymentFee":300,"brokerageFee":600,"valueAddedFee":100,"payOutAmount":9000,"payOutDate":"2023-10-02"}</code></pre>
 </div>
 </div>
 </div>
@@ -1397,7 +1445,7 @@ Content-Length: 130
 <h4 id="_settlement_by_store_http_request"><a class="link" href="#_settlement_by_store_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/settlements/by-store/1?dateType=SALES&amp;startDate=2023-09-25&amp;endDate=2023-09-25 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/settlements/by-store/1?dateType=SALES&amp;startDate=2023-09-29&amp;endDate=2023-09-29 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Host: localhost:8080</code></pre>
 </div>
@@ -1411,7 +1459,7 @@ Host: localhost:8080</code></pre>
 Content-Type: application/json
 Content-Length: 204
 
-[{"payOutDate":"2023-09-28","depositStatus":"SCHEDULED","salesDate":"2023-09-25","serviceType":"PACKAGING","salesAmount":10000,"paymentFee":300,"brokerageFee":600,"valueAddedFee":100,"payOutAmount":9000}]</code></pre>
+[{"payOutDate":"2023-10-02","depositStatus":"SCHEDULED","salesDate":"2023-09-29","serviceType":"PACKAGING","salesAmount":10000,"paymentFee":300,"brokerageFee":600,"valueAddedFee":100,"payOutAmount":9000}]</code></pre>
 </div>
 </div>
 </div>
@@ -1421,7 +1469,7 @@ Content-Length: 204
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-25 16:07:14 +0900
+Last updated 2023-09-29 14:57:40 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
