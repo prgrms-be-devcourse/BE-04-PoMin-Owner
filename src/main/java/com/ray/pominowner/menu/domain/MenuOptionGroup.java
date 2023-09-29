@@ -7,10 +7,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.NoArgsConstructor;
+import org.springframework.util.Assert;
 
 import static jakarta.persistence.FetchType.LAZY;
+import static lombok.AccessLevel.PROTECTED;
 
 @Entity
+@NoArgsConstructor(access = PROTECTED)
 public class MenuOptionGroup extends BaseTimeEntity {
 
     @Id
@@ -25,5 +29,16 @@ public class MenuOptionGroup extends BaseTimeEntity {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "OPTION_GROUP_ID")
     private OptionGroup optionGroup;
+
+    public MenuOptionGroup(Menu menu, OptionGroup optionGroup) {
+        validateConstructor(menu, optionGroup);
+        this.menu = menu;
+        this.optionGroup = optionGroup;
+    }
+
+    private void validateConstructor(Menu menu, OptionGroup optionGroup) {
+        Assert.notNull(menu, "메뉴는 필수입니다.");
+        Assert.notNull(optionGroup, "옵션 그룹은 필수입니다.");
+    }
 
 }
