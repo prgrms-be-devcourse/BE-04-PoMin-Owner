@@ -16,7 +16,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -83,7 +82,7 @@ class OrderServiceTest {
         given(generator.incrementAndGet()).willReturn(1);
         doNothing().when(restTemplateServiceProvider).notifyToApprove(any(Integer.class), any(Order.class));
 
-        ApproveOrderRequest request = new ApproveOrderRequest(90);
+        ApproveOrderRequest request = new ApproveOrderRequest(30);
 
         // when
         Order approvedOrder = orderService.approve(order.getId(), request.cookingMinute());
@@ -92,7 +91,7 @@ class OrderServiceTest {
         assertThat(approvedOrder).hasFieldOrPropertyWithValue("status", OrderStatus.COOKING);
         assertThat(approvedOrder).hasFieldOrPropertyWithValue("receiptNumber", 1);
         assertThat(approvedOrder).hasFieldOrPropertyWithValue("estimatedCookingTime", approvedOrder.getEstimatedCookingTime());
-        assertThat(approvedOrder.getEstimatedCookingTime().isAfter(approvedOrder.getOrderedAt().toLocalTime())).isTrue();
+        assertThat(approvedOrder.getEstimatedCookingTime().isAfter(approvedOrder.getOrderedAt())).isTrue();
     }
 
     @Test

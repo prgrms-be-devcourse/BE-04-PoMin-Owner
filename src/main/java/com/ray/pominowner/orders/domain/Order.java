@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Objects;
 
 import static com.ray.pominowner.global.util.ExceptionMessage.INVALID_ORDER;
@@ -50,7 +49,7 @@ public class Order extends BaseTimeEntity {
 
     private LocalDateTime reservationTime;
 
-    private LocalTime estimatedCookingTime;
+    private LocalDateTime estimatedCookingTime;
 
     private String rejectReason;
 
@@ -62,7 +61,7 @@ public class Order extends BaseTimeEntity {
     // Payment 와 일대일 매핑
     private Long paymentId;
 
-    public static Order of(Order order, OrderStatus status, Integer receiptNumber, LocalTime estimatedCookingTime) {
+    public static Order of(Order order, OrderStatus status, Integer receiptNumber, LocalDateTime estimatedCookingTime) {
         return Order.builder()
                 .id(order.id)
                 .orderNumber(order.orderNumber)
