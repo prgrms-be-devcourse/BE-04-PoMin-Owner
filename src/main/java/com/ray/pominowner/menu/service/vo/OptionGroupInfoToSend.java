@@ -35,4 +35,5 @@ public record OptionGroupInfoToSend(
                         .toList()
         );
     }
+
 }
