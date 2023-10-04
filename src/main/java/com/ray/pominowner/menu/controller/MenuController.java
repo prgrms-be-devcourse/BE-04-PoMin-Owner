@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -42,6 +43,11 @@ public class MenuController {
     public void updateMenu(@RequestPart MenuRequest request, @RequestPart MultipartFile image, @PathVariable Long menuId) {
         MenuImage menuImage = menuImageService.saveImage(image);
         menuService.updateMenu(request.toMenuEntity(menuImage), menuId);
+    }
+
+    @PatchMapping("/{menuId}/option-groups/{optionGroupId}")
+    public void addOptionGroupToMenu(@PathVariable Long menuId, @PathVariable Long optionGroupId) {
+        menuService.addOptionGroupToMenu(menuId, optionGroupId);
     }
 
 }

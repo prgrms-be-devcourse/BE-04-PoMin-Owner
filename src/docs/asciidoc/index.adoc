@@ -1,6 +1,6 @@
 
 = API Docs
-Spring-JPA-Board
+Pomin-Owner API Docs
 :icons: font
 :source-highlighter: highlightjs
 :toc: left
@@ -9,33 +9,36 @@ Spring-JPA-Board
 :sectlinks:
 
 == Store
-=== store : save
+=== Store : save
 operation::store/save[snippets='http-request,http-response']
 
-=== category : save
+=== Category : save
 operation::store/category/save[snippets='http-request,http-response']
 
-=== image : save
+=== Image : save
 operation::store/image/save[snippets='http-request,http-response,request-parts']
 
-=== info : update
+=== Info : update
 operation::store/info/update[snippets='http-request,http-response']
 
-=== info : delete
+=== Info : delete
 operation::store/info/delete[snippets='http-request,http-response']
 
-=== phone-number : update
+=== Phone Number : update
 operation::store/phone-number/update[snippets='http-request,http-response']
 
-=== phone-number : delete
+=== Phone Number : delete
 operation::store/phone-number/delete[snippets='http-request,http-response']
 
 == Menu
-=== menu : save
+=== Menu : save
 operation::menu/save[snippets='http-request,http-response,request-parts,request-part-request-fields']
 
-=== menu : update
+=== Menu : update
 operation::menu/update[snippets='http-request,http-response,request-parts,request-part-request-fields']
+
+=== Menu : add Option Group
+operation::menu/add-option-group[snippets='http-request,http-response,path-parameters']
 
 == Option Group
 === Option Group : save
