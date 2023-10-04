@@ -13,7 +13,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -29,9 +28,12 @@ import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.multipart;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestPartFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParts;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -84,7 +86,7 @@ class MenuControllerTest {
         given(menuService.registerMenu(any())).willReturn(1L);
 
         // when, then
-        mvc.perform(RestDocumentationRequestBuilders.multipart("/api/v1/menus")
+        mvc.perform(multipart("/api/v1/menus")
                         .file(menuRequest)
                         .file(image)
                         .contentType(MediaType.MULTIPART_FORM_DATA)
@@ -117,9 +119,10 @@ class MenuControllerTest {
     void successUpdateMenu() throws Exception {
         // given
         doNothing().when(menuService).updateMenu(any(), any());
+        Long menuId = 1L;
 
         // when, then
-        MockMultipartHttpServletRequestBuilder builder = RestDocumentationRequestBuilders.multipart("/api/v1/menus/1");
+        MockMultipartHttpServletRequestBuilder builder = multipart("/api/v1/menus/{menuId}", menuId);
         builder.with(request -> {
             request.setMethod("PUT");
             return request;
@@ -145,6 +148,41 @@ class MenuControllerTest {
                                         fieldWithPath("info").type(JsonFieldType.STRING).description("메뉴 정보"),
                                         fieldWithPath("price").type(JsonFieldType.NUMBER).description("메뉴 가격"),
                                         fieldWithPath("storeId").type(JsonFieldType.NUMBER).description("가게 아이디")
+                                )
+                        )
+                );
+    }
+
+    @Test
+    @WithMockUser
+    @DisplayName("메뉴 업데이트에 성공한다")
+    void successAddOptionGroupToMenu() throws Exception {
+        // given
+        doNothing().when(menuService).addOptionGroupToMenu(any(), any());
+        Long menuId = 1L;
+        Long optionGroupId = 1L;
+
+        // when, then
+        MockMultipartHttpServletRequestBuilder builder = multipart(
+                "/api/v1/menus/{menuId}/option-groups/{optionGroupId}",
+                menuId,
+                optionGroupId
+        );
+
+        builder.with(request -> {
+            request.setMethod("PATCH");
+            return request;
+        });
+
+        mvc.perform(builder
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andDo(
+                        document("menu/add-option-group",
+                                pathParameters(
+                                        parameterWithName("menuId").description("메뉴 아이디"),
+                                        parameterWithName("optionGroupId").description("옵션 그룹 아이디")
                                 )
                         )
                 );
