@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -14,7 +15,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.ray.pominowner.global.util.Validator.validate;
+import static jakarta.persistence.CascadeType.MERGE;
+import static jakarta.persistence.CascadeType.PERSIST;
 import static jakarta.persistence.FetchType.EAGER;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -41,7 +47,14 @@ public class Menu extends BaseTimeEntity {
     @JoinColumn(name = "MENU_IMAGE_ID")
     private MenuImage image;
 
+    @OneToMany(mappedBy = "menu", fetch = EAGER, cascade = {PERSIST, MERGE})
+    private List<MenuOptionGroup> menuOptionGroups = new ArrayList<>();
+
     //    private Integer listOrder; // 추후 수정 예정
+
+    public void addMenuOptionGroup(MenuOptionGroup menuOptionGroup) {
+        menuOptionGroups.add(menuOptionGroup);
+    }
 
     @Builder
     public Menu(Long id, String name, String info, int price, Long storeId, MenuImage image) {
